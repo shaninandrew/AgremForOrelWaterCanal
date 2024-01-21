@@ -34,9 +34,11 @@
             ShowGenerator = new Button();
             ShowPrice = new Button();
             Main_Split_Conatainer = new SplitContainer();
-            TabMenu_Control = new TabControl();
-            tabPage1 = new TabPage();
-            tabPage2 = new TabPage();
+            menuStrip1 = new MenuStrip();
+            подключениеToolStripMenuItem = new ToolStripMenuItem();
+            настрйокиToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripSeparator();
+            выходToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -44,7 +46,7 @@
             ((System.ComponentModel.ISupportInitialize)Main_Split_Conatainer).BeginInit();
             Main_Split_Conatainer.Panel1.SuspendLayout();
             Main_Split_Conatainer.SuspendLayout();
-            TabMenu_Control.SuspendLayout();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // statusStrip1
@@ -85,11 +87,14 @@
             // button3
             // 
             button3.Dock = DockStyle.Top;
+            button3.FlatStyle = FlatStyle.Flat;
             button3.Location = new Point(0, 86);
             button3.Name = "button3";
+            button3.Padding = new Padding(2);
             button3.Size = new Size(107, 48);
             button3.TabIndex = 2;
             button3.Text = "button3";
+            button3.TextAlign = ContentAlignment.MiddleLeft;
             button3.UseVisualStyleBackColor = true;
             // 
             // ShowGenerator
@@ -97,13 +102,15 @@
             ShowGenerator.BackColor = Color.RoyalBlue;
             ShowGenerator.BackgroundImageLayout = ImageLayout.None;
             ShowGenerator.Dock = DockStyle.Top;
-            ShowGenerator.FlatStyle = FlatStyle.Popup;
+            ShowGenerator.FlatStyle = FlatStyle.Flat;
             ShowGenerator.ForeColor = Color.White;
             ShowGenerator.Location = new Point(0, 40);
             ShowGenerator.Name = "ShowGenerator";
+            ShowGenerator.Padding = new Padding(2);
             ShowGenerator.Size = new Size(107, 46);
             ShowGenerator.TabIndex = 1;
             ShowGenerator.Text = "Документ";
+            ShowGenerator.TextAlign = ContentAlignment.MiddleLeft;
             ShowGenerator.UseVisualStyleBackColor = false;
             ShowGenerator.Click += button2_Click;
             // 
@@ -111,13 +118,16 @@
             // 
             ShowPrice.BackColor = Color.RoyalBlue;
             ShowPrice.Dock = DockStyle.Top;
-            ShowPrice.FlatStyle = FlatStyle.Popup;
+            ShowPrice.FlatStyle = FlatStyle.Flat;
             ShowPrice.ForeColor = Color.White;
             ShowPrice.Location = new Point(0, 0);
+            ShowPrice.Margin = new Padding(5);
             ShowPrice.Name = "ShowPrice";
+            ShowPrice.Padding = new Padding(2);
             ShowPrice.Size = new Size(107, 40);
             ShowPrice.TabIndex = 0;
             ShowPrice.Text = "Прайс";
+            ShowPrice.TextAlign = ContentAlignment.MiddleLeft;
             ShowPrice.UseVisualStyleBackColor = false;
             ShowPrice.Click += ShowPrice_Click;
             // 
@@ -133,7 +143,7 @@
             // Main_Split_Conatainer.Panel1
             // 
             Main_Split_Conatainer.Panel1.BackColor = Color.LightSteelBlue;
-            Main_Split_Conatainer.Panel1.Controls.Add(TabMenu_Control);
+            Main_Split_Conatainer.Panel1.Controls.Add(menuStrip1);
             // 
             // Main_Split_Conatainer.Panel2
             // 
@@ -143,42 +153,38 @@
             Main_Split_Conatainer.SplitterWidth = 5;
             Main_Split_Conatainer.TabIndex = 0;
             // 
-            // TabMenu_Control
+            // menuStrip1
             // 
-            TabMenu_Control.Controls.Add(tabPage1);
-            TabMenu_Control.Controls.Add(tabPage2);
-            TabMenu_Control.Cursor = Cursors.Hand;
-            TabMenu_Control.Dock = DockStyle.Fill;
-            TabMenu_Control.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            TabMenu_Control.HotTrack = true;
-            TabMenu_Control.Location = new Point(0, 0);
-            TabMenu_Control.Margin = new Padding(0);
-            TabMenu_Control.Name = "TabMenu_Control";
-            TabMenu_Control.SelectedIndex = 0;
-            TabMenu_Control.ShowToolTips = true;
-            TabMenu_Control.Size = new Size(907, 91);
-            TabMenu_Control.TabIndex = 0;
+            menuStrip1.Items.AddRange(new ToolStripItem[] { подключениеToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(907, 24);
+            menuStrip1.TabIndex = 0;
+            menuStrip1.Text = "menuStrip1";
             // 
-            // tabPage1
+            // подключениеToolStripMenuItem
             // 
-            tabPage1.AutoScroll = true;
-            tabPage1.BackColor = Color.LightSteelBlue;
-            tabPage1.Location = new Point(4, 28);
-            tabPage1.Margin = new Padding(0);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(899, 59);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "Главное";
+            подключениеToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { настрйокиToolStripMenuItem, toolStripMenuItem1, выходToolStripMenuItem });
+            подключениеToolStripMenuItem.Name = "подключениеToolStripMenuItem";
+            подключениеToolStripMenuItem.Size = new Size(97, 20);
+            подключениеToolStripMenuItem.Text = "Подключение";
             // 
-            // tabPage2
+            // настрйокиToolStripMenuItem
             // 
-            tabPage2.BackColor = Color.LightSteelBlue;
-            tabPage2.Location = new Point(4, 28);
-            tabPage2.Margin = new Padding(0);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Size = new Size(899, 59);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Вспомогательное";
+            настрйокиToolStripMenuItem.Name = "настрйокиToolStripMenuItem";
+            настрйокиToolStripMenuItem.Size = new Size(180, 22);
+            настрйокиToolStripMenuItem.Text = "Настрйоки";
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(177, 6);
+            // 
+            // выходToolStripMenuItem
+            // 
+            выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            выходToolStripMenuItem.Size = new Size(180, 22);
+            выходToolStripMenuItem.Text = "Выход";
             // 
             // MainWindoiw
             // 
@@ -192,6 +198,7 @@
             DoubleBuffered = true;
             Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             FormBorderStyle = FormBorderStyle.None;
+            MainMenuStrip = menuStrip1;
             Margin = new Padding(4);
             Name = "MainWindoiw";
             SizeGripStyle = SizeGripStyle.Show;
@@ -202,9 +209,11 @@
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
             Main_Split_Conatainer.Panel1.ResumeLayout(false);
+            Main_Split_Conatainer.Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)Main_Split_Conatainer).EndInit();
             Main_Split_Conatainer.ResumeLayout(false);
-            TabMenu_Control.ResumeLayout(false);
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -214,11 +223,13 @@
         private StatusStrip statusStrip1;
         private SplitContainer splitContainer1;
         private SplitContainer Main_Split_Conatainer;
-        private TabControl TabMenu_Control;
-        private TabPage tabPage1;
-        private TabPage tabPage2;
         private Button button3;
         private Button ShowGenerator;
         private Button ShowPrice;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem подключениеToolStripMenuItem;
+        private ToolStripMenuItem настрйокиToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem1;
+        private ToolStripMenuItem выходToolStripMenuItem;
     }
 }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("wfa_symple")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+35d5d50b64136382bde08c3f9675011ec6325448")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8dc364f3e53ba968c92dd82f94ad7d0168df7243")]
 [assembly: System.Reflection.AssemblyProductAttribute("wfa_symple")]
 [assembly: System.Reflection.AssemblyTitleAttribute("wfa_symple")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
