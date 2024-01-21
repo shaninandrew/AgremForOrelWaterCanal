@@ -41,10 +41,9 @@
                 OUTPUT  INSERTED.
                 SELECT  pr.ID PriceList,  @ArgeeID FROM PriceList pr WHERE   @DATE between pr.Дата начала  and  pr.Дата конца действия
             
-    
 
     Связки Договора и Клиентов. 
-    Параметры ID договора, ID клиента, Тип клиента
+        * Параметры: ID договора, ID клиента, Тип клиента
 
     
     
