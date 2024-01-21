@@ -50,7 +50,7 @@
             
 
     Связки Договора и Клиентов c новым клиентом Clients.
-        * Параметры: ID договора (@ID Agr) , ID клиента, Тип клиента (@Type)
+        * Параметры: ID договора (@ID Agr),  Тип клиента (@Type)
         INSERT INTO  Clients (
             IF @Type=1
                 INSERT INTO Privates OUTPUT.INSERTED ID_клиента
@@ -61,6 +61,12 @@
                 OUTPUT.INSERTED ID_клиента 
                     (Название ) VALUES ('Новое юр лицо')
 
+    Связки Договора и Клиентов с существующим клиентом Clients.
+         * Параметры: ID договора (@ID Agr),  ID Клиента (@IDClient)
+             UPDATE  Clients SET 
+                   ID клиента  = @IDClient
+                  WHERE ID договора = @ID Agr 
+            
     
     
     
