@@ -27,6 +27,9 @@ namespace wfa_symple
             agrm.TopLevel = false;
 
             agrm.Parent = Main_Split_Conatainer.Panel2;
+
+            ShowPrice_Click(this, new EventArgs());
+
         }
 
       

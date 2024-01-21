@@ -133,8 +133,9 @@
             // 
             // Main_Split_Conatainer
             // 
-            Main_Split_Conatainer.BorderStyle = BorderStyle.FixedSingle;
             Main_Split_Conatainer.Dock = DockStyle.Fill;
+            Main_Split_Conatainer.FixedPanel = FixedPanel.Panel1;
+            Main_Split_Conatainer.IsSplitterFixed = true;
             Main_Split_Conatainer.Location = new Point(0, 0);
             Main_Split_Conatainer.Margin = new Padding(4);
             Main_Split_Conatainer.Name = "Main_Split_Conatainer";
@@ -142,6 +143,7 @@
             // 
             // Main_Split_Conatainer.Panel1
             // 
+            Main_Split_Conatainer.Panel1.AutoScroll = true;
             Main_Split_Conatainer.Panel1.BackColor = Color.LightSteelBlue;
             Main_Split_Conatainer.Panel1.Controls.Add(menuStrip1);
             // 
@@ -155,35 +157,38 @@
             // 
             // menuStrip1
             // 
+            menuStrip1.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            menuStrip1.GripStyle = ToolStripGripStyle.Visible;
             menuStrip1.Items.AddRange(new ToolStripItem[] { подключениеToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Margin = new Padding(2);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(907, 24);
+            menuStrip1.Size = new Size(909, 30);
             menuStrip1.TabIndex = 0;
-            menuStrip1.Text = "menuStrip1";
+            menuStrip1.Text = "MainMenu";
             // 
             // подключениеToolStripMenuItem
             // 
             подключениеToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { настрйокиToolStripMenuItem, toolStripMenuItem1, выходToolStripMenuItem });
             подключениеToolStripMenuItem.Name = "подключениеToolStripMenuItem";
-            подключениеToolStripMenuItem.Size = new Size(97, 20);
+            подключениеToolStripMenuItem.Size = new Size(141, 26);
             подключениеToolStripMenuItem.Text = "Подключение";
             // 
             // настрйокиToolStripMenuItem
             // 
             настрйокиToolStripMenuItem.Name = "настрйокиToolStripMenuItem";
-            настрйокиToolStripMenuItem.Size = new Size(180, 22);
+            настрйокиToolStripMenuItem.Size = new Size(171, 26);
             настрйокиToolStripMenuItem.Text = "Настрйоки";
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(177, 6);
+            toolStripMenuItem1.Size = new Size(168, 6);
             // 
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            выходToolStripMenuItem.Size = new Size(180, 22);
+            выходToolStripMenuItem.Size = new Size(171, 26);
             выходToolStripMenuItem.Text = "Выход";
             // 
             // MainWindoiw
