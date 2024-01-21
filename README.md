@@ -1,4 +1,4 @@
-# AgremForOrelWaterCanal
+# AgreementsForOrelWaterCanal
 Программа управления договорами в ОрелВодоканал
 
     1 База данных MSSQL
