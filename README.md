@@ -17,6 +17,13 @@
         * Основные поля: ID договора, Тип договора (1-физ, 2 юр лицо), ID клиента в соответствующей таблице
                 Физическиех лиц (Privates) /связка Agreements + Clients
                 Юридических лиц (Entity) /связка Agreements + Clients
+     
+    Физическиех лиц (Privates)
+        * Основыне поля: ID, ФИО, Паспорт, Адрес, Телефон и т.п.
+
+    Юридических лиц (Entity)
+        * Основыне поля: ID, Название, ИНН, ОГРН, Адрес, Телефон и т.п.
+
                 
     Услуг оказываемые по договору из прайс листа (ServiceForAgreements ) Agreements + PriceList
         * Основные поля: ID SFA,  ID договора, ID услуги по прайсу, Количество услуг, Дата начала и Дата конца действия цены на услугу
@@ -38,12 +45,21 @@
         * Параметры: @Date, @ArgeeID
             --ID SFA возвращает новые строки в ServiceForAgreements
             INSERT Into ServiceForAgreements ( ID PriceList , ID договора ) 
-                OUTPUT  INSERTED.
+                OUTPUT  INSERTED.ID SFA
                 SELECT  pr.ID PriceList,  @ArgeeID FROM PriceList pr WHERE   @DATE between pr.Дата начала  and  pr.Дата конца действия
             
 
-    Связки Договора и Клиентов. 
-        * Параметры: ID договора, ID клиента, Тип клиента
+    Связки Договора и Клиентов c новым клиентом Clients.
+        * Параметры: ID договора (@ID Agr) , ID клиента, Тип клиента (@Type)
+        INSERT INTO  Clients (
+            IF @Type=1
+                INSERT INTO Privates OUTPUT.INSERTED ID_клиента
+                    (Фио) VALUES ('Новый ф/л')
+                
+            ELSE  
+                INSERT INTO Entity 
+                OUTPUT.INSERTED ID_клиента 
+                    (Название ) VALUES ('Новое юр лицо')
 
     
     
