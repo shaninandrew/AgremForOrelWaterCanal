@@ -21,7 +21,7 @@
     Услуг оказываемые по договору из прайс листа (ServiceForAgreements ) Agreements + PriceList
         * Основные поля: ID договора, ID услуп по прайсу, Сумма итого
         
-    Услуги по прайслисту (PriceList) через ServiceForAgreements соединено с  Довоговором
+    Услуги по прайслисту (PriceList) соединятся через ServiceForAgreements с  Довоговором
         
 
 Имеет функции:
