@@ -187,7 +187,7 @@
             // 
             // SearchData
             // 
-            SearchData.Location = new Point(760, 50);
+            SearchData.Location = new Point(760, 51);
             SearchData.Name = "SearchData";
             SearchData.Size = new Size(158, 33);
             SearchData.TabIndex = 3;
@@ -198,17 +198,17 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(7, 52);
+            label1.Location = new Point(7, 55);
             label1.Name = "label1";
-            label1.Size = new Size(165, 23);
+            label1.Size = new Size(275, 23);
             label1.TabIndex = 2;
-            label1.Text = "Поиск договоров";
+            label1.Text = "Поиск договоров  и клиентов";
             // 
             // InputFilterText
             // 
-            InputFilterText.Location = new Point(208, 53);
+            InputFilterText.Location = new Point(288, 53);
             InputFilterText.Name = "InputFilterText";
-            InputFilterText.Size = new Size(533, 30);
+            InputFilterText.Size = new Size(453, 30);
             InputFilterText.TabIndex = 1;
             // 
             // menuStrip1

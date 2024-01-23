@@ -128,7 +128,6 @@ namespace wfa_symple
 
             List<string> cols = new List<string>() { "NumDoc", "Date", "Name", "ID", "Guid", "TotalSum" };
 
-
             agr_editor.listView_agreemtns.Columns.Clear();
 
             foreach (string col in cols)
@@ -152,6 +151,7 @@ namespace wfa_symple
                     ch.AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
 
                 }
+                ch.Name = col.ToString();
 
                 agr_editor.listView_agreemtns.Columns.Add(ch);
             }
