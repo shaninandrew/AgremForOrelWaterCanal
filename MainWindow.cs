@@ -12,7 +12,7 @@ namespace wfa_symple
 
         //Вложенные формы
         public Editor_Price editor_price = new Editor_Price();
-        public AgrmGenerator report_generator = new AgrmGenerator();
+        public ReportGenerator report_generator = new ReportGenerator();
         public Settings settings = new Settings();
         public AgreementEditorWindow agr_editor = new AgreementEditorWindow();
 
