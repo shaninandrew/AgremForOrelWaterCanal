@@ -148,7 +148,7 @@ namespace wfa_symple
                 {
 
                     ch.TextAlign = HorizontalAlignment.Center;
-                    ch.AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
+                    ch.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
 
                 }
                 ch.Name = col.ToString();
