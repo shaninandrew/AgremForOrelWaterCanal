@@ -11,8 +11,8 @@ namespace wfa_symple
         Color default_BackColor = Color.White;
 
         //Вложенные формы
-        public Editor_Price ep = new Editor_Price();
-        public AgrmGenerator agrm = new AgrmGenerator();
+        public Editor_Price editor_price = new Editor_Price();
+        public AgrmGenerator report_generator = new AgrmGenerator();
         public Settings settings = new Settings();
         public AgreementEditorWindow agr_editor = new AgreementEditorWindow();
 
@@ -27,16 +27,15 @@ namespace wfa_symple
             //скрытый редактор
 
 
-            ep.Dock = DockStyle.Fill;
-            ep.FormBorderStyle = FormBorderStyle.None;
-            ep.TopLevel = false;
-            ep.Parent = Main_Split_Conatainer.Panel2;
+            editor_price.Dock = DockStyle.Fill;
+            editor_price.FormBorderStyle = FormBorderStyle.None;
+            editor_price.TopLevel = false;
+            editor_price.Parent = Main_Split_Conatainer.Panel2;
 
-            agrm.Dock = DockStyle.Fill;
-            agrm.FormBorderStyle = FormBorderStyle.None;
-            agrm.TopLevel = false;
-
-            agrm.Parent = Main_Split_Conatainer.Panel2;
+            report_generator.Dock = DockStyle.Fill;
+            report_generator.FormBorderStyle = FormBorderStyle.None;
+            report_generator.TopLevel = false;
+            report_generator.Parent = Main_Split_Conatainer.Panel2;
 
 
             settings.Dock = DockStyle.Fill;
@@ -52,46 +51,66 @@ namespace wfa_symple
             agr_editor.Parent = Main_Split_Conatainer.Panel2;
 
 
-
+            //Загрузить договора
+            ShowAgreements_Click(this, new EventArgs());
             //ShowPrice_Click(this, new EventArgs());
 
         }
 
 
+        private void HideAll()
+        {
+            editor_price.Hide();
+            report_generator.Hide();
+            settings.Hide();
+            agr_editor.Hide();
+        }
+
+
+        private void RePosButtons()
+        {
+            ShowGenerator.Dock = DockStyle.Bottom;
+            Show_Settings.Dock = DockStyle.Bottom;
+            //.Dock = DockStyle.Bottom;
+            ShowAgrs.Dock = DockStyle.Bottom;
+            ShowPrice.Dock = DockStyle.Bottom;
+
+        }
 
         private void ShowPrice_Click(object sender, EventArgs e)
         {
+            HideAll();
+            editor_price.Show();
+
+            RePosButtons();
+            ShowPrice.Dock = DockStyle.Top;
 
 
-            agrm.Hide();
-            ep.Show();
-            settings.Hide();
-            agr_editor.Hide();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            agrm.Show();
-            ep.Hide();
-            agr_editor.Hide();
-            settings.Hide();
+            HideAll();
+            report_generator.Show();
+            
+            RePosButtons();
+            ShowGenerator.Dock = DockStyle.Top;
+
+
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            agrm.Hide();
-            ep.Hide();
-            agr_editor.Hide();
+            HideAll();
             settings.Show();
 
+            RePosButtons();
+            Show_Settings.Dock = DockStyle.Top;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            agrm.Hide();
-            ep.Hide();
-            settings.Hide();
-            agr_editor.Show();
         }
 
 
@@ -149,9 +168,8 @@ namespace wfa_symple
                 sql_params = new List<SqlParameter>();
                 sql_params.Add(new SqlParameter("@SEARCH", InputFilterText.Text));
 
-                SQL += "  WHERE (Name like  '%'+@SEARCH+'%') ";
+                SQL += "  WHERE [ID] in ( Select ID FROM SelectAgreementsByString (@SEARCH) )";
             }
-
 
 
             SqlDataReader dr = Data_point.ExecSQL(SQL, sql_params);
@@ -177,6 +195,21 @@ namespace wfa_symple
         private void Main_Split_Conatainer_Panel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ShowAgreements_Click(object sender, EventArgs e)
+        {
+            ShowAgrs.Dock = DockStyle.Top;
+            HideAll();
+            RePosButtons();
+            
+            ShowAgrs.Dock = DockStyle.Top;
+            agr_editor.Show();
         }
     }
 

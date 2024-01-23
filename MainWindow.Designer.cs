@@ -30,8 +30,8 @@
         {
             statusStrip1 = new StatusStrip();
             splitContainer1 = new SplitContainer();
-            button1 = new Button();
-            button3 = new Button();
+            ShowAgrs = new Button();
+            Show_Settings = new Button();
             ShowGenerator = new Button();
             ShowPrice = new Button();
             Main_Split_Conatainer = new SplitContainer();
@@ -75,8 +75,8 @@
             // splitContainer1.Panel1
             // 
             splitContainer1.Panel1.BackColor = Color.RoyalBlue;
-            splitContainer1.Panel1.Controls.Add(button1);
-            splitContainer1.Panel1.Controls.Add(button3);
+            splitContainer1.Panel1.Controls.Add(ShowAgrs);
+            splitContainer1.Panel1.Controls.Add(Show_Settings);
             splitContainer1.Panel1.Controls.Add(ShowGenerator);
             splitContainer1.Panel1.Controls.Add(ShowPrice);
             splitContainer1.Panel1MinSize = 30;
@@ -90,36 +90,36 @@
             splitContainer1.SplitterWidth = 5;
             splitContainer1.TabIndex = 1;
             // 
-            // button1
+            // ShowAgrs
             // 
-            button1.Dock = DockStyle.Top;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = Color.Gold;
-            button1.Location = new Point(0, 0);
-            button1.MaximumSize = new Size(0, 50);
-            button1.Name = "button1";
-            button1.Padding = new Padding(2);
-            button1.Size = new Size(153, 50);
-            button1.TabIndex = 3;
-            button1.Text = "Договора";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            ShowAgrs.Dock = DockStyle.Top;
+            ShowAgrs.FlatStyle = FlatStyle.Flat;
+            ShowAgrs.ForeColor = Color.Gold;
+            ShowAgrs.Location = new Point(0, 0);
+            ShowAgrs.MaximumSize = new Size(0, 50);
+            ShowAgrs.Name = "ShowAgrs";
+            ShowAgrs.Padding = new Padding(2);
+            ShowAgrs.Size = new Size(153, 50);
+            ShowAgrs.TabIndex = 3;
+            ShowAgrs.Text = "Договора";
+            ShowAgrs.UseVisualStyleBackColor = true;
+            ShowAgrs.Click += ShowAgreements_Click;
             // 
-            // button3
+            // Show_Settings
             // 
-            button3.Dock = DockStyle.Bottom;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.ForeColor = Color.White;
-            button3.Location = new Point(0, 364);
-            button3.MaximumSize = new Size(0, 50);
-            button3.Name = "button3";
-            button3.Padding = new Padding(2);
-            button3.Size = new Size(153, 50);
-            button3.TabIndex = 2;
-            button3.Text = "Настройки";
-            button3.TextAlign = ContentAlignment.MiddleLeft;
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
+            Show_Settings.Dock = DockStyle.Bottom;
+            Show_Settings.FlatStyle = FlatStyle.Flat;
+            Show_Settings.ForeColor = Color.White;
+            Show_Settings.Location = new Point(0, 364);
+            Show_Settings.MaximumSize = new Size(0, 50);
+            Show_Settings.Name = "Show_Settings";
+            Show_Settings.Padding = new Padding(2);
+            Show_Settings.Size = new Size(153, 50);
+            Show_Settings.TabIndex = 2;
+            Show_Settings.Text = "Настройки";
+            Show_Settings.TextAlign = ContentAlignment.MiddleLeft;
+            Show_Settings.UseVisualStyleBackColor = true;
+            Show_Settings.Click += button3_Click;
             // 
             // ShowGenerator
             // 
@@ -247,6 +247,7 @@
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             выходToolStripMenuItem.Size = new Size(215, 32);
             выходToolStripMenuItem.Text = "Выход";
+            выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
             // 
             // MainWindow
             // 
@@ -285,7 +286,7 @@
         private StatusStrip statusStrip1;
         private SplitContainer splitContainer1;
         private SplitContainer Main_Split_Conatainer;
-        private Button button3;
+        private Button Show_Settings;
         private Button ShowGenerator;
         private Button ShowPrice;
         private MenuStrip menuStrip1;
@@ -295,7 +296,7 @@
         private ToolStripMenuItem выходToolStripMenuItem;
         private Label label1;
         private TextBox InputFilterText;
-        private Button button1;
+        private Button ShowAgrs;
         private Button SearchData;
     }
 }

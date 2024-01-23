@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Классы\" />
+    <Folder Include="Запросы sql\" />
   </ItemGroup>
 
   <ItemGroup>
