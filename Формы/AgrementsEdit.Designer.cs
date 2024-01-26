@@ -32,6 +32,7 @@
             Split_Agrems = new SplitContainer();
             listView_Clients = new ListView();
             Agr_control = new Panel();
+            CreateNewAgrForThisCleint = new Button();
             label3 = new Label();
             New_Client_Date = new MaskedTextBox();
             New_CLient_Number = new TextBox();
@@ -40,10 +41,15 @@
             New_Client_Type = new ComboBox();
             CreateNewClient = new Button();
             listView_agreemtns = new ListView();
+            TabControlFull = new TabControl();
+            tabeditor_Client = new TabPage();
+            tabeditor_Agreement = new TabPage();
             ((System.ComponentModel.ISupportInitialize)Split_Agrems).BeginInit();
             Split_Agrems.Panel1.SuspendLayout();
+            Split_Agrems.Panel2.SuspendLayout();
             Split_Agrems.SuspendLayout();
             Agr_control.SuspendLayout();
+            TabControlFull.SuspendLayout();
             SuspendLayout();
             // 
             // splitter1
@@ -72,25 +78,29 @@
             // 
             // Split_Agrems.Panel2
             // 
+            Split_Agrems.Panel2.Controls.Add(TabControlFull);
             Split_Agrems.Panel2.Paint += Split_Agrems_Panel2_Paint;
             Split_Agrems.Size = new Size(1094, 944);
-            Split_Agrems.SplitterDistance = 592;
+            Split_Agrems.SplitterDistance = 718;
             Split_Agrems.TabIndex = 3;
             // 
             // listView_Clients
             // 
             listView_Clients.Dock = DockStyle.Top;
             listView_Clients.FullRowSelect = true;
-            listView_Clients.Location = new Point(0, 122);
+            listView_Clients.Location = new Point(0, 142);
             listView_Clients.Name = "listView_Clients";
-            listView_Clients.Size = new Size(592, 156);
+            listView_Clients.Size = new Size(718, 256);
             listView_Clients.TabIndex = 2;
             listView_Clients.UseCompatibleStateImageBehavior = false;
             listView_Clients.View = View.Details;
+            listView_Clients.Click += listView_Clients_Click;
             // 
             // Agr_control
             // 
             Agr_control.BackColor = Color.Salmon;
+            Agr_control.BorderStyle = BorderStyle.FixedSingle;
+            Agr_control.Controls.Add(CreateNewAgrForThisCleint);
             Agr_control.Controls.Add(label3);
             Agr_control.Controls.Add(New_Client_Date);
             Agr_control.Controls.Add(New_CLient_Number);
@@ -102,15 +112,28 @@
             Agr_control.Location = new Point(0, 0);
             Agr_control.Margin = new Padding(3, 4, 3, 4);
             Agr_control.Name = "Agr_control";
-            Agr_control.Size = new Size(592, 122);
+            Agr_control.Size = new Size(718, 142);
             Agr_control.TabIndex = 1;
+            // 
+            // CreateNewAgrForThisCleint
+            // 
+            CreateNewAgrForThisCleint.Enabled = false;
+            CreateNewAgrForThisCleint.FlatAppearance.BorderColor = Color.RosyBrown;
+            CreateNewAgrForThisCleint.Location = new Point(414, 64);
+            CreateNewAgrForThisCleint.Margin = new Padding(3, 4, 3, 4);
+            CreateNewAgrForThisCleint.Name = "CreateNewAgrForThisCleint";
+            CreateNewAgrForThisCleint.Size = new Size(289, 49);
+            CreateNewAgrForThisCleint.TabIndex = 8;
+            CreateNewAgrForThisCleint.Text = "Новый договор к этому клиенту";
+            CreateNewAgrForThisCleint.UseVisualStyleBackColor = true;
+            CreateNewAgrForThisCleint.Click += CreateNewAgrForThisCleint_Click;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Location = new Point(11, 90);
             label3.Name = "label3";
-            label3.Size = new Size(111, 20);
+            label3.Size = new Size(104, 19);
             label3.TabIndex = 7;
             label3.Text = "Дата договора";
             // 
@@ -120,7 +143,7 @@
             New_Client_Date.Location = new Point(170, 87);
             New_Client_Date.Mask = "00/00/0000";
             New_Client_Date.Name = "New_Client_Date";
-            New_Client_Date.Size = new Size(132, 27);
+            New_Client_Date.Size = new Size(220, 26);
             New_Client_Date.TabIndex = 6;
             New_Client_Date.ValidatingType = typeof(DateTime);
             // 
@@ -128,7 +151,7 @@
             // 
             New_CLient_Number.Location = new Point(170, 48);
             New_CLient_Number.Name = "New_CLient_Number";
-            New_CLient_Number.Size = new Size(220, 27);
+            New_CLient_Number.Size = new Size(220, 26);
             New_CLient_Number.TabIndex = 4;
             // 
             // label2
@@ -136,7 +159,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(9, 51);
             label2.Name = "label2";
-            label2.Size = new Size(127, 20);
+            label2.Size = new Size(117, 19);
             label2.TabIndex = 3;
             label2.Text = "Номер договора";
             // 
@@ -145,7 +168,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(9, 9);
             label1.Name = "label1";
-            label1.Size = new Size(94, 20);
+            label1.Size = new Size(90, 19);
             label1.TabIndex = 2;
             label1.Text = "Тип клиента";
             // 
@@ -157,15 +180,16 @@
             New_Client_Type.Items.AddRange(new object[] { "Физическое лицо", "Юридическое лицо" });
             New_Client_Type.Location = new Point(170, 9);
             New_Client_Type.Name = "New_Client_Type";
-            New_Client_Type.Size = new Size(220, 28);
+            New_Client_Type.Size = new Size(220, 27);
             New_Client_Type.TabIndex = 1;
             // 
             // CreateNewClient
             // 
-            CreateNewClient.Location = new Point(396, 9);
+            CreateNewClient.FlatAppearance.BorderColor = Color.RosyBrown;
+            CreateNewClient.Location = new Point(414, 4);
             CreateNewClient.Margin = new Padding(3, 4, 3, 4);
             CreateNewClient.Name = "CreateNewClient";
-            CreateNewClient.Size = new Size(193, 106);
+            CreateNewClient.Size = new Size(289, 52);
             CreateNewClient.TabIndex = 0;
             CreateNewClient.Text = "Новый договор +новый клиент";
             CreateNewClient.UseVisualStyleBackColor = true;
@@ -175,33 +199,68 @@
             // 
             listView_agreemtns.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             listView_agreemtns.FullRowSelect = true;
-            listView_agreemtns.Location = new Point(0, 285);
+            listView_agreemtns.Location = new Point(0, 405);
             listView_agreemtns.Margin = new Padding(3, 4, 3, 4);
             listView_agreemtns.Name = "listView_agreemtns";
-            listView_agreemtns.Size = new Size(592, 659);
-            listView_agreemtns.Sorting = SortOrder.Ascending;
+            listView_agreemtns.ShowItemToolTips = true;
+            listView_agreemtns.Size = new Size(718, 539);
             listView_agreemtns.TabIndex = 0;
             listView_agreemtns.UseCompatibleStateImageBehavior = false;
             listView_agreemtns.View = View.Details;
+            listView_agreemtns.SelectedIndexChanged += listView_agreemtns_SelectedIndexChanged;
+            listView_agreemtns.Click += listView_agreemtns_Click;
+            // 
+            // TabControlFull
+            // 
+            TabControlFull.Controls.Add(tabeditor_Client);
+            TabControlFull.Controls.Add(tabeditor_Agreement);
+            TabControlFull.Dock = DockStyle.Fill;
+            TabControlFull.Location = new Point(0, 0);
+            TabControlFull.Name = "TabControlFull";
+            TabControlFull.SelectedIndex = 0;
+            TabControlFull.Size = new Size(372, 944);
+            TabControlFull.TabIndex = 0;
+            // 
+            // tabeditor_Client
+            // 
+            tabeditor_Client.Location = new Point(4, 28);
+            tabeditor_Client.Name = "tabeditor_Client";
+            tabeditor_Client.Padding = new Padding(3);
+            tabeditor_Client.Size = new Size(364, 912);
+            tabeditor_Client.TabIndex = 0;
+            tabeditor_Client.Text = "Клиенты";
+            tabeditor_Client.UseVisualStyleBackColor = true;
+            // 
+            // tabeditor_Agreement
+            // 
+            tabeditor_Agreement.Location = new Point(4, 28);
+            tabeditor_Agreement.Name = "tabeditor_Agreement";
+            tabeditor_Agreement.Padding = new Padding(3);
+            tabeditor_Agreement.Size = new Size(364, 912);
+            tabeditor_Agreement.TabIndex = 1;
+            tabeditor_Agreement.Text = "Положение договора";
+            tabeditor_Agreement.UseVisualStyleBackColor = true;
             // 
             // AgreementEditorWindow
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
             ClientSize = new Size(1097, 944);
             Controls.Add(Split_Agrems);
             Controls.Add(splitter1);
-            FormBorderStyle = FormBorderStyle.None;
+            Font = new Font("Arial Unicode MS", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(3, 4, 3, 4);
             Name = "AgreementEditorWindow";
             Text = "Документы анализа качества воды";
             Load += MainForm_Load;
             Split_Agrems.Panel1.ResumeLayout(false);
+            Split_Agrems.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)Split_Agrems).EndInit();
             Split_Agrems.ResumeLayout(false);
             Agr_control.ResumeLayout(false);
             Agr_control.PerformLayout();
+            TabControlFull.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -234,6 +293,10 @@
         private Label label2;
         private Label label3;
         private MaskedTextBox New_Client_Date;
+        private Button CreateNewAgrForThisCleint;
+        private TabControl TabControlFull;
+        private TabPage tabeditor_Client;
+        private TabPage tabeditor_Agreement;
     }
 }
 

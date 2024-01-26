@@ -194,13 +194,14 @@
             SearchData.Text = "Поиск";
             SearchData.UseVisualStyleBackColor = true;
             SearchData.Click += SearchData_Click;
+            SearchData.Enter += SearchData_Enter;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Location = new Point(7, 55);
             label1.Name = "label1";
-            label1.Size = new Size(275, 23);
+            label1.Size = new Size(254, 24);
             label1.TabIndex = 2;
             label1.Text = "Поиск договоров  и клиентов";
             // 
@@ -208,7 +209,7 @@
             // 
             InputFilterText.Location = new Point(288, 53);
             InputFilterText.Name = "InputFilterText";
-            InputFilterText.Size = new Size(453, 30);
+            InputFilterText.Size = new Size(453, 32);
             InputFilterText.TabIndex = 1;
             // 
             // menuStrip1
@@ -251,15 +252,15 @@
             // 
             // MainWindow
             // 
-            AutoScaleDimensions = new SizeF(11F, 23F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(120F, 120F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.SeaShell;
             ClientSize = new Size(1122, 540);
             ControlBox = false;
             Controls.Add(splitContainer1);
             Controls.Add(statusStrip1);
             DoubleBuffered = true;
-            Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Arial Unicode MS", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             MainMenuStrip = menuStrip1;
             Margin = new Padding(4);
@@ -297,6 +298,6 @@
         private Label label1;
         private TextBox InputFilterText;
         private Button ShowAgrs;
-        private Button SearchData;
+        public Button SearchData;
     }
 }
