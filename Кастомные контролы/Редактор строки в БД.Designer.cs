@@ -29,45 +29,37 @@
         private void InitializeComponent()
         {
             SaveIt = new Button();
-            maskedTextBox1 = new MaskedTextBox();
             SuspendLayout();
             // 
             // SaveIt
             // 
             SaveIt.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             SaveIt.FlatStyle = FlatStyle.Flat;
-            SaveIt.Location = new Point(16, 364);
+            SaveIt.Location = new Point(14, 273);
+            SaveIt.Margin = new Padding(3, 2, 3, 2);
             SaveIt.Name = "SaveIt";
-            SaveIt.Size = new Size(355, 35);
+            SaveIt.Size = new Size(227, 26);
             SaveIt.TabIndex = 0;
             SaveIt.Text = "Сохранить данные";
             SaveIt.UseVisualStyleBackColor = true;
             SaveIt.Click += SaveIt_Click;
             // 
-            // maskedTextBox1
-            // 
-            maskedTextBox1.Location = new Point(651, 371);
-            maskedTextBox1.Mask = "#####0.00";
-            maskedTextBox1.Name = "maskedTextBox1";
-            maskedTextBox1.Size = new Size(125, 27);
-            maskedTextBox1.TabIndex = 1;
-            // 
             // UC_Editor_Row_In_DB
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(maskedTextBox1);
             Controls.Add(SaveIt);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "UC_Editor_Row_In_DB";
-            Size = new Size(842, 415);
+            Size = new Size(737, 311);
             Load += UC_Editor_Row_In_DB_Load;
+            MouseEnter += UC_Editor_Row_In_DB_MouseEnter;
+            MouseLeave += UC_Editor_Row_In_DB_MouseLeave;
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private Button SaveIt;
-        private MaskedTextBox maskedTextBox1;
     }
 }

@@ -70,7 +70,10 @@ namespace Doc4Lab
                             cmd.Parameters.AddRange(sql_params.ToArray());
 
                         r = cmd.ExecuteReader();
-                        
+
+                        //очистка от заклина
+                        cmd.Parameters.Clear();
+
                         return (r); //возврат готового редера
                      }
 
@@ -128,6 +131,9 @@ namespace Doc4Lab
                     cmd.CommandText = sql;
 
                     string s = cmd.ExecuteScalar().ToString();
+
+                    //очистка от заклина
+                    cmd.Parameters.Clear();
 
                     cmd.Dispose();
 

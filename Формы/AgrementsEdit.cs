@@ -23,11 +23,15 @@ namespace Doc4Lab
         public MainWindow parent_core;
 
         //редактор строк в БД
-        private UC_Editor_Row_In_DB Editor_Row_In_DB = null;
+        private UC_Editor_Row_In_DB Editor_Row_In_DB_Clients = null;
+        private UC_Editor_Row_In_DB Editor_Row_In_DB_Agreements = null;
+        
+
 
         public AgreementEditorWindow()
         {
             InitializeComponent();
+            
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -279,6 +283,12 @@ namespace Doc4Lab
 
         }
 
+
+        /// <summary>
+        /// Вызов редактора догворов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listView_agreemtns_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (listView_agreemtns.SelectedItems == null)
@@ -361,14 +371,13 @@ namespace Doc4Lab
 
             }
 
-            if (Editor_Row_In_DB != null)
+            if (Editor_Row_In_DB_Agreements == null)
             {
-                Editor_Row_In_DB.Hide();
-                Editor_Row_In_DB.Dispose();
-
+                //создаем редактор в Табе
+                Editor_Row_In_DB_Agreements = new UC_Editor_Row_In_DB(tabeditor_Agreement);
+                Editor_Row_In_DB_Agreements.SetMotherControls(this);
             }
-            //создаем редактор в Табе
-            Editor_Row_In_DB = new UC_Editor_Row_In_DB(tabeditor_Agreement);
+            
             //инфа о клиента
 
             //берем связку
@@ -384,7 +393,9 @@ namespace Doc4Lab
                                 ";
 
             //Подгурзка записи
-            Editor_Row_In_DB.LoadData(table, "guid", guid, columns);
+
+            Editor_Row_In_DB_Agreements.Title = "Договора";
+            Editor_Row_In_DB_Agreements.LoadData(table, "guid", guid, columns);
 
             //выбираем договор вкладку для правки
             TabControlFull.SelectedTab = tabeditor_Agreement;
@@ -420,16 +431,19 @@ namespace Doc4Lab
                 
                 //Показываем юзер контрол для редактирования
 
-                if (Editor_Row_In_DB != null)
+             /*   if (Editor_Row_In_DB != null)
                 {
                     Editor_Row_In_DB.Hide();
                     Editor_Row_In_DB.Dispose();
                     Editor_Row_In_DB = null;
-                }
+                }*/
 
 
-                //создаем редактор в Табе
-                Editor_Row_In_DB = new UC_Editor_Row_In_DB(tabeditor_Client);
+                //
+                if (Editor_Row_In_DB_Clients ==null)
+                    {   //создаем редактор в Табе
+                        Editor_Row_In_DB_Clients = new UC_Editor_Row_In_DB(tabeditor_Client);
+                    }
                 //инфа о клиента
                 //берем связку
                 string guid = listView_Clients.SelectedItems[0].SubItems["LinkGuid"].Text;
@@ -444,15 +458,21 @@ namespace Doc4Lab
                                   ,[ident_doc_number]
                                   ,[ident_doc_date]
                                   ,[ident_doc_issue]";
+                
+                string title = "Физические лица";
 
                 if (type_client == "2")
                 {
                     table = "ClientEntity";
                     columns = "[Name] ,[Address]  ,[Phone]  ,[INN]   ,[OGRN] ,[Description]";
+                    title = "Юридические лица";
                 }
 
+                Editor_Row_In_DB_Clients.Title = title;
+                Editor_Row_In_DB_Clients.SetMotherControls( this);
+
                 //Подгурзка записиа
-                Editor_Row_In_DB.LoadData(table, "guid", guid, columns);
+                Editor_Row_In_DB_Clients.LoadData(table, "guid", guid, columns);
                 
                 //перворот страницы
                 TabControlFull.SelectedTab = tabeditor_Client;

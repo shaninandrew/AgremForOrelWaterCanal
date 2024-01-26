@@ -60,17 +60,17 @@
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { MSG_Status, Progresso });
-            statusStrip1.Location = new Point(0, 514);
+            statusStrip1.Location = new Point(0, 516);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new Padding(1, 0, 18, 0);
-            statusStrip1.Size = new Size(1122, 26);
+            statusStrip1.Size = new Size(1122, 24);
             statusStrip1.TabIndex = 0;
             statusStrip1.Text = "statusStrip1";
             // 
             // MSG_Status
             // 
             MSG_Status.Name = "MSG_Status";
-            MSG_Status.Size = new Size(52, 20);
+            MSG_Status.Size = new Size(43, 19);
             MSG_Status.Text = "Статус";
             // 
             // Progresso
@@ -80,7 +80,6 @@
             // 
             // splitContainer1
             // 
-            splitContainer1.BorderStyle = BorderStyle.Fixed3D;
             splitContainer1.Dock = DockStyle.Fill;
             splitContainer1.FixedPanel = FixedPanel.Panel1;
             splitContainer1.Location = new Point(0, 0);
@@ -89,65 +88,70 @@
             // 
             // splitContainer1.Panel1
             // 
-            splitContainer1.Panel1.BackColor = Color.RoyalBlue;
+            splitContainer1.Panel1.AutoScroll = true;
+            splitContainer1.Panel1.BackColor = Color.DeepSkyBlue;
             splitContainer1.Panel1.Controls.Add(ShowAgrs);
             splitContainer1.Panel1.Controls.Add(Show_Settings);
             splitContainer1.Panel1.Controls.Add(ShowGenerator);
             splitContainer1.Panel1.Controls.Add(ShowPrice);
-            splitContainer1.Panel1MinSize = 30;
+            splitContainer1.Panel1.Cursor = Cursors.Hand;
+            splitContainer1.Panel1MinSize = 100;
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.AutoScroll = true;
             splitContainer1.Panel2.BackColor = Color.White;
             splitContainer1.Panel2.Controls.Add(Main_Split_Conatainer);
-            splitContainer1.Size = new Size(1122, 514);
+            splitContainer1.Size = new Size(1122, 516);
             splitContainer1.SplitterDistance = 157;
             splitContainer1.SplitterWidth = 5;
             splitContainer1.TabIndex = 1;
             // 
             // ShowAgrs
             // 
+            ShowAgrs.BackColor = Color.Navy;
             ShowAgrs.Dock = DockStyle.Top;
             ShowAgrs.FlatStyle = FlatStyle.Flat;
-            ShowAgrs.ForeColor = Color.Gold;
+            ShowAgrs.ForeColor = Color.Azure;
             ShowAgrs.Location = new Point(0, 0);
             ShowAgrs.MaximumSize = new Size(0, 50);
             ShowAgrs.Name = "ShowAgrs";
             ShowAgrs.Padding = new Padding(2);
-            ShowAgrs.Size = new Size(153, 50);
+            ShowAgrs.Size = new Size(157, 50);
             ShowAgrs.TabIndex = 3;
             ShowAgrs.Text = "Договора";
-            ShowAgrs.UseVisualStyleBackColor = true;
+            ShowAgrs.UseVisualStyleBackColor = false;
             ShowAgrs.Click += ShowAgreements_Click;
             // 
             // Show_Settings
             // 
+            Show_Settings.BackColor = Color.DodgerBlue;
             Show_Settings.Dock = DockStyle.Bottom;
             Show_Settings.FlatStyle = FlatStyle.Flat;
-            Show_Settings.ForeColor = Color.White;
-            Show_Settings.Location = new Point(0, 360);
+            Show_Settings.ForeColor = Color.Navy;
+            Show_Settings.Location = new Point(0, 366);
             Show_Settings.MaximumSize = new Size(0, 50);
             Show_Settings.Name = "Show_Settings";
             Show_Settings.Padding = new Padding(2);
-            Show_Settings.Size = new Size(153, 50);
+            Show_Settings.Size = new Size(157, 50);
             Show_Settings.TabIndex = 2;
             Show_Settings.Text = "Настройки";
             Show_Settings.TextAlign = ContentAlignment.MiddleLeft;
-            Show_Settings.UseVisualStyleBackColor = true;
+            Show_Settings.UseVisualStyleBackColor = false;
             Show_Settings.Click += button3_Click;
             // 
             // ShowGenerator
             // 
-            ShowGenerator.BackColor = Color.RoyalBlue;
+            ShowGenerator.BackColor = Color.DodgerBlue;
             ShowGenerator.BackgroundImageLayout = ImageLayout.None;
             ShowGenerator.Dock = DockStyle.Bottom;
             ShowGenerator.FlatStyle = FlatStyle.Flat;
-            ShowGenerator.ForeColor = Color.White;
-            ShowGenerator.Location = new Point(0, 410);
+            ShowGenerator.ForeColor = Color.Navy;
+            ShowGenerator.Location = new Point(0, 416);
             ShowGenerator.MaximumSize = new Size(0, 50);
             ShowGenerator.Name = "ShowGenerator";
             ShowGenerator.Padding = new Padding(2);
-            ShowGenerator.Size = new Size(153, 50);
+            ShowGenerator.Size = new Size(157, 50);
             ShowGenerator.TabIndex = 1;
             ShowGenerator.Text = "Печать";
             ShowGenerator.TextAlign = ContentAlignment.MiddleLeft;
@@ -156,16 +160,16 @@
             // 
             // ShowPrice
             // 
-            ShowPrice.BackColor = Color.RoyalBlue;
+            ShowPrice.BackColor = Color.DodgerBlue;
             ShowPrice.Dock = DockStyle.Bottom;
             ShowPrice.FlatStyle = FlatStyle.Flat;
-            ShowPrice.ForeColor = Color.White;
-            ShowPrice.Location = new Point(0, 460);
+            ShowPrice.ForeColor = Color.Navy;
+            ShowPrice.Location = new Point(0, 466);
             ShowPrice.Margin = new Padding(5);
             ShowPrice.MaximumSize = new Size(0, 50);
             ShowPrice.Name = "ShowPrice";
             ShowPrice.Padding = new Padding(2);
-            ShowPrice.Size = new Size(153, 50);
+            ShowPrice.Size = new Size(157, 50);
             ShowPrice.TabIndex = 0;
             ShowPrice.Text = "Прайс";
             ShowPrice.TextAlign = ContentAlignment.MiddleLeft;
@@ -190,13 +194,14 @@
             Main_Split_Conatainer.Panel1.Controls.Add(label1);
             Main_Split_Conatainer.Panel1.Controls.Add(InputFilterText);
             Main_Split_Conatainer.Panel1.Controls.Add(menuStrip1);
+            Main_Split_Conatainer.Panel1MinSize = 120;
             // 
             // Main_Split_Conatainer.Panel2
             // 
-            Main_Split_Conatainer.Panel2.BackColor = Color.LightCoral;
+            Main_Split_Conatainer.Panel2.BackColor = Color.LightSkyBlue;
             Main_Split_Conatainer.Panel2.Paint += Main_Split_Conatainer_Panel2_Paint;
-            Main_Split_Conatainer.Size = new Size(956, 510);
-            Main_Split_Conatainer.SplitterDistance = 93;
+            Main_Split_Conatainer.Size = new Size(960, 516);
+            Main_Split_Conatainer.SplitterDistance = 120;
             Main_Split_Conatainer.SplitterWidth = 5;
             Main_Split_Conatainer.TabIndex = 0;
             // 
@@ -216,7 +221,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(7, 55);
             label1.Name = "label1";
-            label1.Size = new Size(254, 24);
+            label1.Size = new Size(209, 20);
             label1.TabIndex = 2;
             label1.Text = "Поиск договоров  и клиентов";
             // 
@@ -224,7 +229,7 @@
             // 
             InputFilterText.Location = new Point(288, 53);
             InputFilterText.Name = "InputFilterText";
-            InputFilterText.Size = new Size(453, 32);
+            InputFilterText.Size = new Size(453, 27);
             InputFilterText.TabIndex = 1;
             // 
             // menuStrip1
@@ -236,7 +241,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Margin = new Padding(2);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(956, 34);
+            menuStrip1.Size = new Size(960, 29);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "MainMenu";
             // 
@@ -244,30 +249,30 @@
             // 
             подключениеToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { настрйокиToolStripMenuItem, toolStripMenuItem1, выходToolStripMenuItem });
             подключениеToolStripMenuItem.Name = "подключениеToolStripMenuItem";
-            подключениеToolStripMenuItem.Size = new Size(153, 30);
+            подключениеToolStripMenuItem.Size = new Size(125, 25);
             подключениеToolStripMenuItem.Text = "Подключение";
             // 
             // настрйокиToolStripMenuItem
             // 
             настрйокиToolStripMenuItem.Name = "настрйокиToolStripMenuItem";
-            настрйокиToolStripMenuItem.Size = new Size(195, 30);
+            настрйокиToolStripMenuItem.Size = new Size(159, 26);
             настрйокиToolStripMenuItem.Text = "Настройки";
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(192, 6);
+            toolStripMenuItem1.Size = new Size(156, 6);
             // 
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            выходToolStripMenuItem.Size = new Size(195, 30);
+            выходToolStripMenuItem.Size = new Size(159, 26);
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
             // 
             // MainWindow
             // 
-            AutoScaleDimensions = new SizeF(120F, 120F);
+            AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.SeaShell;
             ClientSize = new Size(1122, 540);

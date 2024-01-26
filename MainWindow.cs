@@ -1,5 +1,6 @@
 using Doc4Lab;
 using DocGen7.Формы;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 
@@ -20,6 +21,15 @@ namespace wfa_symple
         public ConnectorDB Data_point = null;
 
         public string MainSQL = "";
+
+        //последние параметры
+        private string Last_SQL = "";
+        private List<SqlParameter> Last_params = null;
+
+
+        public Action task_alone = null;
+
+        
 
         public MainWindow()
         {
@@ -66,6 +76,21 @@ namespace wfa_symple
             report_generator.Hide();
             settings.Hide();
             agr_editor.Hide();
+
+            ShowPrice.BackColor = Color.DodgerBlue;
+            ShowPrice.ForeColor = Color.Navy;
+
+
+            ShowAgrs.BackColor = Color.DodgerBlue;
+            ShowAgrs.ForeColor = Color.Navy;
+
+            ShowGenerator.BackColor = Color.DodgerBlue;
+            ShowGenerator.ForeColor = Color.Navy;
+
+            Show_Settings.BackColor = Color.DodgerBlue;
+            Show_Settings.ForeColor = Color.Navy;
+
+
         }
 
 
@@ -88,6 +113,10 @@ namespace wfa_symple
             ShowPrice.Dock = DockStyle.Top;
 
 
+            ShowPrice.BackColor = Color.Navy;
+            ShowPrice.ForeColor = Color.Azure;
+
+
 
         }
 
@@ -99,6 +128,9 @@ namespace wfa_symple
             RePosButtons();
             ShowGenerator.Dock = DockStyle.Top;
 
+            ShowGenerator.BackColor = Color.Navy;
+            ShowGenerator.ForeColor = Color.Azure;
+
 
         }
 
@@ -109,6 +141,10 @@ namespace wfa_symple
 
             RePosButtons();
             Show_Settings.Dock = DockStyle.Top;
+
+            Show_Settings.BackColor = Color.Navy;
+            Show_Settings.ForeColor= Color.Azure;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -158,6 +194,11 @@ namespace wfa_symple
             this.Close();
         }
 
+        /// <summary>
+        /// Показать договора в главном окне
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowAgreements_Click(object sender, EventArgs e)
         {
             ShowAgrs.Dock = DockStyle.Top;
@@ -168,10 +209,12 @@ namespace wfa_symple
             agr_editor.parent_core = this;
 
             agr_editor.Show();
-            
-            
-            SearchData_Click(this, new EventArgs());
 
+
+            ShowAgrs.BackColor = Color.Navy;
+            ShowAgrs.ForeColor = Color.Azure;
+
+            SearchData_Click(this, new EventArgs());
 
         }
 
@@ -181,30 +224,48 @@ namespace wfa_symple
         }
 
 
+
+        public void UpdateMainScreen()
+        {
+            UpdateMainScreen(Last_SQL, Last_params);
+        }
+
         //
+        /// <summary>
+        /// Обновляет основной экран запросом сведений
+        /// </summary>
+        /// <param name="SQL">Базовый Select запрос для выдачи данных</param>
+        /// <param name="sql_params">Параметры</param>
         public void UpdateMainScreen(string SQL, List<SqlParameter> sql_params = null)
         {
             ConnectorDB Data_point = new ConnectorDB();
             agr_editor.listView_agreemtns.Items.Clear();
             agr_editor.listView_agreemtns.Columns.Clear();
 
-            //Класивая визуалка
+            //Красивая визуалка
             var p = this;
             var Main = (MainWindow)p;
             Main.Progresso.Value = 0;
             //--------------
 
 
+            
             SqlDataReader dr = Data_point.ExecSQL(SQL, sql_params);
 
             if (dr != null)
             {
+              
+
                 while (dr.Read())
                 {
                     if (!dr.HasRows) break;
 
                     if (agr_editor.listView_agreemtns.Columns.Count == 0)
                     {
+                        //Сохраняем
+                        Last_SQL = SQL;
+                        Last_params = sql_params;
+
                         // забиваем колонки в контроле
                         for (int i = 0; i < dr.FieldCount; i++)
                         {
@@ -272,6 +333,9 @@ namespace wfa_symple
                     }
 
                     Main.Progresso.Value = (Main.Progresso.Value + 10) % Main.Progresso.Maximum;
+                    lv_row.UseItemStyleForSubItems = true;
+                    lv_row.SubItems[1].ForeColor= Color.Coral;
+                    
                     agr_editor.listView_agreemtns.Items.Add(lv_row );
                 }
 
@@ -280,11 +344,9 @@ namespace wfa_symple
 
             Data_point.Dispose();
 
-            Task.Run(async () =>
-            {
-                Task.Delay(2000);
-                Main.Progresso.Value = 0;
-            });
+           
+            Main.Progresso.Value = 0;
+            
 
         }
 
