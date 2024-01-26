@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             statusStrip1 = new StatusStrip();
+            MSG_Status = new ToolStripStatusLabel();
+            Progresso = new ToolStripProgressBar();
             splitContainer1 = new SplitContainer();
             ShowAgrs = new Button();
             Show_Settings = new Button();
@@ -43,6 +45,7 @@
             настрйокиToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripSeparator();
             выходToolStripMenuItem = new ToolStripMenuItem();
+            statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -56,12 +59,24 @@
             // statusStrip1
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
-            statusStrip1.Location = new Point(0, 518);
+            statusStrip1.Items.AddRange(new ToolStripItem[] { MSG_Status, Progresso });
+            statusStrip1.Location = new Point(0, 514);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new Padding(1, 0, 18, 0);
-            statusStrip1.Size = new Size(1122, 22);
+            statusStrip1.Size = new Size(1122, 26);
             statusStrip1.TabIndex = 0;
             statusStrip1.Text = "statusStrip1";
+            // 
+            // MSG_Status
+            // 
+            MSG_Status.Name = "MSG_Status";
+            MSG_Status.Size = new Size(52, 20);
+            MSG_Status.Text = "Статус";
+            // 
+            // Progresso
+            // 
+            Progresso.Name = "Progresso";
+            Progresso.Size = new Size(300, 18);
             // 
             // splitContainer1
             // 
@@ -85,7 +100,7 @@
             // 
             splitContainer1.Panel2.BackColor = Color.White;
             splitContainer1.Panel2.Controls.Add(Main_Split_Conatainer);
-            splitContainer1.Size = new Size(1122, 518);
+            splitContainer1.Size = new Size(1122, 514);
             splitContainer1.SplitterDistance = 157;
             splitContainer1.SplitterWidth = 5;
             splitContainer1.TabIndex = 1;
@@ -110,7 +125,7 @@
             Show_Settings.Dock = DockStyle.Bottom;
             Show_Settings.FlatStyle = FlatStyle.Flat;
             Show_Settings.ForeColor = Color.White;
-            Show_Settings.Location = new Point(0, 364);
+            Show_Settings.Location = new Point(0, 360);
             Show_Settings.MaximumSize = new Size(0, 50);
             Show_Settings.Name = "Show_Settings";
             Show_Settings.Padding = new Padding(2);
@@ -128,7 +143,7 @@
             ShowGenerator.Dock = DockStyle.Bottom;
             ShowGenerator.FlatStyle = FlatStyle.Flat;
             ShowGenerator.ForeColor = Color.White;
-            ShowGenerator.Location = new Point(0, 414);
+            ShowGenerator.Location = new Point(0, 410);
             ShowGenerator.MaximumSize = new Size(0, 50);
             ShowGenerator.Name = "ShowGenerator";
             ShowGenerator.Padding = new Padding(2);
@@ -145,7 +160,7 @@
             ShowPrice.Dock = DockStyle.Bottom;
             ShowPrice.FlatStyle = FlatStyle.Flat;
             ShowPrice.ForeColor = Color.White;
-            ShowPrice.Location = new Point(0, 464);
+            ShowPrice.Location = new Point(0, 460);
             ShowPrice.Margin = new Padding(5);
             ShowPrice.MaximumSize = new Size(0, 50);
             ShowPrice.Name = "ShowPrice";
@@ -180,7 +195,7 @@
             // 
             Main_Split_Conatainer.Panel2.BackColor = Color.LightCoral;
             Main_Split_Conatainer.Panel2.Paint += Main_Split_Conatainer_Panel2_Paint;
-            Main_Split_Conatainer.Size = new Size(956, 514);
+            Main_Split_Conatainer.Size = new Size(956, 510);
             Main_Split_Conatainer.SplitterDistance = 93;
             Main_Split_Conatainer.SplitterWidth = 5;
             Main_Split_Conatainer.TabIndex = 0;
@@ -214,14 +229,14 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            menuStrip1.Font = new Font("Arial Unicode MS", 12F, FontStyle.Regular, GraphicsUnit.Point);
             menuStrip1.GripStyle = ToolStripGripStyle.Visible;
             menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Items.AddRange(new ToolStripItem[] { подключениеToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Margin = new Padding(2);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(956, 35);
+            menuStrip1.Size = new Size(956, 34);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "MainMenu";
             // 
@@ -229,24 +244,24 @@
             // 
             подключениеToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { настрйокиToolStripMenuItem, toolStripMenuItem1, выходToolStripMenuItem });
             подключениеToolStripMenuItem.Name = "подключениеToolStripMenuItem";
-            подключениеToolStripMenuItem.Size = new Size(176, 31);
+            подключениеToolStripMenuItem.Size = new Size(153, 30);
             подключениеToolStripMenuItem.Text = "Подключение";
             // 
             // настрйокиToolStripMenuItem
             // 
             настрйокиToolStripMenuItem.Name = "настрйокиToolStripMenuItem";
-            настрйокиToolStripMenuItem.Size = new Size(215, 32);
+            настрйокиToolStripMenuItem.Size = new Size(195, 30);
             настрйокиToolStripMenuItem.Text = "Настройки";
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(212, 6);
+            toolStripMenuItem1.Size = new Size(192, 6);
             // 
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            выходToolStripMenuItem.Size = new Size(215, 32);
+            выходToolStripMenuItem.Size = new Size(195, 30);
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
             // 
@@ -268,6 +283,8 @@
             SizeGripStyle = SizeGripStyle.Show;
             Text = "Form1";
             WindowState = FormWindowState.Maximized;
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
@@ -299,5 +316,7 @@
         private TextBox InputFilterText;
         private Button ShowAgrs;
         public Button SearchData;
+        public ToolStripProgressBar Progresso;
+        public ToolStripStatusLabel MSG_Status;
     }
 }

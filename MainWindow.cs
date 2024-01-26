@@ -130,7 +130,7 @@ namespace wfa_symple
         /// <param name="e"></param>
         public void SearchData_Click(object sender, EventArgs e)
         {
-
+            
             List<SqlParameter> sql_params = null;
 
             //Сам запрос
@@ -145,6 +145,7 @@ namespace wfa_symple
             }
 
             UpdateMainScreen(SQL,sql_params);
+           
         }
 
         private void Main_Split_Conatainer_Panel2_Paint(object sender, PaintEventArgs e)
@@ -186,6 +187,12 @@ namespace wfa_symple
             ConnectorDB Data_point = new ConnectorDB();
             agr_editor.listView_agreemtns.Items.Clear();
             agr_editor.listView_agreemtns.Columns.Clear();
+
+            //Класивая визуалка
+            var p = this;
+            var Main = (MainWindow)p;
+            Main.Progresso.Value = 0;
+            //--------------
 
 
             SqlDataReader dr = Data_point.ExecSQL(SQL, sql_params);
@@ -264,6 +271,7 @@ namespace wfa_symple
 
                     }
 
+                    Main.Progresso.Value = (Main.Progresso.Value + 10) % Main.Progresso.Maximum;
                     agr_editor.listView_agreemtns.Items.Add(lv_row );
                 }
 
@@ -271,6 +279,12 @@ namespace wfa_symple
             }//if
 
             Data_point.Dispose();
+
+            Task.Run(async () =>
+            {
+                Task.Delay(2000);
+                Main.Progresso.Value = 0;
+            });
 
         }
 

@@ -30,7 +30,9 @@
         {
             splitter1 = new Splitter();
             Split_Agrems = new SplitContainer();
+            SplitterDocs = new SplitContainer();
             listView_Clients = new ListView();
+            listView_agreemtns = new ListView();
             Agr_control = new Panel();
             CreateNewAgrForThisCleint = new Button();
             label3 = new Label();
@@ -40,7 +42,6 @@
             label1 = new Label();
             New_Client_Type = new ComboBox();
             CreateNewClient = new Button();
-            listView_agreemtns = new ListView();
             TabControlFull = new TabControl();
             tabeditor_Client = new TabPage();
             tabeditor_Agreement = new TabPage();
@@ -48,6 +49,10 @@
             Split_Agrems.Panel1.SuspendLayout();
             Split_Agrems.Panel2.SuspendLayout();
             Split_Agrems.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)SplitterDocs).BeginInit();
+            SplitterDocs.Panel1.SuspendLayout();
+            SplitterDocs.Panel2.SuspendLayout();
+            SplitterDocs.SuspendLayout();
             Agr_control.SuspendLayout();
             TabControlFull.SuspendLayout();
             SuspendLayout();
@@ -72,9 +77,8 @@
             // Split_Agrems.Panel1
             // 
             Split_Agrems.Panel1.BackColor = Color.LightSalmon;
-            Split_Agrems.Panel1.Controls.Add(listView_Clients);
+            Split_Agrems.Panel1.Controls.Add(SplitterDocs);
             Split_Agrems.Panel1.Controls.Add(Agr_control);
-            Split_Agrems.Panel1.Controls.Add(listView_agreemtns);
             // 
             // Split_Agrems.Panel2
             // 
@@ -84,17 +88,51 @@
             Split_Agrems.SplitterDistance = 718;
             Split_Agrems.TabIndex = 3;
             // 
+            // SplitterDocs
+            // 
+            SplitterDocs.Dock = DockStyle.Fill;
+            SplitterDocs.Location = new Point(0, 142);
+            SplitterDocs.Name = "SplitterDocs";
+            SplitterDocs.Orientation = Orientation.Horizontal;
+            // 
+            // SplitterDocs.Panel1
+            // 
+            SplitterDocs.Panel1.Controls.Add(listView_Clients);
+            // 
+            // SplitterDocs.Panel2
+            // 
+            SplitterDocs.Panel2.Controls.Add(listView_agreemtns);
+            SplitterDocs.Size = new Size(718, 802);
+            SplitterDocs.SplitterDistance = 238;
+            SplitterDocs.SplitterWidth = 10;
+            SplitterDocs.TabIndex = 2;
+            // 
             // listView_Clients
             // 
-            listView_Clients.Dock = DockStyle.Top;
+            listView_Clients.Dock = DockStyle.Fill;
             listView_Clients.FullRowSelect = true;
-            listView_Clients.Location = new Point(0, 142);
+            listView_Clients.Location = new Point(0, 0);
             listView_Clients.Name = "listView_Clients";
-            listView_Clients.Size = new Size(718, 256);
-            listView_Clients.TabIndex = 2;
+            listView_Clients.Size = new Size(718, 238);
+            listView_Clients.TabIndex = 4;
             listView_Clients.UseCompatibleStateImageBehavior = false;
             listView_Clients.View = View.Details;
-            listView_Clients.Click += listView_Clients_Click;
+            listView_Clients.ItemSelectionChanged += listView_Clients_ItemSelectionChanged;
+            // 
+            // listView_agreemtns
+            // 
+            listView_agreemtns.Dock = DockStyle.Fill;
+            listView_agreemtns.FullRowSelect = true;
+            listView_agreemtns.Location = new Point(0, 0);
+            listView_agreemtns.Margin = new Padding(3, 4, 3, 4);
+            listView_agreemtns.Name = "listView_agreemtns";
+            listView_agreemtns.ShowItemToolTips = true;
+            listView_agreemtns.Size = new Size(718, 554);
+            listView_agreemtns.TabIndex = 4;
+            listView_agreemtns.UseCompatibleStateImageBehavior = false;
+            listView_agreemtns.View = View.Details;
+            listView_agreemtns.SelectedIndexChanged += listView_agreemtns_SelectedIndexChanged_1;
+            listView_agreemtns.Click += listView_agreemtns_Click;
             // 
             // Agr_control
             // 
@@ -133,7 +171,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(11, 90);
             label3.Name = "label3";
-            label3.Size = new Size(104, 19);
+            label3.Size = new Size(124, 23);
             label3.TabIndex = 7;
             label3.Text = "Дата договора";
             // 
@@ -143,7 +181,7 @@
             New_Client_Date.Location = new Point(170, 87);
             New_Client_Date.Mask = "00/00/0000";
             New_Client_Date.Name = "New_Client_Date";
-            New_Client_Date.Size = new Size(220, 26);
+            New_Client_Date.Size = new Size(220, 30);
             New_Client_Date.TabIndex = 6;
             New_Client_Date.ValidatingType = typeof(DateTime);
             // 
@@ -151,7 +189,7 @@
             // 
             New_CLient_Number.Location = new Point(170, 48);
             New_CLient_Number.Name = "New_CLient_Number";
-            New_CLient_Number.Size = new Size(220, 26);
+            New_CLient_Number.Size = new Size(220, 30);
             New_CLient_Number.TabIndex = 4;
             // 
             // label2
@@ -159,7 +197,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(9, 51);
             label2.Name = "label2";
-            label2.Size = new Size(117, 19);
+            label2.Size = new Size(137, 23);
             label2.TabIndex = 3;
             label2.Text = "Номер договора";
             // 
@@ -168,7 +206,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(9, 9);
             label1.Name = "label1";
-            label1.Size = new Size(90, 19);
+            label1.Size = new Size(106, 23);
             label1.TabIndex = 2;
             label1.Text = "Тип клиента";
             // 
@@ -180,7 +218,7 @@
             New_Client_Type.Items.AddRange(new object[] { "Физическое лицо", "Юридическое лицо" });
             New_Client_Type.Location = new Point(170, 9);
             New_Client_Type.Name = "New_Client_Type";
-            New_Client_Type.Size = new Size(220, 27);
+            New_Client_Type.Size = new Size(220, 31);
             New_Client_Type.TabIndex = 1;
             // 
             // CreateNewClient
@@ -195,21 +233,6 @@
             CreateNewClient.UseVisualStyleBackColor = true;
             CreateNewClient.Click += Create_New_ClientNAgreement;
             // 
-            // listView_agreemtns
-            // 
-            listView_agreemtns.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            listView_agreemtns.FullRowSelect = true;
-            listView_agreemtns.Location = new Point(0, 405);
-            listView_agreemtns.Margin = new Padding(3, 4, 3, 4);
-            listView_agreemtns.Name = "listView_agreemtns";
-            listView_agreemtns.ShowItemToolTips = true;
-            listView_agreemtns.Size = new Size(718, 539);
-            listView_agreemtns.TabIndex = 0;
-            listView_agreemtns.UseCompatibleStateImageBehavior = false;
-            listView_agreemtns.View = View.Details;
-            listView_agreemtns.SelectedIndexChanged += listView_agreemtns_SelectedIndexChanged;
-            listView_agreemtns.Click += listView_agreemtns_Click;
-            // 
             // TabControlFull
             // 
             TabControlFull.Controls.Add(tabeditor_Client);
@@ -223,28 +246,28 @@
             // 
             // tabeditor_Client
             // 
-            tabeditor_Client.Location = new Point(4, 28);
+            tabeditor_Client.Location = new Point(4, 32);
             tabeditor_Client.Name = "tabeditor_Client";
             tabeditor_Client.Padding = new Padding(3);
-            tabeditor_Client.Size = new Size(364, 912);
+            tabeditor_Client.Size = new Size(364, 908);
             tabeditor_Client.TabIndex = 0;
             tabeditor_Client.Text = "Клиенты";
             tabeditor_Client.UseVisualStyleBackColor = true;
             // 
             // tabeditor_Agreement
             // 
-            tabeditor_Agreement.Location = new Point(4, 28);
+            tabeditor_Agreement.Location = new Point(4, 29);
             tabeditor_Agreement.Name = "tabeditor_Agreement";
             tabeditor_Agreement.Padding = new Padding(3);
-            tabeditor_Agreement.Size = new Size(364, 912);
+            tabeditor_Agreement.Size = new Size(364, 911);
             tabeditor_Agreement.TabIndex = 1;
             tabeditor_Agreement.Text = "Положение договора";
             tabeditor_Agreement.UseVisualStyleBackColor = true;
             // 
             // AgreementEditorWindow
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
-            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoScaleDimensions = new SizeF(10F, 23F);
+            AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             ClientSize = new Size(1097, 944);
             Controls.Add(Split_Agrems);
@@ -258,6 +281,10 @@
             Split_Agrems.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)Split_Agrems).EndInit();
             Split_Agrems.ResumeLayout(false);
+            SplitterDocs.Panel1.ResumeLayout(false);
+            SplitterDocs.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)SplitterDocs).EndInit();
+            SplitterDocs.ResumeLayout(false);
             Agr_control.ResumeLayout(false);
             Agr_control.PerformLayout();
             TabControlFull.ResumeLayout(false);
@@ -285,8 +312,6 @@
         private SplitContainer Split_Agrems;
         private Panel Agr_control;
         private Button CreateNewClient;
-        public ListView listView_agreemtns;
-        private ListView listView_Clients;
         private Label label1;
         private ComboBox New_Client_Type;
         private TextBox New_CLient_Number;
@@ -297,6 +322,9 @@
         private TabControl TabControlFull;
         private TabPage tabeditor_Client;
         private TabPage tabeditor_Agreement;
+        private SplitContainer SplitterDocs;
+        private ListView listView_Clients;
+        public ListView listView_agreemtns;
     }
 }
 

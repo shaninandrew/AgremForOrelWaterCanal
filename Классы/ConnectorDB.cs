@@ -80,7 +80,8 @@ namespace Doc4Lab
                 Debug.WriteLine(ex.Message);
                 Debug.WriteLine(ex.Source);
 
-                cmd.Dispose();
+                if (cmd!=null)
+                    cmd.Dispose();
 
                 //закрываем соедениение
                 connection.Close();
@@ -181,7 +182,9 @@ namespace Doc4Lab
         {
             try
             {
-                cmd.Dispose();
+                if (cmd!=null)
+                    cmd.Dispose();
+
                 cmd = null;
             }
             catch (Exception ex)
@@ -191,8 +194,11 @@ namespace Doc4Lab
 
             try
             {
-                connection.Close();
-                connection.Dispose();
+                if (connection != null)
+                {
+                    connection.Close();
+                    connection.Dispose();
+                }
             }
             catch
             { }

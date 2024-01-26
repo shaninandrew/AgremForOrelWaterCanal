@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocGen7.Кастомные_контролы;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,9 @@ namespace Doc4Lab
     {
 
         public MainWindow parent_core;
+
+        //редактор строк в БД
+        private UC_Editor_Row_In_DB Editor_Row_In_DB = null;
 
         public AgreementEditorWindow()
         {
@@ -179,119 +183,23 @@ namespace Doc4Lab
         /// <param name="e"></param>
         private void listView_agreemtns_Click(object sender, EventArgs e)
         {
-            if (listView_agreemtns.SelectedItems == null)
-                return;
 
-            if (listView_agreemtns.SelectedItems.Count == 0)
-                return;
-
-            int ix = listView_agreemtns.Columns.IndexOfKey("Guid");
-            //выход по пустышке
-            if (ix < 0)
-            { return; }
-
-            string Guid = listView_agreemtns.SelectedItems[0].SubItems[ix].Text;
-
-
-
-
-            //SelectClientsForAgreementsByID
-            string SQL = "SELECT * FROM [dbo].[SelectClientsForAgreementsByID] ('" + Guid + "' )";
-            listView_Clients.Items.Clear();
-
-            //Колонки
-            listView_Clients.Columns.Clear();
-
-            using (ConnectorDB con = new ConnectorDB())
-            using (SqlDataReader dr = con.ExecSQL(SQL, null))
-            {
-                if (dr != null)
-                    while (dr.Read())
-                    {
-                        if (!dr.HasRows) break;
-
-                        if (listView_Clients.Columns.Count == 0)
-                        {
-                            for (int i = 0; i < dr.FieldCount; i++)
-                            {
-                                ColumnHeader ch = new ColumnHeader();
-                                ch.Width = 100;
-                                ch.Name = dr.GetName(i);
-                                ch.Text = dr.GetName(i);
-
-                                if (ch.Name.ToLower().IndexOf("guid") > -1)
-                                    ch.Width = 50;
-
-                                if (ch.Name.ToLower()==("id") )
-                                    ch.Width = 50;
-                                /// ch.Width = 200; для отладки
-
-                                if (ch.Name.ToLower().IndexOf("name") > -1)
-                                    ch.Width = 200;
-
-                                ch.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
-
-                                listView_Clients.Columns.Add(ch);
-
-
-                            }
-
-                        }
-
-                        //Select 	link.[LinkGuid], cp.Name as Name_Personal,  link.ClientTypeID From 
-                        ListViewItem lv = new ListViewItem();
-
-                        lv.Text = dr.GetValue(0).ToString();
-                        ListViewItem.ListViewSubItem x = new ListViewItem.ListViewSubItem();
-                        x.Name= dr.GetName(1);
-                        x.Text = dr.GetValue(1).ToString();
-                        
-
-                        lv.SubItems.Add(x);
-
-                        ListViewItem.ListViewSubItem x2 = new ListViewItem.ListViewSubItem();
-                        x2.Name = dr.GetName(2);
-                        x2.Text = dr.GetValue(2).ToString();
-                        lv.SubItems.Add(x2);
-
-                        listView_Clients.Items.Add(lv);
-                    }
-                dr.Close();
-
-
-
-            }
-
-            //выбираем договор вкладку для правки
-            TabControlFull.SelectedTab = tabeditor_Agreement;
 
         }//click
 
+
+
+
+        /// <summary>
+        /// События щелчка по списку клиентов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listView_Clients_Click(object sender, EventArgs e)
         {
 
-            CreateNewAgrForThisCleint.Enabled = false;
-            // Запрос сведений
-            //SelectAgreementsForClientByID
 
-            if (listView_Clients.SelectedItems == null) return;
-            if (listView_Clients.SelectedItems.Count == 0) return;
 
-            string ID = listView_Clients.SelectedItems[0].SubItems[2].Text;
-            string SQL = "SELECT * FROM [dbo].[SelectAgreementsForClientByID] ( '" + ID + "')";
-
-            parent_core.UpdateMainScreen(SQL, null);
-
-            //разблокируем кнопку для нового договора для этого клиента
-            if (ID != "")
-            {
-                CreateNewAgrForThisCleint.Enabled = !false;
-
-                TabControlFull.SelectedTab = tabeditor_Client;
-
-            }
-
-            
 
         }
 
@@ -328,16 +236,16 @@ namespace Doc4Lab
             int ix = listView_Clients.SelectedItems[0].SubItems.IndexOfKey("LinkGuid");
             //нет колонок нафиг
             if (ix < 0)
-            { return;  }
+            { return; }
 
             //существующий клиент
-            string Old_Client_Guid = listView_Clients.SelectedItems[0].SubItems[ix].Text   ;
+            string Old_Client_Guid = listView_Clients.SelectedItems[0].SubItems[ix].Text;
 
             //новый документ
             string New_Agreement_Guid = Guid.NewGuid().ToString();
 
             ix = listView_Clients.SelectedItems[0].SubItems.IndexOfKey("ClientTypeID");
-            string ClientTypeID = (listView_Clients.SelectedItems[0].SubItems[ix].Text) ; //1 -фз 2 -юр
+            string ClientTypeID = (listView_Clients.SelectedItems[0].SubItems[ix].Text); //1 -фз 2 -юр
 
 
             //Тут вызывается самописная процедура внесения данных
@@ -349,7 +257,7 @@ namespace Doc4Lab
                         @"@Numdoc = N'" + New_CLient_Number.Text + "', " +
                         "@NewDoc = '" + New_Agreement_Guid + "', " +
                         "@ExistClient = '" + Old_Client_Guid + "' ," +
-                        "@ClientType ="+ClientTypeID + 
+                        "@ClientType =" + ClientTypeID +
                         "; SELECT  'Return Value' = @return_value";
 
 
@@ -367,6 +275,191 @@ namespace Doc4Lab
 
             New_Client_Date.Text = "";
             New_CLient_Number.Text = "";
+
+
+        }
+
+        private void listView_agreemtns_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (listView_agreemtns.SelectedItems == null)
+                return;
+
+            if (listView_agreemtns.SelectedItems.Count == 0)
+                return;
+
+            int ix = listView_agreemtns.Columns.IndexOfKey("Guid");
+            //выход по пустышке
+            if (ix < 0)
+            { return; }
+
+            string Guid = listView_agreemtns.SelectedItems[0].SubItems[ix].Text;
+
+            //SelectClientsForAgreementsByID
+            string SQL = "SELECT * FROM [dbo].[SelectClientsForAgreementsByID] ('" + Guid + "' )";
+            listView_Clients.Items.Clear();
+
+            //Колонки
+            listView_Clients.Columns.Clear();
+
+            using (ConnectorDB con = new ConnectorDB())
+            using (SqlDataReader dr = con.ExecSQL(SQL, null))
+            {
+                if (dr != null)
+                    while (dr.Read())
+                    {
+                        if (!dr.HasRows) break;
+
+                        if (listView_Clients.Columns.Count == 0)
+                        {
+                            for (int i = 0; i < dr.FieldCount; i++)
+                            {
+                                ColumnHeader ch = new ColumnHeader();
+                                ch.Width = 100;
+                                ch.Name = dr.GetName(i);
+                                ch.Text = dr.GetName(i);
+
+                                if (ch.Name.ToLower().IndexOf("guid") > -1)
+                                    ch.Width = 50;
+
+                                if (ch.Name.ToLower() == ("id"))
+                                    ch.Width = 50;
+                                /// ch.Width = 200; для отладки
+
+                                if (ch.Name.ToLower().IndexOf("name") > -1)
+                                    ch.Width = 200;
+
+                                ch.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+
+                                listView_Clients.Columns.Add(ch);
+
+
+                            }
+
+                        }
+
+                        //Select 	link.[LinkGuid], cp.Name as Name_Personal,  link.ClientTypeID From 
+                        ListViewItem lv = new ListViewItem();
+
+                        lv.Text = dr.GetValue(0).ToString();
+                        ListViewItem.ListViewSubItem x = new ListViewItem.ListViewSubItem();
+                        x.Name = dr.GetName(1);
+                        x.Text = dr.GetValue(1).ToString();
+
+
+                        lv.SubItems.Add(x);
+
+                        ListViewItem.ListViewSubItem x2 = new ListViewItem.ListViewSubItem();
+                        x2.Name = dr.GetName(2);
+                        x2.Text = dr.GetValue(2).ToString();
+                        lv.SubItems.Add(x2);
+
+                        listView_Clients.Items.Add(lv);
+                    }
+                dr.Close();
+
+
+
+            }
+
+            if (Editor_Row_In_DB != null)
+            {
+                Editor_Row_In_DB.Hide();
+                Editor_Row_In_DB.Dispose();
+
+            }
+            //создаем редактор в Табе
+            Editor_Row_In_DB = new UC_Editor_Row_In_DB(tabeditor_Agreement);
+            //инфа о клиента
+
+            //берем связку
+            string guid = listView_agreemtns.SelectedItems[0].SubItems["Guid"].Text;
+
+            string table = "Agreements";
+            string columns = @"     [Name]
+                                  ,[NumDoc]
+                                  ,[Date]
+                                  ,[Status]
+                                  ,[TotalSum]
+
+                                ";
+
+            //Подгурзка записи
+            Editor_Row_In_DB.LoadData(table, "guid", guid, columns);
+
+            //выбираем договор вкладку для правки
+            TabControlFull.SelectedTab = tabeditor_Agreement;
+
+        }
+
+        /// <summary>
+        /// Сменился выделенный элемент
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listView_Clients_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+           
+
+            CreateNewAgrForThisCleint.Enabled = false;
+            // Запрос сведений
+            //SelectAgreementsForClientByID
+
+            if (listView_Clients.SelectedItems == null) return;
+            if (listView_Clients.SelectedItems.Count == 0) return;
+
+            string ID = listView_Clients.SelectedItems[0].SubItems[2].Text;
+            string SQL = "SELECT * FROM [dbo].[SelectAgreementsForClientByID] ( '" + ID + "')";
+
+            parent_core.UpdateMainScreen(SQL, null);
+
+            //разблокируем кнопку для нового договора для этого клиента
+            if (ID != "")
+            {
+                CreateNewAgrForThisCleint.Enabled = !false;
+
+                
+                //Показываем юзер контрол для редактирования
+
+                if (Editor_Row_In_DB != null)
+                {
+                    Editor_Row_In_DB.Hide();
+                    Editor_Row_In_DB.Dispose();
+                    Editor_Row_In_DB = null;
+                }
+
+
+                //создаем редактор в Табе
+                Editor_Row_In_DB = new UC_Editor_Row_In_DB(tabeditor_Client);
+                //инфа о клиента
+                //берем связку
+                string guid = listView_Clients.SelectedItems[0].SubItems["LinkGuid"].Text;
+                string type_client = listView_Clients.SelectedItems[0].SubItems["ClientTypeID"].Text;
+
+                string table = "ClientPersonal";
+                string columns = @"[Name]
+                                  ,[Address]
+                                  ,[Phone]
+                                  ,[Email]
+                                  ,[ident_doc_name]
+                                  ,[ident_doc_number]
+                                  ,[ident_doc_date]
+                                  ,[ident_doc_issue]";
+
+                if (type_client == "2")
+                {
+                    table = "ClientEntity";
+                    columns = "[Name] ,[Address]  ,[Phone]  ,[INN]   ,[OGRN] ,[Description]";
+                }
+
+                //Подгурзка записиа
+                Editor_Row_In_DB.LoadData(table, "guid", guid, columns);
+                
+                //перворот страницы
+                TabControlFull.SelectedTab = tabeditor_Client;
+
+
+
+            }
 
 
         }
