@@ -12,7 +12,7 @@ namespace wfa_symple
         Color default_BackColor = Color.White;
 
         //Вложенные формы
-        public Editor_Price editor_price = new Editor_Price();
+        public Editor_Price editor_price = null;
         public ReportGenerator report_generator = new ReportGenerator();
         public Settings settings = new Settings();
         public AgreementEditorWindow agr_editor = null;
@@ -40,6 +40,7 @@ namespace wfa_symple
             //скрытый редактор
 
 
+            editor_price = new Editor_Price(this);
             editor_price.Dock = DockStyle.Fill;
             editor_price.FormBorderStyle = FormBorderStyle.None;
             editor_price.TopLevel = false;
@@ -167,23 +168,41 @@ namespace wfa_symple
         /// <param name="e"></param>
         public void SearchData_Click(object sender, EventArgs e)
         {
-
-            List<SqlParameter> sql_params = null;
-
-            //Сам запрос
-            string SQL = $"Select * from SelectAgreementsMainPoint (1000) ";
-
-            if (InputFilterText.Text != "")
+            //если активно окно работы с договорами
+            if (editor_price.Visible)
             {
-                sql_params = new List<SqlParameter>();
-                sql_params.Add(new SqlParameter("@SEARCH", InputFilterText.Text));
 
-                SQL += "  WHERE [ID] in ( Select ID FROM SelectAgreementsByString (@SEARCH) )  ";
+                List<SqlParameter> sql_params = null;
+
+                //Сам запрос
+                string SQL = $"Select TOP ((1000)) [Service]  ,[Price]     ,[Date_start] ,[Date_end] ,[Guid] from PriceList  ";
+                //Сортировка результатов
+                SQL += "  order by [Date_start] desc";
+
+                editor_price.LVCX.UpdateMainScreen(SQL, sql_params);
+
             }
+            //если активно окно работы с договорами
+            if (agr_editor.Visible)
+            {
 
-            //Сортировка результатов
-            SQL += "  order by [Date] desc";
-            UpdateMainScreen(SQL, sql_params);
+                List<SqlParameter> sql_params = null;
+
+                //Сам запрос
+                string SQL = $"Select * from SelectAgreementsMainPoint (1000) ";
+
+                if (InputFilterText.Text != "")
+                {
+                    sql_params = new List<SqlParameter>();
+                    sql_params.Add(new SqlParameter("@SEARCH", InputFilterText.Text));
+
+                    SQL += "  WHERE [ID] in ( Select ID FROM SelectAgreementsByString (@SEARCH) )  ";
+                }
+
+                //Сортировка результатов
+                SQL += "  order by [Date] desc";
+                agr_editor.UpdateMainScreen(SQL, sql_params);
+            }
 
         }
 
@@ -228,182 +247,7 @@ namespace wfa_symple
 
 
 
-        /// <summary>
-        /// Без параметров - повторит последний
-        /// </summary>
-        public void UpdateMainScreen()
-        {
-            UpdateMainScreen(Last_SQL, Last_params);
-        }
-
-        //
-        /// <summary>
-        /// Обновляет основной экран запросом сведений
-        /// </summary>
-        /// <param name="SQL">Базовый Select запрос для выдачи данных</param>
-        /// <param name="sql_params">Параметры</param>
-        public void UpdateMainScreen(string SQL, List<SqlParameter> sql_params = null)
-        {
-            //-- смохраняем выделенную позицию
-            int selected_item = 0;
-            Point scrollTo = agr_editor.listView_agreemtns.AutoScrollOffset;
-            if (agr_editor.listView_agreemtns.SelectedItems != null)
-            {
-                if (agr_editor.listView_agreemtns.SelectedItems.Count > 0)
-                {
-                    selected_item = agr_editor.listView_agreemtns.SelectedItems[0].Index;
-                    
-                }
-
-            }
-
-
-
-            ConnectorDB Data_point = new ConnectorDB();
-            agr_editor.listView_agreemtns.Items.Clear();
-            agr_editor.listView_agreemtns.Columns.Clear();
-
-            List<string> Groups = new List<string>();
-            //Красивая визуалка
-            var p = this;
-            var Main = (MainWindow)p;
-            Main.Progresso.Value = 0;
-            //--------------
-
-    
-
-
-            SqlDataReader dr = Data_point.ExecSQL(SQL, sql_params);
-
-            if (dr != null)
-            {
-                  //считываем строку из БД
-                while (dr.Read())
-                {
-                    if (!dr.HasRows) break;
-
-                    if (agr_editor.listView_agreemtns.Columns.Count == 0)
-                    {
-                        //Сохраняем
-                        Last_SQL = SQL;
-                        Last_params = sql_params;
-
-                        // забиваем колонки в контроле
-                        for (int i = 0; i < dr.FieldCount; i++)
-                        {
-
-                            ColumnHeader ch = new ColumnHeader();
-                            ch.Width = 150;
-                            ch.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
-
-                            ch.Text = dr.GetName(i);
-                            ch.Name = dr.GetName(i);
-
-                            //Название шире
-                            if (ch.Name.ToLower() == "name")
-                                ch.Width = 250;
-
-                            //прячем все ID
-                            if (ch.Name.ToLower().IndexOf("id") > -1)
-                            {
-                                ch.Width = 30;
-                                /// ch.Width = 200; для отладки
-                            }
-                            else
-                            {
-                                ch.TextAlign = HorizontalAlignment.Center;
-                                ch.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
-                            }
-
-                            agr_editor.listView_agreemtns.Columns.Add(ch);
-                        }
-
-                    }//if первая строка
-
-                    List<string> row = new List<string>();
-
-                    ListViewItem lv_row = new ListViewItem();
-
-                    string Date_for_group = "";
-                    for (int i = 0; i < dr.FieldCount; i++)
-                    {
-
-                        string fieldName = dr.GetName(i);
-
-                        string val = dr[i].ToString();
-                        if (val.IndexOf("0:00:00") > 0)
-                        {
-                            val = val.Replace("0:00:00", "");
-                            Date_for_group = val;
-                        }
-
-
-                        if (i > 0)
-                        {
-                            var x = lv_row.SubItems.Add(val);
-                            x.Name = fieldName;
-                            if (fieldName.ToLower().IndexOf("id") > -1)
-                            {
-                                //id подсветим
-                                x.BackColor = Color.Coral;
-                            }
-
-                        }
-                        else
-                        {
-                            //1 столбик
-                            lv_row.Text = val;
-                        }
-
-                    }
-
-                    Main.Progresso.Value = (Main.Progresso.Value + 10) % Main.Progresso.Maximum;
-                    lv_row.UseItemStyleForSubItems = true;
-                    lv_row.SubItems[1].ForeColor = Color.Coral;
-                    
-                    //ГШРуппировка по датам
-                    lv_row.Group = new ListViewGroup(Date_for_group);
-
-
-                    var item = agr_editor.listView_agreemtns.Items.Add(lv_row);
-
-                    if (Groups.IndexOf(Date_for_group) == -1)
-                    {
-                        Groups.Add(Date_for_group);
-                        agr_editor.listView_agreemtns.Groups.Add("Дата", Date_for_group);
-
-
-                    }
-                    var group = agr_editor.listView_agreemtns.Groups [agr_editor.listView_agreemtns.Groups.Count-1];
-                    group.Items.Add(item);
-                    group.Footer = " "; //разрыв дял визуалки
-                    //group.Subtitle  = " Дата";
-
-                }
-
-                dr.Close();
-            }//if
-
-            Data_point.Dispose();
-
-
-            Main.Progresso.Value = 0;
-
-            agr_editor.listView_agreemtns.ShowGroups = true;
-
-           
-            //---В/осстановление сохраненной позы ====
-            if (agr_editor.listView_agreemtns.Items.Count > selected_item)
-            {
-                agr_editor.listView_agreemtns.Items[selected_item].Selected = true;
-                agr_editor.listView_agreemtns.AutoScrollOffset= scrollTo;
-                agr_editor.listView_agreemtns.EnsureVisible(selected_item);
-            }
-           
-
-
-
-        }
+       
 
         /// <summary>
         /// При наборе запроса можно нажать Enter для поиска

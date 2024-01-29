@@ -47,6 +47,8 @@ namespace DocGen7.Кастомные_контролы
 
         public bool DataUpdated = false;
 
+        private Delegate _call_update = null;
+
 
         private AgreementEditorWindow agreementEditorWindow = null;
         public void SetMotherControls(AgreementEditorWindow w, MainWindow main)
@@ -58,11 +60,14 @@ namespace DocGen7.Кастомные_контролы
             Main = main;
         }
 
-        public UC_Editor_Row_In_DB(Control parent, MainWindow main, string? connection_string = null)
+        public UC_Editor_Row_In_DB(Control parent, Action CallUpdate , MainWindow main, string? connection_string = null)
         {
             InitializeComponent();
             _connection_string = connection_string;
             this.Parent = parent;
+
+            //связка с событием
+            _call_update = CallUpdate;
 
             //очистка и сохранение состояния
             _list.Clear();
@@ -351,8 +356,10 @@ namespace DocGen7.Кастомные_контролы
 
                 SaveIt.Enabled = false;
                 //без параметров
-                if (Main != null)
-                  { Main.UpdateMainScreen(); } 
+
+                //Вызов функции обновления экрана и рочих фишек
+                _call_update.DynamicInvoke() ;
+                
             }
         }//SaveIt
 

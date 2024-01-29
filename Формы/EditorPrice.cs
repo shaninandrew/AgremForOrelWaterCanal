@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocGen7.Кастомные_контролы;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,47 @@ namespace wfa_symple
 {
     public partial class Editor_Price : Form
     {
-        public Editor_Price()
+
+   
+
+        private string SQL = "";
+        private MainWindow _main = null;
+
+        public Editor_Price(MainWindow main)
         {
             InitializeComponent();
+            _main = main;
+            Action Update = UpdateMainScreen;
+            LVCX.Dock = DockStyle.Fill               ;
+
+        }
+
+
+        public void UpdateMainScreen(string sql)
+        {
+            SQL = sql;
+            LVCX.UpdateMainScreen(sql);
+        }
+
+        public void UpdateMainScreen()
+        {
+
+            LVCX.UpdateMainScreen(SQL);
+        }
+
+        private void Editor_Price_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LVCX_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LVCX_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

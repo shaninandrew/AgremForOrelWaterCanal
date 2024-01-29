@@ -12,8 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using wfa_symple;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
+
 
 namespace Doc4Lab
 {
@@ -26,6 +26,8 @@ namespace Doc4Lab
         private UC_Editor_Row_In_DB Editor_Row_In_DB_Clients = null;
         private UC_Editor_Row_In_DB Editor_Row_In_DB_Agreements = null;
 
+        private string Last_SQL = "";
+        private List<SqlParameter> Last_params = null;
 
 
         /// <summary>
@@ -37,8 +39,11 @@ namespace Doc4Lab
             InitializeComponent();
 
             parent_core = parentCore;
-            Editor_Row_In_DB_Clients = new UC_Editor_Row_In_DB(tabeditor_Client, parent_core);
-            Editor_Row_In_DB_Agreements = new UC_Editor_Row_In_DB(tabeditor_Agreement,  parent_core);
+
+            Action Update_Then_Need = UpdateMainScreen;
+
+            Editor_Row_In_DB_Clients = new UC_Editor_Row_In_DB(tabeditor_Client, Update_Then_Need , parent_core) ;
+            Editor_Row_In_DB_Agreements = new UC_Editor_Row_In_DB(tabeditor_Agreement, Update_Then_Need,  parent_core);
       
         }
 
@@ -414,7 +419,7 @@ namespace Doc4Lab
             string ID = listView_Clients.SelectedItems[0].SubItems[2].Text;
             string SQL = "SELECT * FROM [dbo].[SelectAgreementsForClientByID] ( '" + ID + "')";
 
-            parent_core.UpdateMainScreen(SQL, null);
+            UpdateMainScreen(SQL, null);
 
             //разблокируем кнопку для нового договора для этого клиента
             if (ID != "")
@@ -512,5 +517,179 @@ namespace Doc4Lab
         }
 
 
-}
+
+        /// <summary>
+        /// Без параметров - повторит последний
+        /// </summary>
+        public void UpdateMainScreen()
+        {
+            UpdateMainScreen(Last_SQL, Last_params);
+        }
+
+        //
+        /// <summary>
+        /// Обновляет основной экран запросом сведений
+        /// </summary>
+        /// <param name="SQL">Базовый Select запрос для выдачи данных</param>
+        /// <param name="sql_params">Параметры</param>
+        public void UpdateMainScreen(string SQL, List<SqlParameter> sql_params = null)
+        {
+            //-- смохраняем выделенную позицию
+            int selected_item = 0;
+            Point scrollTo = this.listView_agreemtns.AutoScrollOffset;
+            if (this.listView_agreemtns.SelectedItems != null)
+            {
+                if (this.listView_agreemtns.SelectedItems.Count > 0)
+                {
+                    selected_item = this.listView_agreemtns.SelectedItems[0].Index;
+
+                }
+
+            }
+
+            // Соединение с БД и наполение данными
+
+            ConnectorDB Data_point = new ConnectorDB();
+            this.listView_agreemtns.Items.Clear();
+            this.listView_agreemtns.Columns.Clear();
+
+            List<string> Groups = new List<string>();
+            //Красивая визуалка
+            var p = this;
+            var Main = parent_core;
+            Main.Progresso.Value = 0;
+            //--------------
+
+
+            SqlDataReader dr = Data_point.ExecSQL(SQL, sql_params);
+
+            if (dr != null)
+            {
+                //считываем строку из БД
+                while (dr.Read())
+                {
+                    if (!dr.HasRows) break;
+
+                    if (this.listView_agreemtns.Columns.Count == 0)
+                    {
+                        //Сохраняем
+                        Last_SQL = SQL;
+                        Last_params = sql_params;
+
+                        // забиваем колонки в контроле
+                        for (int i = 0; i < dr.FieldCount; i++)
+                        {
+
+                            ColumnHeader ch = new ColumnHeader();
+                            ch.Width = 150;
+                            ch.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+
+                            ch.Text = dr.GetName(i);
+                            ch.Name = dr.GetName(i);
+
+                            //Название шире
+                            if (ch.Name.ToLower() == "name")
+                                ch.Width = 250;
+
+                            //прячем все ID
+                            if (ch.Name.ToLower().IndexOf("id") > -1)
+                            {
+                                ch.Width = 30;
+                                /// ch.Width = 200; для отладки
+                            }
+                            else
+                            {
+                                ch.TextAlign = HorizontalAlignment.Center;
+                                ch.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+                            }
+
+                            this.listView_agreemtns.Columns.Add(ch);
+                        }
+
+                    }//if первая строка
+
+                    List<string> row = new List<string>();
+
+                    ListViewItem lv_row = new ListViewItem();
+
+                    string Date_for_group = "";
+                    for (int i = 0; i < dr.FieldCount; i++)
+                    {
+
+                        string fieldName = dr.GetName(i);
+
+                        string val = dr[i].ToString();
+                        if (val.IndexOf("0:00:00") > 0)
+                        {
+                            val = val.Replace("0:00:00", "");
+                            Date_for_group = val;
+                        }
+
+
+                        if (i > 0)
+                        {
+                            var x = lv_row.SubItems.Add(val);
+                            x.Name = fieldName;
+                            if (fieldName.ToLower().IndexOf("id") > -1)
+                            {
+                                //id подсветим
+                                x.BackColor = Color.Coral;
+                            }
+
+                        }
+                        else
+                        {
+                            //1 столбик
+                            lv_row.Text = val;
+                        }
+
+                    }
+
+                    Main.Progresso.Value = (Main.Progresso.Value + 10) % Main.Progresso.Maximum;
+                    lv_row.UseItemStyleForSubItems = true;
+                    lv_row.SubItems[1].ForeColor = Color.Coral;
+
+                    //ГШРуппировка по датам
+                    lv_row.Group = new ListViewGroup(Date_for_group);
+
+
+                    var item = this.listView_agreemtns.Items.Add(lv_row);
+
+                    if (Groups.IndexOf(Date_for_group) == -1)
+                    {
+                        Groups.Add(Date_for_group);
+                        this.listView_agreemtns.Groups.Add("Дата", Date_for_group);
+
+
+                    }
+                    var group = this.listView_agreemtns.Groups[this.listView_agreemtns.Groups.Count - 1];
+                    group.Items.Add(item);
+                    group.Footer = " "; //разрыв дял визуалки
+                    //group.Subtitle  = " Дата";
+
+                }
+
+                dr.Close();
+            }//if
+
+            Data_point.Dispose();
+
+            Main.Progresso.Value = 0;
+            this.listView_agreemtns.ShowGroups = true;
+
+            //---Восстановление сохраненной позы ====
+            if (this.listView_agreemtns.Items.Count > selected_item)
+            {
+                this.listView_agreemtns.Items[selected_item].Selected = true;
+                this.listView_agreemtns.AutoScrollOffset = scrollTo;
+                this.listView_agreemtns.EnsureVisible(selected_item);
+            }
+
+
+
+
+        } //Update Main screen
+
+
+    }
 }

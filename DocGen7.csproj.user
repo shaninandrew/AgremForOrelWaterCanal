@@ -4,6 +4,9 @@
     <Compile Update="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Кастомные контролы\ListViewForDataPoint.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Кастомные контролы\Редактор строки в БД.cs">
       <SubType>UserControl</SubType>
     </Compile>

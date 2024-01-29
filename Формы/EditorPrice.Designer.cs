@@ -28,43 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Add_Price = new Button();
-            Delete_Price = new Button();
+            LVCX = new DocGen7.Кастомные_контролы.ListViewForDataPoint(_main);
             SuspendLayout();
             // 
-            // Add_Price
+            // LVCX
             // 
-            Add_Price.Location = new Point(12, 12);
-            Add_Price.Name = "Add_Price";
-            Add_Price.Size = new Size(115, 38);
-            Add_Price.TabIndex = 0;
-            Add_Price.Text = "Добавить услугу";
-            Add_Price.UseVisualStyleBackColor = true;
-            // 
-            // Delete_Price
-            // 
-            Delete_Price.Location = new Point(133, 12);
-            Delete_Price.Name = "Delete_Price";
-            Delete_Price.Size = new Size(115, 38);
-            Delete_Price.TabIndex = 1;
-            Delete_Price.Text = "Удалить услугу";
-            Delete_Price.UseVisualStyleBackColor = true;
+            LVCX.BackColor = Color.LightSkyBlue;
+            LVCX.Dock = DockStyle.Top;
+            LVCX.Location = new Point(0, 0);
+            LVCX.Margin = new Padding(3, 4, 3, 4);
+            LVCX.Name = "LVCX";
+            LVCX.Size = new Size(1119, 384);
+            LVCX.TabIndex = 0;
+            LVCX.Click += LVCX_Click;
             // 
             // Editor_Price
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(Delete_Price);
-            Controls.Add(Add_Price);
+            ClientSize = new Size(1119, 679);
+            Controls.Add(LVCX);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Editor_Price";
             Text = "Редактор_прайса";
+            Load += Editor_Price_Load;
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Button Add_Price;
-        private Button Delete_Price;
+        public DocGen7.Кастомные_контролы.ListViewForDataPoint LVC;
+        private DocGen7.Кастомные_контролы.ListViewForDataPoint listViewForDataPoint1;
+        public DocGen7.Кастомные_контролы.ListViewForDataPoint LVCX;
     }
 }
