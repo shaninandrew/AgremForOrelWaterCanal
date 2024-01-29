@@ -68,24 +68,31 @@
             // 
             // Split_Agrems
             // 
+            Split_Agrems.BackColor = Color.DeepSkyBlue;
             Split_Agrems.Dock = DockStyle.Fill;
             Split_Agrems.FixedPanel = FixedPanel.Panel1;
             Split_Agrems.Location = new Point(3, 0);
             Split_Agrems.Margin = new Padding(3, 4, 3, 4);
+            Split_Agrems.MinimumSize = new Size(600, 600);
             Split_Agrems.Name = "Split_Agrems";
             // 
             // Split_Agrems.Panel1
             // 
-            Split_Agrems.Panel1.BackColor = Color.LightSalmon;
+            Split_Agrems.Panel1.AutoScroll = true;
+            Split_Agrems.Panel1.BackColor = Color.LightSkyBlue;
             Split_Agrems.Panel1.Controls.Add(SplitterDocs);
             Split_Agrems.Panel1.Controls.Add(Agr_control);
+            Split_Agrems.Panel1.ForeColor = Color.Black;
+            Split_Agrems.Panel1MinSize = 620;
             // 
             // Split_Agrems.Panel2
             // 
             Split_Agrems.Panel2.Controls.Add(TabControlFull);
             Split_Agrems.Panel2.Paint += Split_Agrems_Panel2_Paint;
+            Split_Agrems.Panel2MinSize = 450;
             Split_Agrems.Size = new Size(1094, 845);
-            Split_Agrems.SplitterDistance = 666;
+            Split_Agrems.SplitterDistance = 620;
+            Split_Agrems.SplitterWidth = 8;
             Split_Agrems.TabIndex = 3;
             // 
             // SplitterDocs
@@ -103,7 +110,7 @@
             // SplitterDocs.Panel2
             // 
             SplitterDocs.Panel2.Controls.Add(listView_agreemtns);
-            SplitterDocs.Size = new Size(666, 703);
+            SplitterDocs.Size = new Size(620, 703);
             SplitterDocs.SplitterDistance = 208;
             SplitterDocs.SplitterWidth = 10;
             SplitterDocs.TabIndex = 2;
@@ -115,7 +122,7 @@
             listView_Clients.FullRowSelect = true;
             listView_Clients.Location = new Point(0, 0);
             listView_Clients.Name = "listView_Clients";
-            listView_Clients.Size = new Size(666, 208);
+            listView_Clients.Size = new Size(620, 208);
             listView_Clients.TabIndex = 4;
             listView_Clients.UseCompatibleStateImageBehavior = false;
             listView_Clients.View = View.Details;
@@ -130,7 +137,7 @@
             listView_agreemtns.Margin = new Padding(3, 4, 3, 4);
             listView_agreemtns.Name = "listView_agreemtns";
             listView_agreemtns.ShowItemToolTips = true;
-            listView_agreemtns.Size = new Size(666, 485);
+            listView_agreemtns.Size = new Size(620, 485);
             listView_agreemtns.TabIndex = 4;
             listView_agreemtns.UseCompatibleStateImageBehavior = false;
             listView_agreemtns.View = View.Details;
@@ -153,17 +160,18 @@
             Agr_control.Location = new Point(0, 0);
             Agr_control.Margin = new Padding(3, 4, 3, 4);
             Agr_control.Name = "Agr_control";
-            Agr_control.Size = new Size(666, 142);
+            Agr_control.Size = new Size(620, 142);
             Agr_control.TabIndex = 1;
             // 
             // CreateNewAgrForThisCleint
             // 
             CreateNewAgrForThisCleint.Enabled = false;
             CreateNewAgrForThisCleint.FlatAppearance.BorderColor = Color.RosyBrown;
-            CreateNewAgrForThisCleint.Location = new Point(414, 64);
+            CreateNewAgrForThisCleint.Location = new Point(358, 69);
             CreateNewAgrForThisCleint.Margin = new Padding(3, 4, 3, 4);
+            CreateNewAgrForThisCleint.MaximumSize = new Size(120, 75);
             CreateNewAgrForThisCleint.Name = "CreateNewAgrForThisCleint";
-            CreateNewAgrForThisCleint.Size = new Size(234, 49);
+            CreateNewAgrForThisCleint.Size = new Size(120, 55);
             CreateNewAgrForThisCleint.TabIndex = 8;
             CreateNewAgrForThisCleint.Text = "Новый договор к этому клиенту";
             CreateNewAgrForThisCleint.UseVisualStyleBackColor = true;
@@ -181,7 +189,7 @@
             // New_Client_Date
             // 
             New_Client_Date.InsertKeyMode = InsertKeyMode.Overwrite;
-            New_Client_Date.Location = new Point(170, 87);
+            New_Client_Date.Location = new Point(132, 87);
             New_Client_Date.Mask = "00/00/0000";
             New_Client_Date.Name = "New_Client_Date";
             New_Client_Date.Size = new Size(220, 26);
@@ -190,7 +198,7 @@
             // 
             // New_CLient_Number
             // 
-            New_CLient_Number.Location = new Point(170, 48);
+            New_CLient_Number.Location = new Point(132, 48);
             New_CLient_Number.Name = "New_CLient_Number";
             New_CLient_Number.Size = new Size(220, 26);
             New_CLient_Number.TabIndex = 4;
@@ -219,7 +227,7 @@
             New_Client_Type.FlatStyle = FlatStyle.Flat;
             New_Client_Type.FormattingEnabled = true;
             New_Client_Type.Items.AddRange(new object[] { "Физическое лицо", "Юридическое лицо" });
-            New_Client_Type.Location = new Point(170, 9);
+            New_Client_Type.Location = new Point(132, 9);
             New_Client_Type.Name = "New_Client_Type";
             New_Client_Type.Size = new Size(220, 27);
             New_Client_Type.TabIndex = 1;
@@ -227,10 +235,11 @@
             // CreateNewClient
             // 
             CreateNewClient.FlatAppearance.BorderColor = Color.RosyBrown;
-            CreateNewClient.Location = new Point(414, 4);
+            CreateNewClient.Location = new Point(358, 4);
             CreateNewClient.Margin = new Padding(3, 4, 3, 4);
+            CreateNewClient.MaximumSize = new Size(120, 75);
             CreateNewClient.Name = "CreateNewClient";
-            CreateNewClient.Size = new Size(234, 52);
+            CreateNewClient.Size = new Size(120, 57);
             CreateNewClient.TabIndex = 0;
             CreateNewClient.Text = "Новый договор +новый клиент";
             CreateNewClient.UseVisualStyleBackColor = true;
@@ -244,7 +253,7 @@
             TabControlFull.Location = new Point(0, 0);
             TabControlFull.Name = "TabControlFull";
             TabControlFull.SelectedIndex = 0;
-            TabControlFull.Size = new Size(424, 845);
+            TabControlFull.Size = new Size(466, 845);
             TabControlFull.TabIndex = 0;
             // 
             // tabeditor_Client
@@ -252,7 +261,7 @@
             tabeditor_Client.Location = new Point(4, 28);
             tabeditor_Client.Name = "tabeditor_Client";
             tabeditor_Client.Padding = new Padding(3);
-            tabeditor_Client.Size = new Size(416, 813);
+            tabeditor_Client.Size = new Size(458, 813);
             tabeditor_Client.TabIndex = 0;
             tabeditor_Client.Text = "Клиенты";
             tabeditor_Client.UseVisualStyleBackColor = true;
@@ -262,16 +271,15 @@
             tabeditor_Agreement.Location = new Point(4, 24);
             tabeditor_Agreement.Name = "tabeditor_Agreement";
             tabeditor_Agreement.Padding = new Padding(3);
-            tabeditor_Agreement.Size = new Size(364, 817);
+            tabeditor_Agreement.Size = new Size(458, 817);
             tabeditor_Agreement.TabIndex = 1;
             tabeditor_Agreement.Text = "Положение договора";
             tabeditor_Agreement.UseVisualStyleBackColor = true;
             // 
             // AgreementEditorWindow
             // 
-            AutoScaleDimensions = new SizeF(8F, 19F);
-            AutoScaleMode = AutoScaleMode.Font;
-            AutoSize = true;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(1097, 845);
             Controls.Add(Split_Agrems);
             Controls.Add(splitter1);

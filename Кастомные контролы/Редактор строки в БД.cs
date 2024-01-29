@@ -38,7 +38,7 @@ namespace DocGen7.Кастомные_контролы
         private List<MaskedTextBox> _list = new List<MaskedTextBox>();
         private List<Label> _titles = new List<Label>();
 
-        private MainWindow Main = null;
+        //private MainWindow Main = null;
 
 
         public string Title = "Заголовок";
@@ -60,14 +60,24 @@ namespace DocGen7.Кастомные_контролы
             _list.Clear();
             _titles.Clear();
 
-            var p = this.Parent;
-            while (p.GetType().Name != "MainWindow")
+            try
             {
+                //попытка управлять родительским окном
+                var p = this.Parent;
                 if (p != null)
-                    p = p.Parent;
+                {
+              /*      while (p.GetType().Name != "MainWindow")
+                    {
+                        if (p != null)
+                            p = p.Parent;
+                    }
+
+                    Main = (MainWindow)p;    */
+                }//p!null
             }
 
-            Main = (MainWindow)p;
+            catch (Exception ex) 
+                { }
 
             //Нельзя взять и нажать
             SaveIt.Enabled = false;
@@ -89,7 +99,7 @@ namespace DocGen7.Кастомные_контролы
         public void LoadData(string table, string ID_name, string ID_Value, string Fields = "*")
         {
             //управление главным окном
-            Main.Progresso.Value = 0;
+           // Main.Progresso.Value = 0;
 
             _table = table;
             _ID_name = ID_name;
@@ -154,7 +164,7 @@ namespace DocGen7.Кастомные_контролы
 
                             for (int i = 0; i < dr.FieldCount; i++)
                             {
-                                Main.Progresso.Value = (100 * i / dr.FieldCount) % Main.Progresso.Maximum;
+                                //Main.Progresso.Value = (100 * i / dr.FieldCount) % Main.Progresso.Maximum;
                                 //если список меньше то добавляем заново
                                 if (re_use)
                                 {
@@ -320,11 +330,11 @@ namespace DocGen7.Кастомные_контролы
                 //специально стираем, чтобы не было ошибок
                 this._ID_Value = "";
 
-                var p = (MainWindow)Main;
+                //var p = (MainWindow)Main;
 
                 SaveIt.Enabled = false;
                 //без параметров
-                p.UpdateMainScreen();
+               // p.UpdateMainScreen();
             }
         }//SaveIt
 
@@ -343,7 +353,7 @@ namespace DocGen7.Кастомные_контролы
 
             //this.BackColor = Color.Black;
             //this.ForeColor = Color.Orange;
-            Main.Progresso.Value = 0;
+            //Main.Progresso.Value = 0;
             
         }
 

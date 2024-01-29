@@ -29,7 +29,7 @@ namespace wfa_symple
 
         public Action task_alone = null;
 
-        
+
 
         public MainWindow()
         {
@@ -143,7 +143,7 @@ namespace wfa_symple
             Show_Settings.Dock = DockStyle.Top;
 
             Show_Settings.BackColor = Color.Navy;
-            Show_Settings.ForeColor= Color.Azure;
+            Show_Settings.ForeColor = Color.Azure;
 
         }
 
@@ -166,22 +166,24 @@ namespace wfa_symple
         /// <param name="e"></param>
         public void SearchData_Click(object sender, EventArgs e)
         {
-            
+
             List<SqlParameter> sql_params = null;
 
             //Сам запрос
-            string SQL = $"Select  * from [Agreements] ";
+            string SQL = $"Select * from SelectAgreementsMainPoint (1000) ";
 
             if (InputFilterText.Text != "")
             {
                 sql_params = new List<SqlParameter>();
                 sql_params.Add(new SqlParameter("@SEARCH", InputFilterText.Text));
 
-                SQL += "  WHERE [ID] in ( Select ID FROM SelectAgreementsByString (@SEARCH) )";
+                SQL += "  WHERE [ID] in ( Select ID FROM SelectAgreementsByString (@SEARCH) )  ";
             }
 
-            UpdateMainScreen(SQL,sql_params);
-           
+            //Сортировка результатов
+            SQL += "  order by [Date] desc";
+            UpdateMainScreen(SQL, sql_params);
+
         }
 
         private void Main_Split_Conatainer_Panel2_Paint(object sender, PaintEventArgs e)
@@ -225,6 +227,9 @@ namespace wfa_symple
 
 
 
+        /// <summary>
+        /// Без параметров - повторит последний
+        /// </summary>
         public void UpdateMainScreen()
         {
             UpdateMainScreen(Last_SQL, Last_params);
@@ -242,20 +247,18 @@ namespace wfa_symple
             agr_editor.listView_agreemtns.Items.Clear();
             agr_editor.listView_agreemtns.Columns.Clear();
 
+            List<string> Groups = new List<string>();
             //Красивая визуалка
             var p = this;
             var Main = (MainWindow)p;
             Main.Progresso.Value = 0;
             //--------------
 
-
-            
             SqlDataReader dr = Data_point.ExecSQL(SQL, sql_params);
 
             if (dr != null)
             {
-              
-
+                  //считываем строку из БД
                 while (dr.Read())
                 {
                     if (!dr.HasRows) break;
@@ -292,7 +295,7 @@ namespace wfa_symple
                                 ch.TextAlign = HorizontalAlignment.Center;
                                 ch.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
                             }
-                            
+
                             agr_editor.listView_agreemtns.Columns.Add(ch);
                         }
 
@@ -301,7 +304,9 @@ namespace wfa_symple
                     List<string> row = new List<string>();
 
                     ListViewItem lv_row = new ListViewItem();
-                    for (int i=0; i<dr.FieldCount; i++) 
+
+                    string Date_for_group = "";
+                    for (int i = 0; i < dr.FieldCount; i++)
                     {
 
                         string fieldName = dr.GetName(i);
@@ -310,6 +315,7 @@ namespace wfa_symple
                         if (val.IndexOf("0:00:00") > 0)
                         {
                             val = val.Replace("0:00:00", "");
+                            Date_for_group = val;
                         }
 
 
@@ -334,9 +340,26 @@ namespace wfa_symple
 
                     Main.Progresso.Value = (Main.Progresso.Value + 10) % Main.Progresso.Maximum;
                     lv_row.UseItemStyleForSubItems = true;
-                    lv_row.SubItems[1].ForeColor= Color.Coral;
+                    lv_row.SubItems[1].ForeColor = Color.Coral;
                     
-                    agr_editor.listView_agreemtns.Items.Add(lv_row );
+                    //ГШРуппировка по датам
+                    lv_row.Group = new ListViewGroup(Date_for_group);
+
+
+                    var item = agr_editor.listView_agreemtns.Items.Add(lv_row);
+
+                    if (Groups.IndexOf(Date_for_group) == -1)
+                    {
+                        Groups.Add(Date_for_group);
+                        agr_editor.listView_agreemtns.Groups.Add("Дата", Date_for_group);
+
+
+                    }
+                    var group = agr_editor.listView_agreemtns.Groups [agr_editor.listView_agreemtns.Groups.Count-1];
+                    group.Items.Add(item);
+                    group.Footer = " "; //разрыв дял визуалки
+                    //group.Subtitle  = " Дата";
+
                 }
 
                 dr.Close();
@@ -344,15 +367,37 @@ namespace wfa_symple
 
             Data_point.Dispose();
 
-           
+
             Main.Progresso.Value = 0;
-            
+
+            agr_editor.listView_agreemtns.ShowGroups = true;
+
+            if (agr_editor.listView_agreemtns.SelectedItems != null)
+            {
+                agr_editor.listView_agreemtns.Items[0].Selected = true;
+
+            }
+
+
+
 
         }
 
+        /// <summary>
+        /// При наборе запроса можно нажать Enter для поиска
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InputFilterText_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            //Enter?
+            if (e.KeyCode == Keys.Enter) 
+            {
+                //ищем
+                SearchData_Click(sender, e);
+            }
 
-
-
+        }
     }
 
 }

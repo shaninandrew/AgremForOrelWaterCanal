@@ -113,6 +113,7 @@
             ShowAgrs.Dock = DockStyle.Top;
             ShowAgrs.FlatStyle = FlatStyle.Flat;
             ShowAgrs.ForeColor = Color.Azure;
+            ShowAgrs.ImageAlign = ContentAlignment.MiddleLeft;
             ShowAgrs.Location = new Point(0, 0);
             ShowAgrs.MaximumSize = new Size(0, 50);
             ShowAgrs.Name = "ShowAgrs";
@@ -120,6 +121,7 @@
             ShowAgrs.Size = new Size(157, 50);
             ShowAgrs.TabIndex = 3;
             ShowAgrs.Text = "Договора";
+            ShowAgrs.TextAlign = ContentAlignment.MiddleLeft;
             ShowAgrs.UseVisualStyleBackColor = false;
             ShowAgrs.Click += ShowAgreements_Click;
             // 
@@ -231,6 +233,7 @@
             InputFilterText.Name = "InputFilterText";
             InputFilterText.Size = new Size(453, 27);
             InputFilterText.TabIndex = 1;
+            InputFilterText.PreviewKeyDown += InputFilterText_PreviewKeyDown;
             // 
             // menuStrip1
             // 

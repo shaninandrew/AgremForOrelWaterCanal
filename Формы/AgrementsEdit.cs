@@ -25,13 +25,25 @@ namespace Doc4Lab
         //редактор строк в БД
         private UC_Editor_Row_In_DB Editor_Row_In_DB_Clients = null;
         private UC_Editor_Row_In_DB Editor_Row_In_DB_Agreements = null;
-        
+
 
 
         public AgreementEditorWindow()
         {
             InitializeComponent();
-            
+
+            if (Editor_Row_In_DB_Clients == null)
+            {   //создаем редактор в Табе
+                Editor_Row_In_DB_Clients = new UC_Editor_Row_In_DB(tabeditor_Client);
+            }
+
+            if (Editor_Row_In_DB_Agreements == null)
+            {   //создаем редактор в Табе
+                Editor_Row_In_DB_Agreements = new UC_Editor_Row_In_DB(tabeditor_Agreement);
+            }
+
+
+
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -377,25 +389,18 @@ namespace Doc4Lab
                 Editor_Row_In_DB_Agreements = new UC_Editor_Row_In_DB(tabeditor_Agreement);
                 Editor_Row_In_DB_Agreements.SetMotherControls(this);
             }
-            
+
             //инфа о клиента
 
             //берем связку
             string guid = listView_agreemtns.SelectedItems[0].SubItems["Guid"].Text;
 
-            string table = "Agreements";
-            string columns = @"     [Name]
-                                  ,[NumDoc]
-                                  ,[Date]
-                                  ,[Status]
-                                  ,[TotalSum]
+            UpdateEditorAgreementsById(guid);
 
-                                ";
+            string ClientGuid = listView_agreemtns.SelectedItems[0].SubItems["LinkGuid"].Text;
+            string ClientTypeID = listView_agreemtns.SelectedItems[0].SubItems["ClientTypeID"].Text;
 
-            //Подгурзка записи
-
-            Editor_Row_In_DB_Agreements.Title = "Договора";
-            Editor_Row_In_DB_Agreements.LoadData(table, "guid", guid, columns);
+            UpdateEditorCleintById(ClientGuid, ClientTypeID);
 
             //выбираем договор вкладку для правки
             TabControlFull.SelectedTab = tabeditor_Agreement;
@@ -409,7 +414,7 @@ namespace Doc4Lab
         /// <param name="e"></param>
         private void listView_Clients_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-           
+
 
             CreateNewAgrForThisCleint.Enabled = false;
             // Запрос сведений
@@ -428,52 +433,26 @@ namespace Doc4Lab
             {
                 CreateNewAgrForThisCleint.Enabled = !false;
 
-                
+
                 //Показываем юзер контрол для редактирования
 
-             /*   if (Editor_Row_In_DB != null)
-                {
-                    Editor_Row_In_DB.Hide();
-                    Editor_Row_In_DB.Dispose();
-                    Editor_Row_In_DB = null;
-                }*/
+                /*   if (Editor_Row_In_DB != null)
+                   {
+                       Editor_Row_In_DB.Hide();
+                       Editor_Row_In_DB.Dispose();
+                       Editor_Row_In_DB = null;
+                   }*/
 
 
                 //
-                if (Editor_Row_In_DB_Clients ==null)
-                    {   //создаем редактор в Табе
-                        Editor_Row_In_DB_Clients = new UC_Editor_Row_In_DB(tabeditor_Client);
-                    }
+               
                 //инфа о клиента
                 //берем связку
                 string guid = listView_Clients.SelectedItems[0].SubItems["LinkGuid"].Text;
                 string type_client = listView_Clients.SelectedItems[0].SubItems["ClientTypeID"].Text;
 
-                string table = "ClientPersonal";
-                string columns = @"[Name]
-                                  ,[Address]
-                                  ,[Phone]
-                                  ,[Email]
-                                  ,[ident_doc_name]
-                                  ,[ident_doc_number]
-                                  ,[ident_doc_date]
-                                  ,[ident_doc_issue]";
-                
-                string title = "Физические лица";
+                UpdateEditorCleintById(guid, type_client);
 
-                if (type_client == "2")
-                {
-                    table = "ClientEntity";
-                    columns = "[Name] ,[Address]  ,[Phone]  ,[INN]   ,[OGRN] ,[Description]";
-                    title = "Юридические лица";
-                }
-
-                Editor_Row_In_DB_Clients.Title = title;
-                Editor_Row_In_DB_Clients.SetMotherControls( this);
-
-                //Подгурзка записиа
-                Editor_Row_In_DB_Clients.LoadData(table, "guid", guid, columns);
-                
                 //перворот страницы
                 TabControlFull.SelectedTab = tabeditor_Client;
 
@@ -483,5 +462,65 @@ namespace Doc4Lab
 
 
         }
-    }
+
+
+
+        /// <summary>
+        /// Обновляет редактор  записи клиента в нужном контроле
+        /// </summary>
+        /// <param name="SQL"></param>
+        private void UpdateEditorCleintById(string guid, string type_client)
+        {
+
+            string table = "ClientPersonal";
+            string columns = @"[Name]
+                                  ,[Address]
+                                  ,[Phone]
+                                  ,[Email]
+                                  ,[ident_doc_name]
+                                  ,[ident_doc_number]
+                                  ,[ident_doc_date]
+                                  ,[ident_doc_issue]";
+
+            string title = "Физические лица";
+
+            if (type_client == "2")
+            {
+                table = "ClientEntity";
+                columns = "[Name] ,[Address]  ,[Phone]  ,[INN]   ,[OGRN] ,[Description]";
+                title = "Юридические лица";
+            }
+
+            Editor_Row_In_DB_Clients.Title = title;
+            Editor_Row_In_DB_Clients.SetMotherControls(this);
+
+            //Подгурзка записи
+            Editor_Row_In_DB_Clients.LoadData(table, "guid", guid, columns);
+
+        }
+
+
+        /// <summary>
+        /// Обновляет редактор договоров по ID
+        /// </summary>
+        /// <param name="guid"></param>
+        private void UpdateEditorAgreementsById(string guid)
+        {
+            string table = "Agreements";
+            string columns = @"     [Name]
+                                  ,[NumDoc]
+                                  ,[Date]
+                                  ,[Status]
+                                  ,[TotalSum]
+
+                                ";
+
+            //Подгурзка записи
+
+            Editor_Row_In_DB_Agreements.Title = "Договора";
+            Editor_Row_In_DB_Agreements.LoadData(table, "guid", guid, columns);
+        }
+
+
+}
 }
