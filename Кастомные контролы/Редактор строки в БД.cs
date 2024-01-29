@@ -193,7 +193,7 @@ namespace DocGen7.Кастомные_контролы
                                 if (!re_use)//(was_list_size < dr.FieldCount)
                                 {
 
-                                    MaskedTextBox txt = new MaskedTextBox();
+                                   var txt = new MaskedTextBox();
                                     txt.Parent = this;
                                     txt.Visible = false;
 
@@ -211,14 +211,32 @@ namespace DocGen7.Кастомные_контролы
 
                                         case "int":
                                             txt.Mask = "00000";
+                                            txt.Text = dr.GetFloat(i).ToString().Replace(",", "");
                                             break;
 
                                         case "float":
-                                            txt.Mask = "#####0.00";
+                                           
+
+                                            txt.Mask = "#####.00";
+                                            txt.ValidatingType = null;
+                                            txt.Text = dr.GetFloat(i).ToString().Replace(",",".");
+
+
+                                            break;
+
+                                        case "double":
+                                            txt.Mask = "#####.00";
+                                            txt.ValidatingType = null;
+                                            txt.Text = dr.GetFloat(i).ToString().Replace(",", ".");
+
+                                            break;
+
+                                        default:
+                                            txt.Text = dr.GetValue(i).ToString();
                                             break;
 
                                     }
-                                    txt.Text = dr.GetValue(i).ToString();
+                                    
 
 
                                     //расстановка на контроле
@@ -246,8 +264,42 @@ namespace DocGen7.Кастомные_контролы
                                     _titles[i].Text = dr.GetName(i).ToString();
                                     _list[i].Name = dr.GetName(i);
 
-                                    _list[i].Text = dr.GetValue(i).ToString();
-                                    _list[i].ValidatingType = dr.GetFieldType(i);
+
+                                    MaskedTextBox txt = _list[i];
+                                    switch (dr.GetFieldType(i).Name.ToLower())
+                                    {
+                                        case "datetime":
+                                            txt.Mask = "00/00/0000";
+                                            txt.ValidatingType = DateTime.Now.GetType();
+                                            break;
+
+                                        case "int":
+                                            txt.Mask = "00000";
+                                            txt.Text = dr.GetFloat(i).ToString().Replace(",", "");
+                                            break;
+
+                                        case "float":
+                                            txt.Mask = "#####.00";
+                                           
+                                            txt.Text = dr.GetFloat(i).ToString().Replace(",", ".");
+
+
+                                            break;
+
+                                        case "double":
+                                            txt.Mask = "#####.00";
+                           
+                                            txt.Text = dr.GetFloat(i).ToString().Replace(",", ".");
+
+                                            break;
+
+                                        default:
+                                            txt.Text = dr.GetValue(i).ToString();
+                                            break;
+
+                                    }
+                                    _list[i] = txt;
+                       
 
                                 }
 
@@ -314,6 +366,8 @@ namespace DocGen7.Кастомные_контролы
         {
             DataUpdated = false;
 
+            SaveIt.Enabled = false;
+
             if (_ID_Value == "")
             {
                 MessageBox.Show("Данные были сохранены.");
@@ -357,7 +411,7 @@ namespace DocGen7.Кастомные_контролы
                 SaveIt.Enabled = false;
                 //без параметров
 
-                //Вызов функции обновления экрана и рочих фишек
+                //Вызов функции обновления экрана и Прочих фишек
                 _call_update.DynamicInvoke() ;
                 
             }

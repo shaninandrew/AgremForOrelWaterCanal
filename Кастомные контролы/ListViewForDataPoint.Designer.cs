@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            DeleteExists = new Button();
+            AddNew = new Button();
             LVC_Title = new Label();
             LVC = new ListView();
             PanelForEditor = new Panel();
@@ -37,13 +39,38 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.DodgerBlue;
+            panel1.Controls.Add(DeleteExists);
+            panel1.Controls.Add(AddNew);
             panel1.Controls.Add(LVC_Title);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(945, 39);
+            panel1.Size = new Size(945, 66);
             panel1.TabIndex = 0;
+            // 
+            // DeleteExists
+            // 
+            DeleteExists.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            DeleteExists.Location = new Point(720, 13);
+            DeleteExists.Name = "DeleteExists";
+            DeleteExists.Size = new Size(201, 46);
+            DeleteExists.TabIndex = 2;
+            DeleteExists.Text = "Удалить позицию";
+            DeleteExists.UseVisualStyleBackColor = true;
+            DeleteExists.Click += DeleteExists_Click;
+            // 
+            // AddNew
+            // 
+            AddNew.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            AddNew.Location = new Point(503, 13);
+            AddNew.Name = "AddNew";
+            AddNew.Size = new Size(201, 46);
+            AddNew.TabIndex = 1;
+            AddNew.Text = "+Новая позиция";
+            AddNew.UseVisualStyleBackColor = true;
+            AddNew.Click += AddNew_Click;
             // 
             // LVC_Title
             // 
@@ -60,7 +87,7 @@
             LVC.BorderStyle = BorderStyle.None;
             LVC.Dock = DockStyle.Top;
             LVC.FullRowSelect = true;
-            LVC.Location = new Point(0, 39);
+            LVC.Location = new Point(0, 66);
             LVC.Margin = new Padding(3, 4, 3, 4);
             LVC.Name = "LVC";
             LVC.Size = new Size(945, 281);
@@ -72,9 +99,9 @@
             // PanelForEditor
             // 
             PanelForEditor.Dock = DockStyle.Fill;
-            PanelForEditor.Location = new Point(0, 320);
+            PanelForEditor.Location = new Point(0, 347);
             PanelForEditor.Name = "PanelForEditor";
-            PanelForEditor.Size = new Size(945, 354);
+            PanelForEditor.Size = new Size(945, 327);
             PanelForEditor.TabIndex = 2;
             PanelForEditor.Paint += PanelForEditor_Paint;
             // 
@@ -101,5 +128,7 @@
         private ListView LVC;
         public Label LVC_Title;
         private Panel PanelForEditor;
+        private Button DeleteExists;
+        private Button AddNew;
     }
 }

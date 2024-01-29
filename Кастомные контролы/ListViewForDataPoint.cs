@@ -26,6 +26,9 @@ namespace DocGen7.Кастомные_контролы
         private UC_Editor_Row_In_DB editor = null;
 
 
+        string _table = "";
+        string _cols = "";
+
 
         /// <summary>
         /// Название контрола
@@ -37,17 +40,17 @@ namespace DocGen7.Кастомные_контролы
         }
 
 
-
-
-
         /// <summary>
         /// Редактор таблиц встроенный
         /// </summary>
         /// <param name="title"></param>
-        public ListViewForDataPoint(MainWindow main)
+        public ListViewForDataPoint(MainWindow main, string table, string columns)
         {
             InitializeComponent();
             Title("Редактор таблиц");
+
+            _cols = columns;
+            _table = table;
 
             Action refresh = Refresh;
 
@@ -68,7 +71,8 @@ namespace DocGen7.Кастомные_контролы
             {
                 string Guid = LVC.SelectedItems[0].SubItems["Guid"].Text;
 
-                editor.LoadData("PriceList", "Guid", Guid, "[Service] ,[Price]  ,[Date_start]    ,[Date_end] ");
+                // "[Service] ,[Price]  ,[Date_start]    ,[Date_end] "
+                editor.LoadData(_table, "Guid", Guid, _cols);
             }
             catch (Exception ex)
             { }
@@ -262,6 +266,44 @@ namespace DocGen7.Кастомные_контролы
         private void PanelForEditor_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void AddNew_Click(object sender, EventArgs e)
+        {
+
+
+            ConnectorDB Data_point = new ConnectorDB();
+
+            string guid = Guid.NewGuid().ToString();
+            string today = DateTime.Now.ToShortDateString();
+            string Plus1year = DateTime.Now.AddDays(365).ToShortDateString();
+
+            //всвтавим дефолтное значение
+            Data_point.ExecSQL(@$"
+                    INSERT INTO [dbo].[{_table}]                             
+                                OUTPUT INSERTED.ID
+                                    DEFAULT  VALUES   ;        ");
+
+
+
+            Refresh();
+        }
+
+        private void DeleteExists_Click(object sender, EventArgs e)
+        {
+
+            if (LVC.SelectedItems.Count > 0)
+            {
+                string guid = LVC.SelectedItems[0].SubItems["Guid"].Text;
+
+                ConnectorDB Data_point = new ConnectorDB();
+                Data_point.ExecSQL(@$"
+                    DELETE FROM [dbo].[{_table}]                             
+                                OUTPUT DELETED.ID
+                                    WHERE [Guid] = '{guid}'   ;        ");
+
+            }
+            Refresh();
         }
     }
 }

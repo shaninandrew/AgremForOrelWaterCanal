@@ -1,4 +1,6 @@
-﻿namespace wfa_symple
+﻿using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+
+namespace wfa_symple
 {
     partial class Editor_Price
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            LVCX = new DocGen7.Кастомные_контролы.ListViewForDataPoint(_main);
+            LVCX = new DocGen7.Кастомные_контролы.ListViewForDataPoint(_main, "PriceList", "[Service] ,[Price]  ,[Date_start] ,[Date_end] ");
             SuspendLayout();
             // 
             // LVCX
