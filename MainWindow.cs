@@ -15,7 +15,7 @@ namespace wfa_symple
         public Editor_Price editor_price = new Editor_Price();
         public ReportGenerator report_generator = new ReportGenerator();
         public Settings settings = new Settings();
-        public AgreementEditorWindow agr_editor = new AgreementEditorWindow();
+        public AgreementEditorWindow agr_editor = null;
 
 
         public ConnectorDB Data_point = null;
@@ -35,6 +35,7 @@ namespace wfa_symple
         {
             InitializeComponent();
 
+            agr_editor = new AgreementEditorWindow(this);
 
             //скрытый редактор
 
@@ -243,6 +244,21 @@ namespace wfa_symple
         /// <param name="sql_params">Параметры</param>
         public void UpdateMainScreen(string SQL, List<SqlParameter> sql_params = null)
         {
+            //-- смохраняем выделенную позицию
+            int selected_item = 0;
+            Point scrollTo = agr_editor.listView_agreemtns.AutoScrollOffset;
+            if (agr_editor.listView_agreemtns.SelectedItems != null)
+            {
+                if (agr_editor.listView_agreemtns.SelectedItems.Count > 0)
+                {
+                    selected_item = agr_editor.listView_agreemtns.SelectedItems[0].Index;
+                    
+                }
+
+            }
+
+
+
             ConnectorDB Data_point = new ConnectorDB();
             agr_editor.listView_agreemtns.Items.Clear();
             agr_editor.listView_agreemtns.Columns.Clear();
@@ -253,6 +269,9 @@ namespace wfa_symple
             var Main = (MainWindow)p;
             Main.Progresso.Value = 0;
             //--------------
+
+    
+
 
             SqlDataReader dr = Data_point.ExecSQL(SQL, sql_params);
 
@@ -372,12 +391,15 @@ namespace wfa_symple
 
             agr_editor.listView_agreemtns.ShowGroups = true;
 
-            if (agr_editor.listView_agreemtns.SelectedItems != null)
+           
+            //---В/осстановление сохраненной позы ====
+            if (agr_editor.listView_agreemtns.Items.Count > selected_item)
             {
-                agr_editor.listView_agreemtns.Items[0].Selected = true;
-
+                agr_editor.listView_agreemtns.Items[selected_item].Selected = true;
+                agr_editor.listView_agreemtns.AutoScrollOffset= scrollTo;
+                agr_editor.listView_agreemtns.EnsureVisible(selected_item);
             }
-
+           
 
 
 
