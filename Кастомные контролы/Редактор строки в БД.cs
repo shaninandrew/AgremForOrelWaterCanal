@@ -38,19 +38,27 @@ namespace DocGen7.Кастомные_контролы
         private List<MaskedTextBox> _list = new List<MaskedTextBox>();
         private List<Label> _titles = new List<Label>();
 
-        //private MainWindow Main = null;
+        private MainWindow Main = null;
 
 
         public string Title = "Заголовок";
         private Label title_X = null;
 
+
+        public bool DataUpdated = false;
+
+
         private AgreementEditorWindow agreementEditorWindow = null;
-        public void SetMotherControls(AgreementEditorWindow w)
+        public void SetMotherControls(AgreementEditorWindow w, MainWindow main)
         {
             agreementEditorWindow = w;
+            DataUpdated = false;
+            
+            //устанавливаем связь для управления главным окном (обновление и прочее)
+            Main = main;
         }
 
-        public UC_Editor_Row_In_DB(Control parent, string? connection_string = null)
+        public UC_Editor_Row_In_DB(Control parent, MainWindow main, string? connection_string = null)
         {
             InitializeComponent();
             _connection_string = connection_string;
@@ -59,6 +67,8 @@ namespace DocGen7.Кастомные_контролы
             //очистка и сохранение состояния
             _list.Clear();
             _titles.Clear();
+
+            Main= main;
 
             try
             {
@@ -164,7 +174,8 @@ namespace DocGen7.Кастомные_контролы
 
                             for (int i = 0; i < dr.FieldCount; i++)
                             {
-                                //Main.Progresso.Value = (100 * i / dr.FieldCount) % Main.Progresso.Maximum;
+                                if (Main != null)
+                                { Main.Progresso.Value = (100 * i / dr.FieldCount) % Main.Progresso.Maximum; } 
                                 //если список меньше то добавляем заново
                                 if (re_use)
                                 {
@@ -296,12 +307,15 @@ namespace DocGen7.Кастомные_контролы
         /// <param name="e"></param>
         private void SaveIt_Click(object sender, EventArgs e)
         {
+            DataUpdated = false;
+
             if (_ID_Value == "")
             {
                 MessageBox.Show("Данные были сохранены.");
                 return;
             }
 
+            
 
             using (db = new ConnectorDB())
             {
@@ -327,6 +341,9 @@ namespace DocGen7.Кастомные_контролы
                 if (db.ExecSQL(SQL) == null)
                     MessageBox.Show("Не могу сохранить данные!");
 
+                //данные обновлены 29-01 статус
+                DataUpdated = !false;
+
                 //специально стираем, чтобы не было ошибок
                 this._ID_Value = "";
 
@@ -334,7 +351,8 @@ namespace DocGen7.Кастомные_контролы
 
                 SaveIt.Enabled = false;
                 //без параметров
-               // p.UpdateMainScreen();
+                if (Main != null)
+                  { Main.UpdateMainScreen(); } 
             }
         }//SaveIt
 
@@ -353,7 +371,8 @@ namespace DocGen7.Кастомные_контролы
 
             //this.BackColor = Color.Black;
             //this.ForeColor = Color.Orange;
-            //Main.Progresso.Value = 0;
+            if (Main != null)
+            { Main.Progresso.Value = 0; } 
             
         }
 

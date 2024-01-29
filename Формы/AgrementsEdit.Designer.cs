@@ -45,6 +45,7 @@
             TabControlFull = new TabControl();
             tabeditor_Client = new TabPage();
             tabeditor_Agreement = new TabPage();
+            tabEditor_Servce = new TabPage();
             ((System.ComponentModel.ISupportInitialize)Split_Agrems).BeginInit();
             Split_Agrems.Panel1.SuspendLayout();
             Split_Agrems.Panel2.SuspendLayout();
@@ -249,6 +250,7 @@
             // 
             TabControlFull.Controls.Add(tabeditor_Client);
             TabControlFull.Controls.Add(tabeditor_Agreement);
+            TabControlFull.Controls.Add(tabEditor_Servce);
             TabControlFull.Dock = DockStyle.Fill;
             TabControlFull.Location = new Point(0, 0);
             TabControlFull.Name = "TabControlFull";
@@ -268,13 +270,23 @@
             // 
             // tabeditor_Agreement
             // 
-            tabeditor_Agreement.Location = new Point(4, 24);
+            tabeditor_Agreement.Location = new Point(4, 28);
             tabeditor_Agreement.Name = "tabeditor_Agreement";
             tabeditor_Agreement.Padding = new Padding(3);
-            tabeditor_Agreement.Size = new Size(458, 817);
+            tabeditor_Agreement.Size = new Size(458, 813);
             tabeditor_Agreement.TabIndex = 1;
             tabeditor_Agreement.Text = "Положение договора";
             tabeditor_Agreement.UseVisualStyleBackColor = true;
+            // 
+            // tabEditor_Servce
+            // 
+            tabEditor_Servce.Location = new Point(4, 28);
+            tabEditor_Servce.Name = "tabEditor_Servce";
+            tabEditor_Servce.Padding = new Padding(3);
+            tabEditor_Servce.Size = new Size(458, 813);
+            tabEditor_Servce.TabIndex = 2;
+            tabEditor_Servce.Text = "Услуги по прайс-листу";
+            tabEditor_Servce.UseVisualStyleBackColor = true;
             // 
             // AgreementEditorWindow
             // 
@@ -336,6 +348,7 @@
         private SplitContainer SplitterDocs;
         public ListView listView_agreemtns;
         public ListView listView_Clients;
+        private TabPage tabEditor_Servce;
     }
 }
 

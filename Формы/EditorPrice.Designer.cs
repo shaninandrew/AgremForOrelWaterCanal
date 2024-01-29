@@ -28,34 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            listView1 = new ListView();
+            Add_Price = new Button();
+            Delete_Price = new Button();
             SuspendLayout();
             // 
-            // button1
+            // Add_Price
             // 
-            button1.Location = new Point(14, 30);
-            button1.Name = "button1";
-            button1.Size = new Size(83, 49);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            Add_Price.Location = new Point(12, 12);
+            Add_Price.Name = "Add_Price";
+            Add_Price.Size = new Size(115, 38);
+            Add_Price.TabIndex = 0;
+            Add_Price.Text = "Добавить услугу";
+            Add_Price.UseVisualStyleBackColor = true;
             // 
-            // listView1
+            // Delete_Price
             // 
-            listView1.Location = new Point(20, 100);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(528, 257);
-            listView1.TabIndex = 1;
-            listView1.UseCompatibleStateImageBehavior = false;
+            Delete_Price.Location = new Point(133, 12);
+            Delete_Price.Name = "Delete_Price";
+            Delete_Price.Size = new Size(115, 38);
+            Delete_Price.TabIndex = 1;
+            Delete_Price.Text = "Удалить услугу";
+            Delete_Price.UseVisualStyleBackColor = true;
             // 
             // Editor_Price
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(listView1);
-            Controls.Add(button1);
+            Controls.Add(Delete_Price);
+            Controls.Add(Add_Price);
             Name = "Editor_Price";
             Text = "Редактор_прайса";
             ResumeLayout(false);
@@ -63,7 +64,7 @@
 
         #endregion
 
-        private Button button1;
-        private ListView listView1;
+        private Button Add_Price;
+        private Button Delete_Price;
     }
 }

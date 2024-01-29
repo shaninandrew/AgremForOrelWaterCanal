@@ -28,22 +28,18 @@ namespace Doc4Lab
 
 
 
-        public AgreementEditorWindow()
+        /// <summary>
+        /// Ссылка на главное окно для работы с главным окном
+        /// </summary>
+        /// <param name="parentCore"></param>
+        public AgreementEditorWindow(MainWindow parentCore)
         {
             InitializeComponent();
 
-            if (Editor_Row_In_DB_Clients == null)
-            {   //создаем редактор в Табе
-                Editor_Row_In_DB_Clients = new UC_Editor_Row_In_DB(tabeditor_Client);
-            }
-
-            if (Editor_Row_In_DB_Agreements == null)
-            {   //создаем редактор в Табе
-                Editor_Row_In_DB_Agreements = new UC_Editor_Row_In_DB(tabeditor_Agreement);
-            }
-
-
-
+            parent_core = parentCore;
+            Editor_Row_In_DB_Clients = new UC_Editor_Row_In_DB(tabeditor_Client, parent_core);
+            Editor_Row_In_DB_Agreements = new UC_Editor_Row_In_DB(tabeditor_Agreement,  parent_core);
+      
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -383,15 +379,7 @@ namespace Doc4Lab
 
             }
 
-            if (Editor_Row_In_DB_Agreements == null)
-            {
-                //создаем редактор в Табе
-                Editor_Row_In_DB_Agreements = new UC_Editor_Row_In_DB(tabeditor_Agreement);
-                Editor_Row_In_DB_Agreements.SetMotherControls(this);
-            }
-
-            //инфа о клиента
-
+            
             //берем связку
             string guid = listView_agreemtns.SelectedItems[0].SubItems["Guid"].Text;
 
@@ -445,18 +433,20 @@ namespace Doc4Lab
 
 
                 //
-               
+
                 //инфа о клиента
                 //берем связку
-                string guid = listView_Clients.SelectedItems[0].SubItems["LinkGuid"].Text;
-                string type_client = listView_Clients.SelectedItems[0].SubItems["ClientTypeID"].Text;
+                if (listView_Clients.SelectedItems.Count > 0)
+                {
+                    string guid = listView_Clients.SelectedItems[0].SubItems["LinkGuid"].Text;
+                    string type_client = listView_Clients.SelectedItems[0].SubItems["ClientTypeID"].Text;
 
-                UpdateEditorCleintById(guid, type_client);
-
+                    UpdateEditorCleintById(guid, type_client);
+                }
                 //перворот страницы
                 TabControlFull.SelectedTab = tabeditor_Client;
 
-
+                
 
             }
 
@@ -492,7 +482,7 @@ namespace Doc4Lab
             }
 
             Editor_Row_In_DB_Clients.Title = title;
-            Editor_Row_In_DB_Clients.SetMotherControls(this);
+            Editor_Row_In_DB_Clients.SetMotherControls(this, parent_core);
 
             //Подгурзка записи
             Editor_Row_In_DB_Clients.LoadData(table, "guid", guid, columns);
