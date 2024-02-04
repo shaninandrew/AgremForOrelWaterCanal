@@ -102,6 +102,7 @@
             {
                 connection.Close();
                 connection.Dispose();
+                connection = null;
             }
 
             GC.Collect();
@@ -115,7 +116,7 @@
         {
             if (connection != null)
             {
-                if (connection.State == System.Data.ConnectionState.Open)
+                if ((connection.State == System.Data.ConnectionState.Open) || (connection.State == System.Data.ConnectionState.Fetching))
                 {
                     return true;
                 }

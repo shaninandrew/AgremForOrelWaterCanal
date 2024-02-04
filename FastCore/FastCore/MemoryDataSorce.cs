@@ -19,7 +19,6 @@ namespace FastCore
         /// </summary>
         public MemoryDataSource( string connection_string )
         { 
-        
             _connection_string = connection_string;
             DataSet = new System.Data.DataSet();
             DataSet.Clear();
@@ -35,7 +34,6 @@ namespace FastCore
         /// <returns></returns>
         public bool Load(string SQL, List<SqlParameter> sql_params,string table_name="table")
         {
-
             int ix = DataSet.Tables.IndexOf(table_name);
             if (ix == -1) 
                 { DataSet.Tables.Add(table_name); }
