@@ -63,7 +63,7 @@
             splitter1.Location = new Point(0, 0);
             splitter1.Margin = new Padding(3, 4, 3, 4);
             splitter1.Name = "splitter1";
-            splitter1.Size = new Size(3, 975);
+            splitter1.Size = new Size(3, 845);
             splitter1.TabIndex = 2;
             splitter1.TabStop = false;
             // 
@@ -71,10 +71,9 @@
             // 
             Split_Agrems.BackColor = Color.DeepSkyBlue;
             Split_Agrems.Dock = DockStyle.Fill;
-            Split_Agrems.FixedPanel = FixedPanel.Panel1;
             Split_Agrems.Location = new Point(3, 0);
             Split_Agrems.Margin = new Padding(3, 4, 3, 4);
-            Split_Agrems.MinimumSize = new Size(600, 600);
+            Split_Agrems.MinimumSize = new Size(600, 500);
             Split_Agrems.Name = "Split_Agrems";
             Split_Agrems.Orientation = Orientation.Horizontal;
             // 
@@ -85,13 +84,12 @@
             Split_Agrems.Panel1.Controls.Add(SplitterDocs);
             Split_Agrems.Panel1.Controls.Add(Agr_control);
             Split_Agrems.Panel1.ForeColor = Color.Black;
-            Split_Agrems.Panel1MinSize = 620;
+            Split_Agrems.Panel1MinSize = 500;
             // 
             // Split_Agrems.Panel2
             // 
             Split_Agrems.Panel2.Controls.Add(TabControlFull);
-            Split_Agrems.Panel2.Paint += Split_Agrems_Panel2_Paint;
-            Split_Agrems.Size = new Size(1759, 975);
+            Split_Agrems.Size = new Size(1759, 845);
             Split_Agrems.SplitterDistance = 620;
             Split_Agrems.TabIndex = 3;
             // 
@@ -182,7 +180,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(11, 125);
             label3.Name = "label3";
-            label3.Size = new Size(124, 23);
+            label3.Size = new Size(104, 19);
             label3.TabIndex = 7;
             label3.Text = "Дата договора";
             // 
@@ -192,7 +190,7 @@
             New_Client_Date.Location = new Point(11, 151);
             New_Client_Date.Mask = "00/00/0000";
             New_Client_Date.Name = "New_Client_Date";
-            New_Client_Date.Size = new Size(254, 30);
+            New_Client_Date.Size = new Size(254, 26);
             New_Client_Date.TabIndex = 6;
             New_Client_Date.ValidatingType = typeof(DateTime);
             // 
@@ -200,7 +198,7 @@
             // 
             New_CLient_Number.Location = new Point(9, 92);
             New_CLient_Number.Name = "New_CLient_Number";
-            New_CLient_Number.Size = new Size(256, 30);
+            New_CLient_Number.Size = new Size(256, 26);
             New_CLient_Number.TabIndex = 4;
             // 
             // label2
@@ -208,7 +206,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(9, 66);
             label2.Name = "label2";
-            label2.Size = new Size(137, 23);
+            label2.Size = new Size(117, 19);
             label2.TabIndex = 3;
             label2.Text = "Номер договора";
             // 
@@ -217,7 +215,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(9, 9);
             label1.Name = "label1";
-            label1.Size = new Size(106, 23);
+            label1.Size = new Size(90, 19);
             label1.TabIndex = 2;
             label1.Text = "Тип клиента";
             // 
@@ -229,7 +227,7 @@
             New_Client_Type.Items.AddRange(new object[] { "Физическое лицо", "Юридическое лицо" });
             New_Client_Type.Location = new Point(11, 32);
             New_Client_Type.Name = "New_Client_Type";
-            New_Client_Type.Size = new Size(254, 31);
+            New_Client_Type.Size = new Size(254, 27);
             New_Client_Type.TabIndex = 1;
             // 
             // CreateNewClient
@@ -254,51 +252,50 @@
             TabControlFull.Location = new Point(0, 0);
             TabControlFull.Name = "TabControlFull";
             TabControlFull.SelectedIndex = 0;
-            TabControlFull.Size = new Size(1759, 351);
+            TabControlFull.Size = new Size(1759, 221);
             TabControlFull.TabIndex = 0;
             // 
             // tabeditor_Client
             // 
-            tabeditor_Client.Location = new Point(4, 32);
+            tabeditor_Client.Location = new Point(4, 28);
             tabeditor_Client.Name = "tabeditor_Client";
             tabeditor_Client.Padding = new Padding(3);
-            tabeditor_Client.Size = new Size(1751, 315);
+            tabeditor_Client.Size = new Size(1751, 189);
             tabeditor_Client.TabIndex = 0;
             tabeditor_Client.Text = "Клиенты";
             tabeditor_Client.UseVisualStyleBackColor = true;
             // 
             // tabeditor_Agreement
             // 
-            tabeditor_Agreement.Location = new Point(4, 29);
+            tabeditor_Agreement.Location = new Point(4, 24);
             tabeditor_Agreement.Name = "tabeditor_Agreement";
             tabeditor_Agreement.Padding = new Padding(3);
-            tabeditor_Agreement.Size = new Size(1751, 318);
+            tabeditor_Agreement.Size = new Size(1751, 193);
             tabeditor_Agreement.TabIndex = 1;
             tabeditor_Agreement.Text = "Положение договора";
             tabeditor_Agreement.UseVisualStyleBackColor = true;
             // 
             // tabEditor_Servce
             // 
-            tabEditor_Servce.Location = new Point(4, 29);
+            tabEditor_Servce.Location = new Point(4, 24);
             tabEditor_Servce.Name = "tabEditor_Servce";
             tabEditor_Servce.Padding = new Padding(3);
-            tabEditor_Servce.Size = new Size(1751, 318);
+            tabEditor_Servce.Size = new Size(1751, 193);
             tabEditor_Servce.TabIndex = 2;
             tabEditor_Servce.Text = "Услуги по прайс-листу";
             tabEditor_Servce.UseVisualStyleBackColor = true;
             // 
             // AgreementEditorWindow
             // 
-            AutoScaleDimensions = new SizeF(120F, 120F);
+            AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(1762, 975);
+            ClientSize = new Size(1762, 845);
             Controls.Add(Split_Agrems);
             Controls.Add(splitter1);
             Font = new Font("Arial Unicode MS", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(3, 4, 3, 4);
             Name = "AgreementEditorWindow";
             Text = "Документы анализа качества воды";
-            Load += MainForm_Load;
             Split_Agrems.Panel1.ResumeLayout(false);
             Split_Agrems.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)Split_Agrems).EndInit();

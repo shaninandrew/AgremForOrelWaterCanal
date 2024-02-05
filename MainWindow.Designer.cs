@@ -200,6 +200,7 @@
             // 
             // Main_Split_Conatainer.Panel2
             // 
+            Main_Split_Conatainer.Panel2.AutoScroll = true;
             Main_Split_Conatainer.Panel2.BackColor = Color.LightSkyBlue;
             Main_Split_Conatainer.Panel2.Paint += Main_Split_Conatainer_Panel2_Paint;
             Main_Split_Conatainer.Size = new Size(960, 516);
@@ -216,7 +217,6 @@
             SearchData.Text = "Поиск";
             SearchData.UseVisualStyleBackColor = true;
             SearchData.Click += SearchData_Click;
-            SearchData.Enter += SearchData_Enter;
             // 
             // label1
             // 
@@ -241,9 +241,12 @@
             menuStrip1.GripStyle = ToolStripGripStyle.Visible;
             menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Items.AddRange(new ToolStripItem[] { подключениеToolStripMenuItem });
+            menuStrip1.LayoutStyle = ToolStripLayoutStyle.Table;
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Margin = new Padding(2);
             menuStrip1.Name = "menuStrip1";
+            menuStrip1.RenderMode = ToolStripRenderMode.Professional;
+            menuStrip1.ShowItemToolTips = true;
             menuStrip1.Size = new Size(960, 29);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "MainMenu";
@@ -258,18 +261,19 @@
             // настрйокиToolStripMenuItem
             // 
             настрйокиToolStripMenuItem.Name = "настрйокиToolStripMenuItem";
-            настрйокиToolStripMenuItem.Size = new Size(159, 26);
+            настрйокиToolStripMenuItem.Size = new Size(193, 26);
             настрйокиToolStripMenuItem.Text = "Настройки";
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(156, 6);
+            toolStripMenuItem1.Size = new Size(190, 6);
             // 
             // выходToolStripMenuItem
             // 
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            выходToolStripMenuItem.Size = new Size(159, 26);
+            выходToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.F10;
+            выходToolStripMenuItem.Size = new Size(193, 26);
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
             // 

@@ -217,7 +217,7 @@ namespace DocGen7.Кастомные_контролы
                                         case "float":
                                            
 
-                                            txt.Mask = "#####.00";
+                                            txt.Mask = "## ###.00";
                                             txt.ValidatingType = null;
                                             txt.Text = dr.GetFloat(i).ToString().Replace(",",".");
 
@@ -225,7 +225,7 @@ namespace DocGen7.Кастомные_контролы
                                             break;
 
                                         case "double":
-                                            txt.Mask = "#####.00";
+                                            txt.Mask = "## ###.00";
                                             txt.ValidatingType = null;
                                             txt.Text = dr.GetFloat(i).ToString().Replace(",", ".");
 
@@ -279,7 +279,7 @@ namespace DocGen7.Кастомные_контролы
                                             break;
 
                                         case "float":
-                                            txt.Mask = "#####.00";
+                                            txt.Mask = "## ###.00";
                                            
                                             txt.Text = dr.GetFloat(i).ToString().Replace(",", ".");
 
@@ -287,7 +287,7 @@ namespace DocGen7.Кастомные_контролы
                                             break;
 
                                         case "double":
-                                            txt.Mask = "#####.00";
+                                            txt.Mask = "## ###.00";
                            
                                             txt.Text = dr.GetFloat(i).ToString().Replace(",", ".");
 
@@ -333,18 +333,22 @@ namespace DocGen7.Кастомные_контролы
                     {
 
                         t.Visible = true;
-                        last_top = t.Top + t.Height + 5;
+                        
                     }
                     foreach (var t in _titles.AsParallel())
                     {
                         t.Visible = true;
                     }
 
-                    SaveIt.Top = last_top;
-                    SaveIt.Show();
-                    SaveIt.Enabled = !false;
+
+                    last_top = _list.Last().Top + _list.Last().Height + 50;
+                    
 
                 }
+
+                SaveIt.Top = last_top;
+                SaveIt.Show();
+                SaveIt.Enabled = !false;
 
             }// list
 

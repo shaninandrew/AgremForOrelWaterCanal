@@ -66,7 +66,10 @@ namespace wfa_symple
 
 
             //Загрузить договора
-            ShowAgreements_Click(this, new EventArgs());
+            
+            //ShowAgreements_Click(this, new EventArgs());
+            
+            SearchData_Click(this, new EventArgs());
             //ShowPrice_Click(this, new EventArgs());
 
         }
@@ -118,6 +121,7 @@ namespace wfa_symple
             ShowPrice.BackColor = Color.Navy;
             ShowPrice.ForeColor = Color.Azure;
 
+            SearchData_Click(this, new EventArgs());
 
 
         }
@@ -133,6 +137,7 @@ namespace wfa_symple
             ShowGenerator.BackColor = Color.Navy;
             ShowGenerator.ForeColor = Color.Azure;
 
+            SearchData_Click(this, new EventArgs());
 
         }
 
@@ -147,6 +152,7 @@ namespace wfa_symple
             Show_Settings.BackColor = Color.Navy;
             Show_Settings.ForeColor = Color.Azure;
 
+            SearchData_Click(this, new EventArgs());
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -240,12 +246,7 @@ namespace wfa_symple
 
         }
 
-        private void SearchData_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-
+       
 
        
 

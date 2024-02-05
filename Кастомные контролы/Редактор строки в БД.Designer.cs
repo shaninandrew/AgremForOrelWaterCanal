@@ -35,7 +35,7 @@
             // 
             SaveIt.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             SaveIt.FlatStyle = FlatStyle.Flat;
-            SaveIt.Location = new Point(14, 273);
+            SaveIt.Location = new Point(14, 358);
             SaveIt.Margin = new Padding(3, 2, 3, 2);
             SaveIt.Name = "SaveIt";
             SaveIt.Size = new Size(227, 26);
@@ -48,10 +48,14 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
+            AutoSize = true;
+            BorderStyle = BorderStyle.Fixed3D;
             Controls.Add(SaveIt);
             Margin = new Padding(3, 2, 3, 2);
+            MinimumSize = new Size(400, 400);
             Name = "UC_Editor_Row_In_DB";
-            Size = new Size(737, 311);
+            Size = new Size(733, 396);
             Load += UC_Editor_Row_In_DB_Load;
             MouseEnter += UC_Editor_Row_In_DB_MouseEnter;
             MouseLeave += UC_Editor_Row_In_DB_MouseLeave;

@@ -34,7 +34,7 @@ namespace Doc4Lab
         /// Ссылка на главное окно для работы с главным окном
         /// </summary>
         /// <param name="parentCore"></param>
-        public AgreementEditorWindow(MainWindow parentCore)
+        public AgreementEditorWindow(MainWindow parentCore=null)
         {
             InitializeComponent();
 
@@ -52,43 +52,15 @@ namespace Doc4Lab
             this.Close();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void SearchAgrems_Click(object sender, EventArgs e)
         {
             //Нажали F5
-            отобразитьДоговораToolStripMenuItem_Click(sender, e);
+            listView_agreemtns_SelectedIndexChanged_1( sender,  e)    ;
         }
 
-        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-
-        }
-
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void подключитьсяКБазеДанныхToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void отключитьсяОтБазыДанныхToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void отобразитьДоговораToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-
-
-        }
+       
 
         private void новыйДоговорToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -103,15 +75,6 @@ namespace Doc4Lab
 
         }
 
-        private void Split_Agrems_Panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void SearchAndFilter_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void Create_New_ClientNAgreement(object sender, EventArgs e)
         {
@@ -407,9 +370,7 @@ namespace Doc4Lab
         /// <param name="e"></param>
         private void listView_Clients_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-
-
-            CreateNewAgrForThisCleint.Enabled = false;
+             CreateNewAgrForThisCleint.Enabled = false;
             // Запрос сведений
             //SelectAgreementsForClientByID
 
