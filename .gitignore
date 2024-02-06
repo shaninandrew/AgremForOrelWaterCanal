@@ -1,8 +1,0 @@
-﻿################################################################################
-# Данный GITIGNORE-файл был автоматически создан Microsoft(R) Visual Studio.
-################################################################################
-
-/.vs/wfa_symple/FileContentIndex
-/FastCore/FastCore/.vs/FastCore/FileContentIndex/6457f44a-e96e-4a70-8018-520686246dcf.vsidx
-/FastCore/FastCore/obj/Debug/net8.0/ref/FastCore.dll
-/FastCore/FastCore/obj/Debug/net8.0/refint/FastCore.dll
