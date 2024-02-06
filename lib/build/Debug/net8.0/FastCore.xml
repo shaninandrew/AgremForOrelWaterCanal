@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FastCore</name>
+    </assembly>
+    <members>
+        <member name="T:FastCore.FastCore">
+            <summary>
+            Класс библитеки подключения к БД
+            </summary>
+        </member>
+        <member name="M:FastCore.FastCore.#ctor(System.String)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="connection_string">Строка подключение</param>
+        </member>
+        <member name="M:FastCore.FastCore.ExecSQL(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter})">
+            <summary>
+            Выполняет запрос и возвращает DataReader
+            </summary>
+            <param name="SQL">Запрос</param>
+            <param name="sql_params">Список параметров</param>
+            <returns></returns>
+        </member>
+        <member name="M:FastCore.FastCore.Dispose">
+            <summary>
+            Уничтожение объекта
+            </summary>
+        </member>
+        <member name="M:FastCore.MemoryDataSource.#ctor(System.String)">
+            <summary>
+            Конструктор
+            </summary>
+        </member>
+        <member name="M:FastCore.MemoryDataSource.#ctor(FastCore.FastCore)">
+            <summary>
+            Если подключение есть - то можно его передать
+            </summary>
+            <param name="fastCore"></param>
+        </member>
+        <member name="M:FastCore.MemoryDataSource.Load(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter},System.String)">
+            <summary>
+            Считывает из БД данные
+            </summary>
+            <param name="SQL"></param>
+            <param name="sql_params"></param>
+            <param name="table_name">Имя таблицы в памяти</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

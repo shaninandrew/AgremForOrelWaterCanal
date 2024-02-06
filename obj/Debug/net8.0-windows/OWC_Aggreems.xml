@@ -1,0 +1,265 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OWC_Aggreems</name>
+    </assembly>
+    <members>
+        <member name="F:OWC_Aggreems.Bootstrap.components">
+            <summary>
+             Required designer variable.
+            </summary>
+        </member>
+        <member name="M:OWC_Aggreems.Bootstrap.Dispose(System.Boolean)">
+            <summary>
+             Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:OWC_Aggreems.Bootstrap.InitializeComponent">
+            <summary>
+             Required method for Designer support - do not modify
+             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:OWC_Aggreems.Program.Main">
+            <summary>
+             The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:OWC_Aggreems.ApplicationConfiguration">
+            <summary>
+             Bootstrap the application configuration.
+            </summary>
+        </member>
+        <member name="M:OWC_Aggreems.ApplicationConfiguration.Initialize">
+            <summary>
+             Bootstrap the application as follows:
+             <code>
+             global::System.Windows.Forms.Application.EnableVisualStyles();
+             global::System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+             global::System.Windows.Forms.Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            </code>
+            </summary>
+        </member>
+        <member name="M:DocGen7.Кастомные_контролы.ListViewForDataPoint.Title(System.String)">
+            <summary>
+            Название контрола
+            </summary>
+            <param name="s"></param>
+        </member>
+        <member name="M:DocGen7.Кастомные_контролы.ListViewForDataPoint.#ctor(OWC_Aggreems.Bootstrap,System.String,System.String)">
+            <summary>
+            Редактор таблиц встроенный
+            </summary>
+            <param name="title"></param>
+        </member>
+        <member name="M:DocGen7.Кастомные_контролы.ListViewForDataPoint.LVC_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Обновление данных при смене строки
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:DocGen7.Кастомные_контролы.ListViewForDataPoint.UpdateMainScreen(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter})">
+            <summary>
+            Обновление списка данных
+            </summary>
+            <param name="sql"></param>
+            <param name="sql_params_"></param>
+        </member>
+        <member name="F:DocGen7.Кастомные_контролы.ListViewForDataPoint.components">
+            <summary> 
+            Обязательная переменная конструктора.
+            </summary>
+        </member>
+        <member name="M:DocGen7.Кастомные_контролы.ListViewForDataPoint.Dispose(System.Boolean)">
+            <summary> 
+            Освободить все используемые ресурсы.
+            </summary>
+            <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        </member>
+        <member name="M:DocGen7.Кастомные_контролы.ListViewForDataPoint.InitializeComponent">
+            <summary> 
+            Требуемый метод для поддержки конструктора — не изменяйте 
+            содержимое этого метода с помощью редактора кода.
+            </summary>
+        </member>
+        <member name="T:DocGen7.Кастомные_контролы.UC_Editor_Row_In_DB">
+            <summary>
+            Контрол для реадктирования строк в базе данных
+            1 строки: нужно передать имя таблицы и имя ID колонки, ключ ID - для обновления
+            </summary>
+        </member>
+        <member name="F:DocGen7.Кастомные_контролы.UC_Editor_Row_In_DB._table">
+            <summary>
+            Таблица откуда читать/писать данные
+            
+            </summary>
+        </member>
+        <member name="M:DocGen7.Кастомные_контролы.UC_Editor_Row_In_DB.SaveIt_Click(System.Object,System.EventArgs)">
+            <summary>
+            Сохранение данных
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:DocGen7.Кастомные_контролы.UC_Editor_Row_In_DB.UC_Editor_Row_In_DB_MouseEnter(System.Object,System.EventArgs)">
+            <summary>
+            Мышь зашла
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:DocGen7.Кастомные_контролы.UC_Editor_Row_In_DB.components">
+            <summary> 
+            Обязательная переменная конструктора.
+            </summary>
+        </member>
+        <member name="M:DocGen7.Кастомные_контролы.UC_Editor_Row_In_DB.Dispose(System.Boolean)">
+            <summary> 
+            Освободить все используемые ресурсы.
+            </summary>
+            <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        </member>
+        <member name="M:DocGen7.Кастомные_контролы.UC_Editor_Row_In_DB.InitializeComponent">
+            <summary> 
+            Требуемый метод для поддержки конструктора — не изменяйте 
+            содержимое этого метода с помощью редактора кода.
+            </summary>
+        </member>
+        <member name="F:DocGen7.Формы.Settings.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:DocGen7.Формы.Settings.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:DocGen7.Формы.Settings.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.#ctor(OWC_Aggreems.Bootstrap,System.String)">
+            <summary>
+            Ссылка на главное окно для работы с главным окном
+            </summary>
+            <param name="parentCore">Родительское окно</param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.выходToolStripMenuItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            Выход из окна
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.listView_agreemtns_Click(System.Object,System.EventArgs)">
+            <summary>
+            Список договоров  по клиенту
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.listView_Clients_Click(System.Object,System.EventArgs)">
+            <summary>
+            События щелчка по списку клиентов
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.CreateNewAgrForThisCleint_Click(System.Object,System.EventArgs)">
+            <summary>
+            Создать новый договор и привязать к этому клиенту
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.listView_agreemtns_SelectedIndexChanged_1(System.Object,System.EventArgs)">
+            <summary>
+            Вызов редактора догворов
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.listView_Clients_ItemSelectionChanged(System.Object,System.Windows.Forms.ListViewItemSelectionChangedEventArgs)">
+            <summary>
+            Сменился выделенный элемент
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.UpdateEditorCleintById(System.String,System.String)">
+            <summary>
+            Обновляет редактор  записи клиента в нужном контроле
+            </summary>
+            <param name="SQL"></param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.UpdateEditorAgreementsById(System.String)">
+            <summary>
+            Обновляет редактор договоров по ID
+            </summary>
+            <param name="guid"></param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.UpdateMainScreen">
+            <summary>
+            Без параметров - повторит последний
+            </summary>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.UpdateMainScreen(System.String,System.Collections.Generic.List{System.Data.SqlClient.SqlParameter})">
+            <summary>
+            Обновляет основной экран запросом сведений
+            </summary>
+            <param name="SQL">Базовый Select запрос для выдачи данных</param>
+            <param name="sql_params">Параметры</param>
+        </member>
+        <member name="F:Doc4Lab.AgreementEditorWindow.components">
+            <summary>
+            Обязательная переменная конструктора.
+            </summary>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.Dispose(System.Boolean)">
+            <summary>
+            Освободить все используемые ресурсы.
+            </summary>
+            <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.InitializeComponent">
+            <summary>
+            Требуемый метод для поддержки конструктора — не изменяйте 
+            содержимое этого метода с помощью редактора кода.
+            </summary>
+        </member>
+        <member name="M:wfa_symple.Editor_Price.XInitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:wfa_symple.ReportGenerator">
+            <summary>
+            ФОрма генерации документа
+            </summary>
+        </member>
+        <member name="F:wfa_symple.ReportGenerator.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:wfa_symple.ReportGenerator.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:wfa_symple.ReportGenerator.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+    </members>
+</doc>
