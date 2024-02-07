@@ -287,99 +287,10 @@ namespace Doc4Lab
         /// <param name="e"></param>
         private void listView_agreemtns_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            /*if (listView_agreemtns.SelectedItems == null)
-                return;
-
-            if (listView_agreemtns.SelectedItems.Count == 0)
-                return;
-
-            int ix = listView_agreemtns.Columns.IndexOfKey("Guid");
-            //выход по пустышке
-            if (ix < 0)
-            { return; }
-
-            string Guid = listView_agreemtns.SelectedItems[0].SubItems[ix].Text;
-
-            //SelectClientsForAgreementsByID
-            string SQL = "SELECT * FROM [dbo].[SelectClientsForAgreementsByID] ('" + Guid + "' )";
-            listView_Clients.Items.Clear();
-
-            //Колонки
-            listView_Clients.Columns.Clear();
-
-            using (var con = new FastCore.FastCore())
-            using (SqlDataReader dr = con.ExecSQL(SQL, null))
-            {
-                if (dr != null)
-                    while (dr.Read())
-                    {
-                        if (!dr.HasRows) break;
-
-                        if (listView_Clients.Columns.Count == 0)
-                        {
-                            for (int i = 0; i < dr.FieldCount; i++)
-                            {
-                                ColumnHeader ch = new ColumnHeader();
-                                ch.Width = 100;
-                                ch.Name = dr.GetName(i);
-                                ch.Text = dr.GetName(i);
-
-                                if (ch.Name.ToLower().IndexOf("guid") > -1)
-                                    ch.Width = 50;
-
-                                if (ch.Name.ToLower() == ("id"))
-                                    ch.Width = 50;
-                                /// ch.Width = 200; для отладки
-
-                                if (ch.Name.ToLower().IndexOf("name") > -1)
-                                    ch.Width = 200;
-
-                                ch.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
-
-                                listView_Clients.Columns.Add(ch);
-
-
-                            }
-
-                        }
-
-                        //Select 	link.[LinkGuid], cp.Name as Name_Personal,  link.ClientTypeID From 
-                        ListViewItem lv = new ListViewItem();
-
-                        lv.Text = dr.GetValue(0).ToString();
-                        ListViewItem.ListViewSubItem x = new ListViewItem.ListViewSubItem();
-                        x.Name = dr.GetName(1);
-                        x.Text = dr.GetValue(1).ToString();
-
-
-                        lv.SubItems.Add(x);
-
-                        ListViewItem.ListViewSubItem x2 = new ListViewItem.ListViewSubItem();
-                        x2.Name = dr.GetName(2);
-                        x2.Text = dr.GetValue(2).ToString();
-                        lv.SubItems.Add(x2);
-
-                        listView_Clients.Items.Add(lv);
-                    }
-                dr.Close();
-
-                  */
+         
 
         }
 
-
-        //берем связку
-        /*  string guid = listView_agreemtns.SelectedItems[0].SubItems["Guid"].Text;
-
-          UpdateEditorAgreementsById(guid);
-
-          string ClientGuid = listView_agreemtns.SelectedItems[0].SubItems["LinkGuid"].Text;
-          string ClientTypeID = listView_agreemtns.SelectedItems[0].SubItems["ClientTypeID"].Text;
-
-          UpdateEditorCleintById(ClientGuid, ClientTypeID);
-
-          //выбираем договор вкладку для правки
-          TabControlFull.SelectedTab = tabeditor_Agreement;     */
 
 
 
@@ -742,9 +653,11 @@ namespace Doc4Lab
                         catch { break; }
                     }
 
+                ///FFF
+                //
+                _FXX
                 // --- Итого по договору
-                fast_core.ExecSQLScalar($"Select TotalSum from GetTotalServiceByAgreementID('{Guid}'",null);
-                
+                TotalSum.Text =        fast_core.ExecSQLScalar($"Select TotalSum from GetTotalServiceByAgreementID('{Guid}')", null);
 
                 fast_core.CloseConnection();
             }
@@ -826,12 +739,17 @@ namespace Doc4Lab
                 }
 
                 fc.ExecSQLScalar(SQL, null);
-                
+
                 fc.CloseConnection();
             }
 
 
             btn_RefreshService_Click(sender, e);
+        }
+
+        private void dgv_Agreements_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

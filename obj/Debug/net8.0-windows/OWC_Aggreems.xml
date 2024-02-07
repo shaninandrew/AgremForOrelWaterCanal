@@ -237,9 +237,16 @@
             <param name="Guid_of_Agreements">ID договораа</param>
             <returns></returns>
         </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.dgv_Clients_Click(System.Object,System.EventArgs)">
+            <summary>
+            Отбор договоров по клиенту
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
         <member name="M:Doc4Lab.AgreementEditorWindow.UpdateServiceList(System.String)">
             <summary>
-            Списко услуг оказываемых по договору
+            Список услуг оказываемых по договору
             </summary>
             <param name="AgreementGuid">Guid контракта</param>
         </member>

@@ -48,11 +48,13 @@
             tabEditor_Service = new TabPage();
             dgv_Service = new DataGridView();
             panel1 = new Panel();
+            DefaultServices = new Button();
             AddService = new Button();
             btn_RefreshService = new Button();
             btn_DeleteService = new Button();
             AddNewService = new Button();
-            DefaultServices = new Button();
+            TotalSum = new TextBox();
+            Total = new Label();
             ((System.ComponentModel.ISupportInitialize)Split_Agrems).BeginInit();
             Split_Agrems.Panel1.SuspendLayout();
             Split_Agrems.Panel2.SuspendLayout();
@@ -164,6 +166,7 @@
             dgv_Agreements.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_Agreements.Size = new Size(1472, 384);
             dgv_Agreements.TabIndex = 0;
+            dgv_Agreements.CellContentClick += dgv_Agreements_CellContentClick;
             dgv_Agreements.SelectionChanged += dgv_Agreements_SelectionChanged;
             // 
             // Agr_control
@@ -204,7 +207,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(11, 125);
             label3.Name = "label3";
-            label3.Size = new Size(91, 16);
+            label3.Size = new Size(109, 20);
             label3.TabIndex = 7;
             label3.Text = "Дата договора";
             // 
@@ -214,7 +217,7 @@
             New_Client_Date.Location = new Point(11, 151);
             New_Client_Date.Mask = "00/00/0000";
             New_Client_Date.Name = "New_Client_Date";
-            New_Client_Date.Size = new Size(254, 24);
+            New_Client_Date.Size = new Size(254, 28);
             New_Client_Date.TabIndex = 6;
             New_Client_Date.ValidatingType = typeof(DateTime);
             // 
@@ -222,7 +225,7 @@
             // 
             New_CLient_Number.Location = new Point(9, 92);
             New_CLient_Number.Name = "New_CLient_Number";
-            New_CLient_Number.Size = new Size(256, 24);
+            New_CLient_Number.Size = new Size(256, 28);
             New_CLient_Number.TabIndex = 4;
             // 
             // label2
@@ -230,7 +233,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(9, 66);
             label2.Name = "label2";
-            label2.Size = new Size(101, 16);
+            label2.Size = new Size(121, 20);
             label2.TabIndex = 3;
             label2.Text = "Номер договора";
             // 
@@ -239,7 +242,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(9, 9);
             label1.Name = "label1";
-            label1.Size = new Size(77, 16);
+            label1.Size = new Size(93, 20);
             label1.TabIndex = 2;
             label1.Text = "Тип клиента";
             // 
@@ -251,7 +254,7 @@
             New_Client_Type.Items.AddRange(new object[] { "Физическое лицо", "Юридическое лицо" });
             New_Client_Type.Location = new Point(11, 32);
             New_Client_Type.Name = "New_Client_Type";
-            New_Client_Type.Size = new Size(254, 24);
+            New_Client_Type.Size = new Size(254, 28);
             New_Client_Type.TabIndex = 1;
             // 
             // CreateNewClient
@@ -283,10 +286,10 @@
             // tabeditor_Client
             // 
             tabeditor_Client.AutoScroll = true;
-            tabeditor_Client.Location = new Point(4, 25);
+            tabeditor_Client.Location = new Point(4, 29);
             tabeditor_Client.Name = "tabeditor_Client";
             tabeditor_Client.Padding = new Padding(3);
-            tabeditor_Client.Size = new Size(1751, 312);
+            tabeditor_Client.Size = new Size(1751, 308);
             tabeditor_Client.TabIndex = 0;
             tabeditor_Client.Text = "Клиенты";
             tabeditor_Client.UseVisualStyleBackColor = true;
@@ -294,10 +297,10 @@
             // tabeditor_Agreement
             // 
             tabeditor_Agreement.AutoScroll = true;
-            tabeditor_Agreement.Location = new Point(4, 25);
+            tabeditor_Agreement.Location = new Point(4, 29);
             tabeditor_Agreement.Name = "tabeditor_Agreement";
             tabeditor_Agreement.Padding = new Padding(3);
-            tabeditor_Agreement.Size = new Size(1751, 312);
+            tabeditor_Agreement.Size = new Size(1751, 308);
             tabeditor_Agreement.TabIndex = 1;
             tabeditor_Agreement.Text = "Положение договора";
             tabeditor_Agreement.UseVisualStyleBackColor = true;
@@ -307,10 +310,10 @@
             tabEditor_Service.AutoScroll = true;
             tabEditor_Service.Controls.Add(dgv_Service);
             tabEditor_Service.Controls.Add(panel1);
-            tabEditor_Service.Location = new Point(4, 25);
+            tabEditor_Service.Location = new Point(4, 29);
             tabEditor_Service.Name = "tabEditor_Service";
             tabEditor_Service.Padding = new Padding(3);
-            tabEditor_Service.Size = new Size(1751, 312);
+            tabEditor_Service.Size = new Size(1751, 308);
             tabEditor_Service.TabIndex = 2;
             tabEditor_Service.Text = "Услуги по прайс-листу";
             tabEditor_Service.UseVisualStyleBackColor = true;
@@ -328,12 +331,14 @@
             dgv_Service.Name = "dgv_Service";
             dgv_Service.RowHeadersWidth = 51;
             dgv_Service.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgv_Service.Size = new Size(1745, 256);
+            dgv_Service.Size = new Size(1745, 252);
             dgv_Service.StandardTab = true;
             dgv_Service.TabIndex = 1;
             // 
             // panel1
             // 
+            panel1.Controls.Add(Total);
+            panel1.Controls.Add(TotalSum);
             panel1.Controls.Add(DefaultServices);
             panel1.Controls.Add(AddService);
             panel1.Controls.Add(btn_RefreshService);
@@ -344,6 +349,18 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1745, 50);
             panel1.TabIndex = 0;
+            // 
+            // DefaultServices
+            // 
+            DefaultServices.FlatAppearance.BorderColor = Color.FromArgb(192, 64, 0);
+            DefaultServices.FlatStyle = FlatStyle.Popup;
+            DefaultServices.Location = new Point(510, 3);
+            DefaultServices.Name = "DefaultServices";
+            DefaultServices.Size = new Size(241, 41);
+            DefaultServices.TabIndex = 4;
+            DefaultServices.Text = "Обнулить кол-во услуг";
+            DefaultServices.UseVisualStyleBackColor = true;
+            DefaultServices.Click += button1_Click_1;
             // 
             // AddService
             // 
@@ -395,21 +412,26 @@
             AddNewService.UseVisualStyleBackColor = true;
             AddNewService.Click += button1_Click;
             // 
-            // DefaultServices
+            // TotalSum
             // 
-            DefaultServices.FlatAppearance.BorderColor = Color.FromArgb(192, 64, 0);
-            DefaultServices.FlatStyle = FlatStyle.Popup;
-            DefaultServices.Location = new Point(510, 3);
-            DefaultServices.Name = "DefaultServices";
-            DefaultServices.Size = new Size(115, 41);
-            DefaultServices.TabIndex = 4;
-            DefaultServices.Text = "Обнулить кол-во услуг";
-            DefaultServices.UseVisualStyleBackColor = true;
-            DefaultServices.Click += button1_Click_1;
+            TotalSum.Location = new Point(869, 10);
+            TotalSum.Name = "TotalSum";
+            TotalSum.ReadOnly = true;
+            TotalSum.Size = new Size(195, 28);
+            TotalSum.TabIndex = 5;
+            // 
+            // Total
+            // 
+            Total.AutoSize = true;
+            Total.Location = new Point(801, 13);
+            Total.Name = "Total";
+            Total.Size = new Size(47, 20);
+            Total.TabIndex = 6;
+            Total.Text = "label4";
             // 
             // AgreementEditorWindow
             // 
-            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(1762, 845);
             Controls.Add(Split_Agrems);
@@ -435,6 +457,7 @@
             tabEditor_Service.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgv_Service).EndInit();
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -480,6 +503,8 @@
         private Button btn_RefreshService;
         private Button AddService;
         private Button DefaultServices;
+        private Label Total;
+        private TextBox TotalSum;
     }
 }
 
