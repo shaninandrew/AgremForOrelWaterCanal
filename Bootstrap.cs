@@ -42,7 +42,7 @@ namespace OWC_Aggreems
 
         private void SearchText_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode== Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
 
@@ -55,6 +55,30 @@ namespace OWC_Aggreems
                 agr.UpdateMainScreen(SQL);
 
             }
+        }
+
+        private void btn_Quit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Bootstrap_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (agr != null)
+                this.agr.Dispose();
+
+
+        }
+
+        private void Bootstrap_Shown(object sender, EventArgs e)
+        {
+            //ùåëêàåì     1 êíîïêå
+            btn_CallAgreements_Click(sender, e);
+        }
+
+        private void âûõîäToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

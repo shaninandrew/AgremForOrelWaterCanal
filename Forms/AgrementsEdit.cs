@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using wfa_symple;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 
 
@@ -30,6 +31,9 @@ namespace Doc4Lab
 
         private string Last_SQL = "";
         private List<SqlParameter> Last_params = null;
+
+        private string Selected_Agreement_GUID = "";
+
 
 
         /// <summary>
@@ -229,19 +233,19 @@ namespace Doc4Lab
             if ((New_Date == "  .  .    ") || (New_Date == "  .  ."))
             { New_Date = DateTime.Now.ToShortDateString(); }
 
-            int ix = listView_Clients.SelectedItems[0].SubItems.IndexOfKey("LinkGuid");
+            int ix = dgv_Clients.SelectedRows[0].Index;  // .Cells["LinkGuid"].Value.ToString();
             //нет колонок нафиг
             if (ix < 0)
             { return; }
 
             //существующий клиент
-            string Old_Client_Guid = listView_Clients.SelectedItems[0].SubItems[ix].Text;
+            string Old_Client_Guid = dgv_Clients.SelectedRows[0].Cells["LinkGuid"].Value.ToString();
 
             //новый документ
             string New_Agreement_Guid = Guid.NewGuid().ToString();
 
-            ix = listView_Clients.SelectedItems[0].SubItems.IndexOfKey("ClientTypeID");
-            string ClientTypeID = (listView_Clients.SelectedItems[0].SubItems[ix].Text); //1 -фз 2 -юр
+            //ix =   //listView_Clients.SelectedItems[0].SubItems.IndexOfKey();
+            string ClientTypeID = dgv_Clients.SelectedRows[0].Cells["ClientTypeID"].Value.ToString(); //1 -фз 2 -юр
 
 
             //Тут вызывается самописная процедура внесения данных
@@ -394,10 +398,6 @@ namespace Doc4Lab
              if (listView_Clients.SelectedItems == null) return;
              if (listView_Clients.SelectedItems.Count == 0) return;
 
-             string ID = listView_Clients.SelectedItems[0].SubItems[2].Text;
-             string SQL = "SELECT * FROM [dbo].[SelectAgreementsForClientByID] ( '" + ID + "')";
-
-             UpdateMainScreen(SQL, null);
 
              //разблокируем кнопку для нового договора для этого клиента
              if (ID != "")
@@ -513,82 +513,325 @@ namespace Doc4Lab
             //созраняем настройки - промотку и т.п.
             int vertical_scroll = this.dgv_Agreements.FirstDisplayedScrollingRowIndex;
 
-             if (this.dgv_Agreements.SelectedRows != null)
-             {
-                 if (this.dgv_Agreements.SelectedRows.Count > 0)
-                 {
+            if (this.dgv_Agreements.SelectedRows != null)
+            {
+                if (this.dgv_Agreements.SelectedRows.Count > 0)
+                {
                     selected_item = this.dgv_Agreements.SelectedRows[0].Index;
 
-                 }
+                }
 
-             }
-            
-            // Соединение с БД и наполение данными
-
-            FastCore.FastCore Data_point = new FastCore.FastCore();
-            FastCore.MemoryDataSource ds = new MemoryDataSource(Data_point);
-
-            ds.Load(SQL, sql_params, "agreements");
-
-            this.dgv_Agreements.DataSource = ds.DataSet.Tables["agreements"];
-            foreach (DataGridViewColumn k in this.dgv_Agreements.Columns)
-            {
-                if (k.DataPropertyName.ToLower().IndexOf("id") > -1) { k.Visible = false; }
             }
 
-          
+            // Соединение с БД и наполение данными
 
-            //---Восстановление сохраненной позы ====
-            if (this.dgv_Agreements.Rows.Count > selected_item)
+            using (FastCore.FastCore Data_point = new FastCore.FastCore())
             {
-                if (this.dgv_Agreements.SelectedRows.Count>0)
-                    this.dgv_Agreements.SelectedRows[0].Selected = false;//сброс
-                this.dgv_Agreements.Rows[selected_item].Selected = true;
-                this.dgv_Agreements.AutoScrollOffset = scrollTo;
-                try
+                FastCore.MemoryDataSource ds = new MemoryDataSource(Data_point);
+
+                ds.Load(SQL, sql_params, "agreements");
+
+                this.dgv_Agreements.DataSource = ds.DataSet.Tables["agreements"];
+                foreach (DataGridViewColumn k in this.dgv_Agreements.Columns)
                 {
-                    this.dgv_Agreements.CurrentCell = dgv_Agreements[0, selected_item];
-                    this.dgv_Agreements.CurrentCell.Selected = true;
-                   
-
+                    if (k.DataPropertyName.ToLower().IndexOf("id") > -1) { k.Visible = false; }
                 }
-                catch { }
 
 
 
-                //Anti errror
-
-                if (selected_item > 0)
+                //---Восстановление сохраненной позы ====
+                if (this.dgv_Agreements.Rows.Count > selected_item)
                 {
-                    this.dgv_Agreements.FirstDisplayedCell = dgv_Agreements.CurrentCell;
-                    this.dgv_Agreements.FirstDisplayedScrollingRowIndex =  vertical_scroll;
+                    if (this.dgv_Agreements.SelectedRows.Count > 0)
+                        this.dgv_Agreements.SelectedRows[0].Selected = false;//сброс
+                    this.dgv_Agreements.Rows[selected_item].Selected = true;
+                    this.dgv_Agreements.AutoScrollOffset = scrollTo;
+                    try
+                    {
+                        this.dgv_Agreements.CurrentCell = dgv_Agreements[0, selected_item];
+                        this.dgv_Agreements.CurrentCell.Selected = true;
 
-                }
+
+                    }
+                    catch { }
+
+
+
+                    //Anti errror
+
+                    if (selected_item > 0)
+                    {
+                        this.dgv_Agreements.FirstDisplayedCell = dgv_Agreements.CurrentCell;
+                        this.dgv_Agreements.FirstDisplayedScrollingRowIndex = vertical_scroll;
+
+                    }
 
                     //this.dgv_Agreements.(selected_item);
                 }
 
-            } //Update Main screen
+                Data_point.CloseConnection();
+            }//using
 
-            private void AgreementEditorWindow_Load(object sender, EventArgs e)
+
+        } //Update Main screen
+
+
+        /// <summary>
+        /// Загрузка окна
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AgreementEditorWindow_Load(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Выбор контаркта - запоминаем его ID в  Selected_Agreement_GUID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgv_Agreements_SelectionChanged(object sender, EventArgs e)
         {
             try
             {
-                string Guid = dgv_Agreements.SelectedRows[0].Cells["Guid"].Value.ToString();
+                //глобальный выбор 
+                Selected_Agreement_GUID = "";
+                if (dgv_Agreements.CurrentRow != null)
+                    try
+                    {
+                        Selected_Agreement_GUID = dgv_Agreements.CurrentRow.Cells["Guid"].Value.ToString();
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            Selected_Agreement_GUID = dgv_Agreements.SelectedRows[0].Cells["Guid"].Value.ToString();
+                        }
+                        catch
+                        {
+                            Selected_Agreement_GUID = "";
+                        }
+                    }
+
+                //=====================
+
+                string Guid = Selected_Agreement_GUID;
+
                 string LinkedGuid = dgv_Agreements.SelectedRows[0].Cells["LinkGuid"].Value.ToString();
                 string clientTypeid = dgv_Agreements.SelectedRows[0].Cells["ClientTypeID"].Value.ToString();
 
                 UpdateEditorCleintById(LinkedGuid, clientTypeid);
                 UpdateEditorAgreementsById(Guid);
+
+                //в фоне
+                UpdateClientsList(Guid);
+
+
+
+                //список услуг
+
+                btn_RefreshService_Click(sender, e);
+
+
+
             }
             catch (Exception ex)
             { }
 
+        }
+
+
+        /// <summary>
+        ///  Обновляет ListViewClient списком клиентов которые привязаны к договору
+        /// </summary>
+        /// <param name="Guid_of_Agreements">ID договораа</param>
+        /// <returns></returns>
+        public async void UpdateClientsList(string Guid_of_Agreements)
+        {
+
+            dgv_Clients.DataSource = null;
+
+            using (FastCore.FastCore fast_core = new FastCore.FastCore())
+            {
+                FastCore.MemoryDataSource msd = new MemoryDataSource(fast_core);
+                msd.Load($"Select * from SelectClientsForAgreementsByID ('{Guid_of_Agreements}') ", null, "clients");
+
+                dgv_Clients.DataSource = msd.DataSet.Tables["clients"];
+
+                if (dgv_Clients.Columns.Count > 0)
+                    foreach (DataGridViewColumn item in dgv_Clients.Columns)
+                    {
+                        try { item.Visible = item.DataPropertyName.ToLower().IndexOf("id") > -1 ? !true : !false; }
+                        catch { break; }
+                    }
+
+                fast_core.CloseConnection();
+            }
+
+        }
+
+        private void listView_Clients_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        /// <summary>
+        /// Отбор договоров по клиенту
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgv_Clients_Click(object sender, EventArgs e)
+        {
+            if (dgv_Clients.CurrentRow == null)
+                return;
+
+            Selected_Agreement_GUID = ""; //скидываем выделение контракта
+            string ID = dgv_Clients.CurrentRow.Cells["LinkGuid"].Value.ToString();
+            string SQL = "SELECT * FROM [dbo].[SelectAgreementsForClientByID] ( '" + ID + "')";
+
+            UpdateMainScreen(SQL, null);
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            if (dgv_Clients.CurrentRow == null)
+                return;
+
+
+            if (Selected_Agreement_GUID == "") return;
+
+            // добавляем пакет услуг. Процедуре нужен контракт. Данные добавяться из прайса действующего на дату.
+            using (FastCore.FastCore fc = new FastCore.FastCore())
+            {
+                fc.ExecSQLScalar(@$"DECLARE @return_value int ;
+                                EXEC	@return_value = [dbo].[InsertNewServiceForAgreement] @GuidAgr = '{Selected_Agreement_GUID}';
+                            Select @return_value ", null);
+            }
+
+
+            UpdateServiceList(Selected_Agreement_GUID);
+
+
+        }
+
+
+        /// <summary>
+        /// Список услуг оказываемых по договору
+        /// </summary>
+        /// <param name="AgreementGuid">Guid контракта</param>
+        void UpdateServiceList(string Guid)
+        {
+            dgv_Service.DataSource = null;
+            string sql = $"SELECT * FROM  SelectServicesByAgreementID ('{Guid}') ";
+
+            using (FastCore.FastCore fast_core = new FastCore.FastCore())
+            {
+                FastCore.MemoryDataSource msd = new MemoryDataSource(fast_core);
+                msd.Load(sql, null, "services");
+
+                dgv_Service.DataSource = msd.DataSet.Tables["services"];
+
+                if (dgv_Service.Columns.Count > 0)
+                    foreach (DataGridViewColumn item in dgv_Service.Columns)
+                    {
+                        try { item.Visible = item.DataPropertyName.ToLower().IndexOf("id") > -1 ? !true : !false; }
+                        catch { break; }
+                    }
+
+                // --- Итого по договору
+                fast_core.ExecSQLScalar($"Select TotalSum from GetTotalServiceByAgreementID('{Guid}'",null);
+                
+
+                fast_core.CloseConnection();
+            }
+
+        }
+
+        /// <summary>
+        /// Обновление списка услуг
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_RefreshService_Click(object sender, EventArgs e)
+        {
+            string guid = dgv_Agreements.CurrentRow.Cells["Guid"].Value.ToString();
+            UpdateServiceList(guid);
+        }
+
+        private void btn_DeleteService_Click(object sender, EventArgs e)
+        {
+            using (FastCore.FastCore fc = new FastCore.FastCore())
+            {
+                foreach (DataGridViewRow r in dgv_Service.SelectedRows)
+                {
+                    string ID = r.Cells["Id"].Value.ToString();
+                    fc.ExecSQLScalar(@$"
+                                        DECLARE	@return_value int
+                                        EXEC	@return_value = [dbo].[DeleteServiceByAgreements]
+		                                        @ID = {ID}
+                                        SELECT	'Return Value' = @return_value", null);
+                }
+
+                fc.CloseConnection();
+            }
+
+
+            btn_RefreshService_Click(sender, e);
+        }
+
+        /// <summary>
+        /// Добавляет услугу
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddService_Click(object sender, EventArgs e)
+        {
+            using (FastCore.FastCore fc = new FastCore.FastCore())
+            {
+                string SQL = "";
+                foreach (DataGridViewRow r in dgv_Service.SelectedRows)
+                {
+                    string ID = r.Cells["Id"].Value.ToString();
+                    SQL += @$"  UPDATE ServiceByAgreements  SET Count = Count+1  WHERE [ID] = {ID}  ;  ";
+                }
+
+                fc.ExecSQLScalar(SQL, null);
+                fc.CloseConnection();
+            }
+
+
+            btn_RefreshService_Click(sender, e);
+        }
+
+        /// <summary>
+        /// Обнулить все выделенные услуги
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            using (FastCore.FastCore fc = new FastCore.FastCore())
+            {
+                string SQL = "";
+                foreach (DataGridViewRow r in dgv_Service.SelectedRows)
+                {
+                    string ID = r.Cells["Id"].Value.ToString();
+                    SQL += @$"  UPDATE ServiceByAgreements  SET Count = 0 WHERE [ID] = {ID}  ;  ";
+                }
+
+                fc.ExecSQLScalar(SQL, null);
+                
+                fc.CloseConnection();
+            }
+
+
+            btn_RefreshService_Click(sender, e);
         }
     }
 }

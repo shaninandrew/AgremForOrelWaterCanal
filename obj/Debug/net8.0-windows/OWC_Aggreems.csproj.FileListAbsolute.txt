@@ -33,3 +33,4 @@ D:\DocGen\Переделанный проект\OWC_Aggreems\obj\Debug\net8.0-wi
 D:\DocGen\Переделанный проект\OWC_Aggreems\bin\Debug\net8.0-windows\FastCore.dll
 D:\DocGen\Переделанный проект\OWC_Aggreems\bin\Debug\net8.0-windows\FastCore.pdb
 D:\DocGen\Переделанный проект\OWC_Aggreems\bin\Debug\net8.0-windows\FastCore.xml
+D:\DocGen\Переделанный проект\OWC_Aggreems\obj\Debug\net8.0-windows\OWC_Aggreems.sourcelink.json

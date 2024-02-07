@@ -216,6 +216,56 @@
             <param name="SQL">Базовый Select запрос для выдачи данных</param>
             <param name="sql_params">Параметры</param>
         </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.AgreementEditorWindow_Load(System.Object,System.EventArgs)">
+            <summary>
+            Загрузка окна
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.dgv_Agreements_SelectionChanged(System.Object,System.EventArgs)">
+            <summary>
+            Выбор контаркта - запоминаем его ID в  Selected_Agreement_GUID
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.UpdateClientsList(System.String)">
+            <summary>
+             Обновляет ListViewClient списком клиентов которые привязаны к договору
+            </summary>
+            <param name="Guid_of_Agreements">ID договораа</param>
+            <returns></returns>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.UpdateServiceList(System.String)">
+            <summary>
+            Списко услуг оказываемых по договору
+            </summary>
+            <param name="AgreementGuid">Guid контракта</param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.btn_RefreshService_Click(System.Object,System.EventArgs)">
+            <summary>
+            Обновление списка услуг
+            
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.AddService_Click(System.Object,System.EventArgs)">
+            <summary>
+            Добавляет услугу
+            
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Doc4Lab.AgreementEditorWindow.button1_Click_1(System.Object,System.EventArgs)">
+            <summary>
+            Обнулить все выделенные услуги
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
         <member name="F:Doc4Lab.AgreementEditorWindow.components">
             <summary>
             Обязательная переменная конструктора.

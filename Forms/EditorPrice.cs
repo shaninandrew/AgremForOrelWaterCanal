@@ -58,6 +58,9 @@ namespace wfa_symple
 
         }
 
-      
+        private void InitializeComponent()
+        {
+
+        }
     }
 }
