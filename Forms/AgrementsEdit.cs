@@ -287,7 +287,7 @@ namespace Doc4Lab
         /// <param name="e"></param>
         private void listView_agreemtns_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-         
+
 
         }
 
@@ -657,7 +657,7 @@ namespace Doc4Lab
                 //
                 //_FXX
                 // --- Итого по договору
-                TotalSum.Text =        fast_core.ExecSQLScalar($"Select TotalSum from GetTotalServiceByAgreementID('{Guid}')", null);
+                TotalSum.Text = fast_core.ExecSQLScalar($"Select TotalSum from GetTotalServiceByAgreementID('{Guid}')", null);
 
                 fast_core.CloseConnection();
             }
@@ -751,6 +751,29 @@ namespace Doc4Lab
         {
 
         }
+
+        private void ReCalc_Click(object sender, EventArgs e)
+        {
+            if (dgv_Clients.CurrentRow == null)
+                return;
+
+            if (Selected_Agreement_GUID == "") return;
+
+
+            using (FastCore.FastCore fc = new FastCore.FastCore())
+            {
+                string SQL = "";
+                foreach (DataGridViewRow r in dgv_Service.SelectedRows)
+                {
+                    === TODO
+                    string ID = r.Cells["Id"].Value.ToString();
+                    SQL += @$"  /***/ ;  ";
+                }
+
+                fc.ExecSQLScalar(SQL, null);
+
+                fc.CloseConnection();
+            }
     }
 }
     

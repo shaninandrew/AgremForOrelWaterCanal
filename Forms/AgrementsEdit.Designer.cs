@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             splitter1 = new Splitter();
             Split_Agrems = new SplitContainer();
             SplitterDocs = new SplitContainer();
@@ -48,13 +50,14 @@
             tabEditor_Service = new TabPage();
             dgv_Service = new DataGridView();
             panel1 = new Panel();
+            Total = new Label();
+            TotalSum = new TextBox();
             DefaultServices = new Button();
             AddService = new Button();
             btn_RefreshService = new Button();
             btn_DeleteService = new Button();
             AddNewService = new Button();
-            TotalSum = new TextBox();
-            Total = new Label();
+            ReCalc = new Button();
             ((System.ComponentModel.ISupportInitialize)Split_Agrems).BeginInit();
             Split_Agrems.Panel1.SuspendLayout();
             Split_Agrems.Panel2.SuspendLayout();
@@ -156,12 +159,21 @@
             dgv_Agreements.BackgroundColor = Color.LightSkyBlue;
             dgv_Agreements.BorderStyle = BorderStyle.None;
             dgv_Agreements.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Arial Unicode MS", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            dataGridViewCellStyle5.ForeColor = Color.Black;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dgv_Agreements.DefaultCellStyle = dataGridViewCellStyle5;
             dgv_Agreements.Dock = DockStyle.Fill;
             dgv_Agreements.EditMode = DataGridViewEditMode.EditProgrammatically;
             dgv_Agreements.EnableHeadersVisualStyles = false;
             dgv_Agreements.GridColor = Color.MidnightBlue;
             dgv_Agreements.Location = new Point(0, 0);
             dgv_Agreements.Name = "dgv_Agreements";
+            dgv_Agreements.ReadOnly = true;
             dgv_Agreements.RowHeadersWidth = 51;
             dgv_Agreements.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_Agreements.Size = new Size(1472, 384);
@@ -322,11 +334,20 @@
             // 
             dgv_Service.AllowUserToAddRows = false;
             dgv_Service.AllowUserToDeleteRows = false;
-            dgv_Service.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgv_Service.BackgroundColor = Color.LightSkyBlue;
+            dgv_Service.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dgv_Service.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgv_Service.BackgroundColor = Color.White;
             dgv_Service.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.White;
+            dataGridViewCellStyle6.Font = new Font("Arial Unicode MS", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            dataGridViewCellStyle6.ForeColor = Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = Color.CornflowerBlue;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgv_Service.DefaultCellStyle = dataGridViewCellStyle6;
             dgv_Service.Dock = DockStyle.Fill;
-            dgv_Service.GridColor = Color.WhiteSmoke;
+            dgv_Service.GridColor = Color.Black;
             dgv_Service.Location = new Point(3, 53);
             dgv_Service.Name = "dgv_Service";
             dgv_Service.RowHeadersWidth = 51;
@@ -337,6 +358,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(ReCalc);
             panel1.Controls.Add(Total);
             panel1.Controls.Add(TotalSum);
             panel1.Controls.Add(DefaultServices);
@@ -349,6 +371,23 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1745, 50);
             panel1.TabIndex = 0;
+            // 
+            // Total
+            // 
+            Total.AutoSize = true;
+            Total.Location = new Point(801, 13);
+            Total.Name = "Total";
+            Total.Size = new Size(49, 20);
+            Total.TabIndex = 6;
+            Total.Text = "Итого";
+            // 
+            // TotalSum
+            // 
+            TotalSum.Location = new Point(869, 10);
+            TotalSum.Name = "TotalSum";
+            TotalSum.ReadOnly = true;
+            TotalSum.Size = new Size(195, 28);
+            TotalSum.TabIndex = 5;
             // 
             // DefaultServices
             // 
@@ -412,22 +451,15 @@
             AddNewService.UseVisualStyleBackColor = true;
             AddNewService.Click += button1_Click;
             // 
-            // TotalSum
+            // ReCalc
             // 
-            TotalSum.Location = new Point(869, 10);
-            TotalSum.Name = "TotalSum";
-            TotalSum.ReadOnly = true;
-            TotalSum.Size = new Size(195, 28);
-            TotalSum.TabIndex = 5;
-            // 
-            // Total
-            // 
-            Total.AutoSize = true;
-            Total.Location = new Point(801, 13);
-            Total.Name = "Total";
-            Total.Size = new Size(47, 20);
-            Total.TabIndex = 6;
-            Total.Text = "label4";
+            ReCalc.Location = new Point(1102, 10);
+            ReCalc.Name = "ReCalc";
+            ReCalc.Size = new Size(213, 31);
+            ReCalc.TabIndex = 7;
+            ReCalc.Text = "button1";
+            ReCalc.UseVisualStyleBackColor = true;
+            ReCalc.Click += ReCalc_Click;
             // 
             // AgreementEditorWindow
             // 
@@ -505,6 +537,7 @@
         private Button DefaultServices;
         private Label Total;
         private TextBox TotalSum;
+        private Button ReCalc;
     }
 }
 
