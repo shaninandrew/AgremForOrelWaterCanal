@@ -655,7 +655,7 @@ namespace Doc4Lab
 
                 ///FFF
                 //
-                _FXX
+                //_FXX
                 // --- Итого по договору
                 TotalSum.Text =        fast_core.ExecSQLScalar($"Select TotalSum from GetTotalServiceByAgreementID('{Guid}')", null);
 
