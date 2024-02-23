@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OWC_Aggreems")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1fcba04558ee91fc49036035f076040148972f03")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+853e8a71ef6f0dab2ac710c14f7877026b9eae41")]
 [assembly: System.Reflection.AssemblyProductAttribute("OWC_Aggreems")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OWC_Aggreems")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
